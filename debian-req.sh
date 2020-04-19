@@ -14,4 +14,4 @@ cd ..
 rm -rf Python-3.7.3.tar.xz Python-3.7.3
 
 #Install pip for Python3.7
-sudo apt update && sudo apt -y install python3-pip
+sudo apt update && sudo apt -y install python3-pip libssl-dev
