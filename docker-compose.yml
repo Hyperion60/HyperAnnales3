@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  hyperannales:
+    build: .
+    volumes:
+    - .:/home/HyperAnnales
+    expose:
+    - 6060:6060
