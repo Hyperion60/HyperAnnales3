@@ -6,8 +6,8 @@ ADD ./requirements.txt /requirements.txt
 ADD ./debian-req.sh /debian-req.sh
 RUN chmod +x /debian-req.sh
 RUN /debian-req.sh
-RUN pip install -U pip &&
-LIBRARY_PATH=/lib:/usr/lib /bin/sh -c "pip install -r /requirements.txt --nocache-dir"
+RUN pip3 install -U pip &&
+LIBRARY_PATH=/lib:/usr/lib /bin/sh -c " pip3 install -r /requirements.txt --nocache-dir"
 
 # Copy codes and sources of website
 RUN mkdir /home/
