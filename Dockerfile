@@ -15,7 +15,7 @@ WORKDIR /home
 COPY ./HyperAnnales /home
 
 # Expose port
-EXPOSE 8000
+EXPOSE 6060
 
 # Define command to launch website when starting the container
 CMD ["uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
