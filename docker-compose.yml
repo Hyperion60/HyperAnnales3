@@ -5,5 +5,39 @@ services:
     build: .
     volumes:
     - .:/home/HyperAnnales
+    - static_volume:/var/www/static/
+    networks:
+      - user_db_network
+      - static_db_network
     expose:
     - 6060:6060
+    - 6060
+    depends_on:
+      - user_db
+      - static_db
+
+  user_db:
+    image: postgres:12
+    restart: always
+    volumes:
+    - db_data_user:/var/db
+    environment:
+      - config/db/user_db_env
+    networks:
+      - user_db_network
+
+  static_db:
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_static_user:/var/db
+    environment:
+      - config/db/static_db_env
+    networks:
+      - static_db_network
+
+networks:
+  user_db_network:
+    driver: bridge
+  static_db_network:
+    driver: bridge
