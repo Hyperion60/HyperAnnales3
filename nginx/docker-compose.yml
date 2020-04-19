@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  proxy:
+    build: ./
+    networks:
+      - hyperannales
+    ports:
+      80:80
+
+  networks:
+    hyperannales:
+      external:
+        name: hyperannales_default
