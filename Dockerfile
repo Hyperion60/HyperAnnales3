@@ -17,7 +17,7 @@ ADD ./requirements.txt /requirements.txt
 
 
 # Install pip for Python 3.7
-RUN apt update
+RUN apt update && apt upgrade
 RUN apt-get -y install python3-pip
 
 
