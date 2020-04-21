@@ -35,6 +35,17 @@ RUN pip3 install -U pip
 RUN LIBRARY_PATH="/lib:/usr/lib"
 RUN /bin/sh -c " pip3 install -r /requirements.txt --no-cache-dir"
 
+# Authorize SSH Host
+RUN mkdir -p /root/.ssh && \
+    chmod 0700 /root/.ssh && \
+    ssh-keyscan github.com > /root/.ssh/know_hosts
+
+RUN cat ./git/vps-key > /root/.ssh/id_rsa && \
+    chmod 600 /root/.ssh/id_rsa
+
+COPY ./git/config /etc/ssh/ssh_config
+COPY ./git/config /root/.ssh/
+
 
 # Copy codes and sources of website
 WORKDIR /home
