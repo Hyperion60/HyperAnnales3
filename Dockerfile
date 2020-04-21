@@ -26,6 +26,7 @@ RUN apt-get -y install git git-core
 
 
 # Import SSH key
+RUN mkdir /home/root
 RUN mkdir /home/root/.ssh
 COPY ./git /home/root/.ssh
 
