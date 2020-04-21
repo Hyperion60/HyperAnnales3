@@ -16,6 +16,9 @@ rm -rf Python-3.7.3.tar.xz Python-3.7.3
 #Install pip for Python3.7
 sudo apt update && sudo apt -y install python3-pip libssl-dev
 
+# Install git
+sudo apt -y install git-core
+
 # Download static file, templates, database
 cd /home/HyperAnnales
 mkdir templates
