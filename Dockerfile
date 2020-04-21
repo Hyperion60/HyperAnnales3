@@ -1,4 +1,4 @@
-FROM debian:9
+FROM python:3.7
 ENV PYTHONUNBUFFERED 1
 
 
@@ -31,14 +31,17 @@ RUN LIBRARY_PATH="/lib:/usr/lib"
 RUN /bin/sh -c " pip3 install -r /requirements.txt --no-cache-dir"
 
 # Authorize SSH Host
-RUN mkdir -p /root/.ssh && \
-    chmod 0700 /root/.ssh && \
-    ssh-keyscan github.com > /root/.ssh/know_hosts
+RUN eval `ssh-agent -s` && \
+    mkdir ~/.ssh
 
-COPY ./git/vps-key /root/.ssh/
-RUN chmod 600 /root/.ssh/vps-key
+COPY ./git/vps-key ~/.ssh/
 
-COPY ./git/config /etc/ssh/ssh_config
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    cat /etc/ssh/ssh_config && \
+    chmod go-w ~ && \
+    chmod 700 ~/.ssh && \
+    chmod 600 ~/.ssh/vps-key && \
+    ssh-add ~/.ssh/vps-key && \
 
 # Copy codes and sources of website
 WORKDIR /home
@@ -48,18 +51,18 @@ COPY ./git/vps-key-simple /root/.ssh/
 
 # Download static file, templates, database
 RUN cd /home/HyperAnnales
-RUN git clone -c "`cat /root/.ssh/vps-key-simple`" git@github.com:Hyperion60/Templates_HA.git
+RUN git clone git@github.com:Hyperion60/Templates_HA.git
 
 RUN cd /home/HyperAnnales
-RUN git clone -c "`cat /root/.ssh/vps-key-simple`" git@github.com:Hyperion60/static_HA.git
+RUN git clone git@github.com:Hyperion60/static_HA.git
 
 RUN cd /home/HyperAnnales
-RUN git clone -c "`cat /root/.ssh/vps-key-simple`" git@github.com:Hyperion60/db_HA.git
+RUN git clone git@github.com:Hyperion60/db_HA.git
 
 RUN cd /
 RUN mkdir media
 RUN cd media
-RUN git clone -c "`cat /root/.ssh/vps-key-simple`" git@github.com:Hyperion60/media_HA.git
+RUN git clone git@github.com:Hyperion60/media_HA.git
 
 
 # Copy files for github
