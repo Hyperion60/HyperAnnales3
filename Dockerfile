@@ -73,6 +73,6 @@ COPY ./git /root/.ssh
 # Expose port
 EXPOSE 6094
 
-
+RUN ls -lsha /home/HyperAnnales
 # Define command to launch website when starting the container
 CMD ["uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
