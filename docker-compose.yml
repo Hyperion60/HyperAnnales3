@@ -8,4 +8,3 @@ services:
 
     expose:
     - 6094:6094
-    - 6094
