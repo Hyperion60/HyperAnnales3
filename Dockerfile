@@ -31,17 +31,17 @@ RUN LIBRARY_PATH="/lib:/usr/lib"
 RUN /bin/sh -c " pip3 install -r /requirements.txt --no-cache-dir"
 
 # Authorize SSH Host
-RUN eval `ssh-agent -s` && \
-    mkdir ~/.ssh
+RUN eval `ssh-agent -s`
+RUN mkdir ~/.ssh
 
 COPY ./git/vps-key ~/.ssh/
 
-RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
-    cat /etc/ssh/ssh_config && \
-    chmod go-w ~ && \
-    chmod 700 ~/.ssh && \
-    chmod 600 ~/.ssh/vps-key && \
-    ssh-add ~/.ssh/vps-key && \
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+RUN cat /etc/ssh/ssh_config
+RUN chmod go-w ~
+RUN chmod 700 ~/.ssh
+RUN chmod 600 ~/.ssh/vps-key
+RUN ssh-add ~/.ssh/vps-key
 
 # Copy codes and sources of website
 WORKDIR /home
