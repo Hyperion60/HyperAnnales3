@@ -1,7 +1,8 @@
 Django>=3.0.5
-django-corsqptheaders == 1.*
+django-cors-headers == 3.*
 django-extensions == 2.2.*
 django-mysql == 3.4.*
 djangorestframework == 3.11.*
 requests == 2.23.*
 uWSGI == 2.0.*
+sendfile == 0.3.11
