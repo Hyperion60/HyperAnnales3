@@ -35,14 +35,13 @@ RUN eval `ssh-agent -s`
 RUN mkdir ~/.ssh
 
 COPY ./git/vps-key /tmp/
-RUN ls -lsha /tmp
 
 RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cat /etc/ssh/ssh_config
 RUN chmod go-w ~
 RUN chmod 700 ~/.ssh && ls -lsha ~/.ssh
 RUN ls -lsha ~/.ssh
-RUN mv /tmp/vps-key ~/.ssh/ && ls -lsha /tmp && rm /tmp/vps-key
+RUN mv /tmp/vps-key ~/.ssh/
 RUN chmod 600 ~/.ssh/vps-key
 RUN eval `ssh-agent -s` && ssh-add ~/.ssh/vps-key
 
