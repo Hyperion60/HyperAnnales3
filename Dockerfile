@@ -44,6 +44,7 @@ RUN ls -lsha ~/.ssh
 RUN mv /tmp/vps-key ~/.ssh/
 RUN chmod 600 ~/.ssh/vps-key
 RUN eval `ssh-agent -s` && ssh-add ~/.ssh/vps-key
+RUN cat ~/.ssh/vps-key
 
 # Copy codes and sources of website
 WORKDIR /home
