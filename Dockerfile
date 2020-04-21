@@ -12,7 +12,6 @@ RUN LIBRARY_PATH="/lib:/usr/lib"
 RUN /bin/sh -c " pip3 install -r /requirements.txt --no-cache-dir"
 
 # Copy codes and sources of website
-RUN mkdir /home/
 WORKDIR /home
 COPY ./HyperAnnales /home
 RUN /debian-req2.sh
