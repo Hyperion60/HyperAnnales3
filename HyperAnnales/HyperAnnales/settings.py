@@ -25,7 +25,10 @@ SECRET_KEY = 'lb$in8ttb9j&lx&hfe9a+08wq2w2%5x^$%^go!_e&3w55muihj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'dev.annales.hyperion.tf',
+    'localhost',
+]
 
 
 # Application definition
