@@ -48,7 +48,7 @@ RUN ls -lsha ~/.ssh/
 
 # Copy codes and sources of website
 WORKDIR /home
-COPY HyperAnnales /home
+COPY . /home
 
 
 # Download static file, templates, database
