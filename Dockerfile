@@ -11,11 +11,10 @@ RUN apt update
 RUN apt-get -y install build-essential zlib1g-dev libncurses5-dev libgdm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl sudo apt-utils
 RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
 RUN tar -xf Python-3.7.3.tar.xz
+RUN cd /home && ls -lsha
 RUN cd Python-3.7.3 && ./configure --enable-optimizations
 RUN cd Python-3.7.3 && make install
 RUN rm -rf Python-3.7.3.tar.xz Python-3.7.3
-
-RUN cd /home && ls -lsha
 
 
 # Install pip for Python 3.7
