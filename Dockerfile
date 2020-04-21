@@ -60,19 +60,15 @@ RUN git clone git@github.com:Hyperion60/static_HA.git
 RUN cd /home/HyperAnnales
 RUN git clone git@github.com:Hyperion60/db_HA.git
 
+RUN ls -lsha /home/HyperAnnales
+
 RUN cd /
 RUN mkdir media
 RUN cd media
 RUN git clone git@github.com:Hyperion60/media_HA.git
 
-
-# Copy files for github
-COPY ./git /root/.ssh
-
-
 # Expose port
 EXPOSE 6094
 
-RUN ls -lsha /home/HyperAnnales
 # Define command to launch website when starting the container
 CMD ["uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
