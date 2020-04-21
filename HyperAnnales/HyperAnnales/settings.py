@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sendfile',
 ]
+
+SENDFILE_BACKEND = 'sendfile.backends.simple'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +60,9 @@ ROOT_URLCONF = 'HyperAnnales.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +84,15 @@ WSGI_APPLICATION = 'HyperAnnales.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db/users.sqlite3'),
+        'USER': 'root',
+        'PASSWORD': 'qyD^Z<y>F9E86u5',
+    },
+    'static': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.path.join(BASE_DIR, 'db/static.psql'),
+        'USER': 'django_admin',
+        'PASSWORD': 'd4DPVwTb46,{f?5',
     }
 }
 
