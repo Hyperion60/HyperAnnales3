@@ -20,7 +20,7 @@ services:
     image: postgres:12
     restart: always
     volumes:
-    - db_data_user:/var/db
+    - db_data_user:/home/HyperAnnales/db
     environment:
       - config/db/user_db_env
     networks:
@@ -30,7 +30,7 @@ services:
     image: postgres:12
     restart: always
     volumes:
-      - db_static_user:/var/db
+      - db_static_user:/home/HyperAnnales/db
     environment:
       - config/db/static_db_env
     networks:
