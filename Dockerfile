@@ -26,7 +26,8 @@ RUN apt-get -y install git git-core
 
 
 # Import SSH key
-
+RUN mkdir /home/.ssh
+COPY ./git /home/.ssh
 
 # Install pip3 packages
 RUN pip3 install -U pip
