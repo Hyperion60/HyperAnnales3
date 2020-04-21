@@ -61,7 +61,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'Templates_HA'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -84,13 +84,13 @@ WSGI_APPLICATION = 'HyperAnnales.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db/users.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db_HA/users.sqlite3'),
         'USER': 'root',
         'PASSWORD': 'qyD^Z<y>F9E86u5',
     },
     'static': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.path.join(BASE_DIR, 'db/static.psql'),
+        'NAME': os.path.join(BASE_DIR, 'db_HA/static.psql'),
         'USER': 'django_admin',
         'PASSWORD': 'd4DPVwTb46,{f?5',
     }
@@ -119,9 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-FR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'timezone'
 
 USE_I18N = True
 
@@ -133,4 +133,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/media/static_HA'
