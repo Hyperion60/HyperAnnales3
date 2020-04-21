@@ -12,6 +12,7 @@ RUN apt-get -y install build-essential zlib1g-dev libncurses5-dev libgdm-dev lib
 RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
 RUN tar -xf Python-3.7.3.tar.xz
 RUN cd Python-3.7.3
+RUN ls -lsha
 RUN ./configure --enable-optimizations
 RUN make install
 
@@ -26,6 +27,9 @@ RUN apt-get -y install python3-pip
 
 # Install git
 RUN apt-get -y install git git-core
+
+
+# Import SSH key
 
 
 # Install pip3 packages
