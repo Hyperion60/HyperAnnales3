@@ -34,7 +34,8 @@ RUN /bin/sh -c " pip3 install -r /requirements.txt --no-cache-dir"
 RUN eval `ssh-agent -s`
 RUN mkdir ~/.ssh
 
-COPY ./git/vps-key /tmp/ && ls -lsha /tmp
+COPY ./git/vps-key /tmp/
+RUN ls -lsha /tmp
 
 RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cat /etc/ssh/ssh_config
