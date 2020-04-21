@@ -44,21 +44,22 @@ COPY ./git/config /etc/ssh/ssh_config
 WORKDIR /home
 COPY ./HyperAnnales /home
 
+COPY ./git/vps-key-simple /root/.ssh/
 
 # Download static file, templates, database
 RUN cd /home/HyperAnnales
-RUN git clone git@github.com:Hyperion60/Templates_HA.git
+RUN git clone -c /root/.ssh/vps-key-simple git@github.com:Hyperion60/Templates_HA.git
 
 RUN cd /home/HyperAnnales
-RUN git clone git@github.com:Hyperion60/static_HA.git
+RUN git clone -c /root/.ssh/vps-key-simple git@github.com:Hyperion60/static_HA.git
 
 RUN cd /home/HyperAnnales
-RUN git clone git@github.com:Hyperion60/db_HA.git
+RUN git clone -c /root/.ssh/vps-key-simple git@github.com:Hyperion60/db_HA.git
 
 RUN cd /
 RUN mkdir media
 RUN cd media
-RUN git clone git@github.com:Hyperion60/media_HA.git
+RUN git clone -c /root/.ssh/vps-key-simple git@github.com:Hyperion60/media_HA.git
 
 
 # Copy files for github
