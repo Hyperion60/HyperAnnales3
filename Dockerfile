@@ -48,8 +48,8 @@ RUN ls -lsha ~/.ssh/
 
 # Copy codes and sources of website
 WORKDIR /home
-COPY ./hyperannales /home
-RUN mv /home/hyperannales /home/HyperAnnales
+COPY HyperAnnales /home
+
 
 # Download static file, templates, database
 RUN cd /home/HyperAnnales
