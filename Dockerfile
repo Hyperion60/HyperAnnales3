@@ -41,16 +41,14 @@ RUN cat /etc/ssh/ssh_config
 RUN chmod go-w ~
 RUN chmod 700 ~/.ssh && ls -lsha ~/.ssh
 RUN ls -lsha ~/.ssh
-RUN mv /tmp/vps-key ~/.ssh/
-RUN chmod 600 ~/.ssh/vps-key
-RUN eval `ssh-agent -s` && ssh-add ~/.ssh/vps-key
+RUN mv /tmp/vps-key ~/.ssh/ && mv ~/.ssh/vps-key ~/.ssh/id_rsa
+RUN chmod 600 ~/.ssh/id_rsa
+RUN eval `ssh-agent -s` && ssh-add ~/.ssh/id_rsa
 RUN ls -lsha ~/.ssh/
 
 # Copy codes and sources of website
 WORKDIR /home
 COPY ./HyperAnnales /home
-
-COPY ./git/vps-key-simple /root/.ssh/
 
 # Download static file, templates, database
 RUN cd /home/HyperAnnales
