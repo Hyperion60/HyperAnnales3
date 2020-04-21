@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
     - .:/home/HyperAnnales
+    - ~/.ssh:/root/.ssh
 
     expose:
     - 6094
