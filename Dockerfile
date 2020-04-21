@@ -14,6 +14,10 @@ RUN mkdir /home/
 WORKDIR /home
 COPY ./HyperAnnales /home
 
+# Copy files for github
+RUN mkdir /ssh/
+COPY ./git /ssh
+
 # Expose port
 EXPOSE 6060
 

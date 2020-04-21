@@ -15,3 +15,9 @@ rm -rf Python-3.7.3.tar.xz Python-3.7.3
 
 #Install pip for Python3.7
 sudo apt update && sudo apt -y install python3-pip libssl-dev
+
+# Download static file, templates, database
+cd /home/HyperAnnales
+mkdir templates
+cd templates
+git clone git@github.com:Hyperion60/Templates_HA.git
