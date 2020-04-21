@@ -9,7 +9,7 @@ RUN chmod +x /debian-req.sh /debian-req2.sh
 RUN /debian-req.sh
 RUN pip3 install -U pip
 RUN LIBRARY_PATH="/lib:/usr/lib"
-RUN /bin/sh -c " pip3 install -r /requirements.txt --nocache-dir"
+RUN /bin/sh -c " pip3 install -r /requirements.txt --no-cache-dir"
 
 # Copy codes and sources of website
 RUN mkdir /home/
