@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM debian:9
 ENV PYTHONUNBUFFERED 1
 
 
