@@ -39,7 +39,7 @@ COPY ./git/vps-key ~/.ssh/
 RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cat /etc/ssh/ssh_config
 RUN chmod go-w ~
-RUN chmod 700 ~/.ssh
+RUN chmod 700 ~/.ssh && ls -lsha ~/.ssh
 RUN ls -lsha ~/.ssh
 RUN chmod 600 ~/.ssh/vps-key
 RUN ssh-add ~/.ssh/vps-key
