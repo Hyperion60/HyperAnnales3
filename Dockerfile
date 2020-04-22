@@ -70,6 +70,6 @@ RUN git clone git@github.com:Hyperion60/media_HA.git
 
 # Expose port
 EXPOSE 6094
-RUN ls /home/HyperAnnales
+RUN ls ~
 # Define command to launch website when starting the container
 CMD ["uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
