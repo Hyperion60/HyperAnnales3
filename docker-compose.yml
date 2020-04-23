@@ -3,13 +3,13 @@ version: '3'
 services:
   db_user:
     container_name: db_user
-    image: mysql:5.7
+    image: postgres:latest
     ports:
-      - 3308:3306
+      - 5433:5432
     environment:
-      - MYSQL_DB=db_user
-      - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=qyD^Z<y>F9E86u5
+      - POSTGRES_DB=db_user
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
 
   db_static:
     container_name: db_static
