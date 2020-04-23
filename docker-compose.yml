@@ -21,7 +21,7 @@ services:
     environment:
       - MYSQL_DB=db_user
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=qyD^Z<y>F9E86u5
+      - MYSQL_ROOT_PASSWORD=qyD^Z<y>F9E86u5
 
   db_static:
     container_name: db_static
