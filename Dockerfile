@@ -5,32 +5,15 @@ ENV PYTHONUNBUFFERED 1
 # Install packages and dependencies
 ADD ./requirements.txt /requirements.txt
 
-
-# Python 3.7 install
-# RUN apt update
-# RUN apt-get -y install build-essential zlib1g-dev libncurses5-dev libgdm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl sudo apt-utils
-# RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
-# RUN tar -xf Python-3.7.3.tar.xz
-# RUN cd Python-3.7.3 && ./configure --enable-optimizations
-# RUN cd Python-3.7.3 && make install
-# RUN rm -rf Python-3.7.3.tar.xz Python-3.7.3
-
-
 # Install pip for Python 3.7
 RUN apt update && apt -y upgrade
-RUN apt-get -y install python3-pip libssl-dev curl apt-utils wget
-RUN wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
-RUN /bin/sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+RUN apt-get -y install python3-pip libssl-dev curl apt-utils
 
 # Install psycopg2
 RUN apt-get -y install gcc python3-dev musl-dev
 
-# Install postgresql
-RUN apt-get -y install postgresql postgresql-contrib postgresql-dev
-
 # Install git annd postgresql
 RUN apt-get -y install git git-core
-
 
 # Install pip3 packages
 RUN pip3 install -U pip
