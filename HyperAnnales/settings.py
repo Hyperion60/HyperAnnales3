@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'HyperAnnales.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_user',
         'USER': 'root',
         'PASSWORD': 'qyD^Z<y>F9E86u5',
