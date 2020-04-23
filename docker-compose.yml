@@ -1,18 +1,6 @@
 version: '3'
 
 services:
-  hyperannales:
-    build: .
-    command: python HyperAnnales/manage.py runserver 127.0.0.1:6094
-    volumes:
-    - .:/home/HyperAnnales
-
-    expose:
-      - 6094
-    depends_on:
-      - db_user
-      - db_static
-
   db_user:
     container_name: db_user
     image: mysql:latest
@@ -25,10 +13,21 @@ services:
 
   db_static:
     container_name: db_static
-    image: postgres
+    image: postgres:latest
     ports:
       - 5432:5432
     environment:
       - POSTGRES_DB=db_static
       - POSTGRES_USER=django_admin
       - POSTGRES_PASSWORD=d4DPVwTb46,{f?5
+
+  hyperannales:
+    build: .
+    command: python HyperAnnales/manage.py runserver 127.0.0.1:6094
+    volumes:
+      - .:/home/HyperAnnales
+    expose:
+      - 6094
+    depends_on:
+      - db_user
+      - db_static
