@@ -3,8 +3,30 @@ version: '3'
 services:
   hyperannales:
     build: .
+    command: python manage.py runserver 127.0.0.1:6094
     volumes:
     - .:/home/HyperAnnales
 
     expose:
-    - 6094
+      - 6094
+    depends_on:
+      - db_user
+      - db_static
+
+  db_user:
+    container_name: db_user
+    image: mysql:latest
+    ports:
+    - 3306:3306
+    environment:
+      - MYSQL_DB=db_user
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=qyD^Z<y>F9E86u5
+
+  db_static:
+    container_name: db_pdf
+    image: postgres
+    environment:
+      - POSTGRES_DB=db_static
+      - POSTGRES_USER=django_admin
+      - POSTGRES_PASSWORD=d4DPVwTb46,{f?5
