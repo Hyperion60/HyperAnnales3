@@ -76,7 +76,19 @@ WSGI_APPLICATION = 'HyperAnnales.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'db_user',
+        'USER': 'root',
+        'PASSWORD': 'qyD^Z<y>F9E86u5',
+        'HOST': 'db_user',
+        'PORT': 3306,
+    }
+    'pdf_ref': {
+        'ENGINE': 'django.db.backends.postgres',
+        'NAME': 'db_static',
+        'USER': 'django_admin',
+        'PASSWORD': 'd4DPVwTb46,{f?5',
+        'HOST': 'db_static',
+        'PORT': 5432,
     }
 }
 
