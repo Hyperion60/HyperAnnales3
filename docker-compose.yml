@@ -3,7 +3,7 @@ version: '3'
 services:
   hyperannales:
     build: .
-    command: python manage.py runserver 127.0.0.1:6094
+    command: python HyperAnnales/manage.py runserver 127.0.0.1:6094
     volumes:
     - .:/home/HyperAnnales
 
