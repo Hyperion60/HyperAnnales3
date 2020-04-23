@@ -18,10 +18,17 @@ ADD ./requirements.txt /requirements.txt
 
 # Install pip for Python 3.7
 RUN apt update && apt -y upgrade
-RUN apt-get -y install python3-pip
+RUN apt-get -y install python3-pip libssl-dev curl apt-utils wget
+RUN wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
+RUN /bin/sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
 
+# Install psycopg2
+RUN apt-get -y install gcc python3-dev musl-dev
 
-# Install git
+# Install postgresql
+RUN apt-get -y install postgresql postgresql-contrib postgresql-dev
+
+# Install git annd postgresql
 RUN apt-get -y install git git-core
 
 
@@ -70,6 +77,6 @@ RUN git clone git@github.com:Hyperion60/media_HA.git
 
 # Expose port
 EXPOSE 6094
-RUN ls -lsha ~
+# RUN ls -lsha ~
 # Define command to launch website when starting the container
-CMD ["uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
+# CMD ["/bin/sh", "-c", "/usr/local/bin/uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
