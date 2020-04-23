@@ -83,7 +83,7 @@ DATABASES = {
         'PORT': 3306,
     },
     'pdf_ref': {
-        'ENGINE': 'django.db.backends.postgres',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'db_static',
         'USER': 'django_admin',
         'PASSWORD': 'd4DPVwTb46,{f?5',
