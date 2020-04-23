@@ -7,3 +7,4 @@ requests == 2.23.*
 uWSGI == 2.0.*
 django-sendfile == 0.3.11
 psycopg2-binary==2.8.3
+mysqlclient == 1.4.*
