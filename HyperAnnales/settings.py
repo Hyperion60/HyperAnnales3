@@ -80,7 +80,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'qyD^Z<y>F9E86u5',
         'HOST': 'db_user',
-        'PORT': 5433,
+        'PORT': 5432,
     },
     'pdf_ref': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -88,7 +88,7 @@ DATABASES = {
         'USER': 'django_admin',
         'PASSWORD': 'd4DPVwTb46,{f?5',
         'HOST': 'db_static',
-        'PORT': 5434,
+        'PORT': 5432,
     }
 }
 
