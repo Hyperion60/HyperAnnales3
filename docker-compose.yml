@@ -5,21 +5,23 @@ services:
     container_name: db_user
     image: postgres:latest
     ports:
-      - 5433:5432
+      - 5432:5433
     environment:
       - POSTGRES_DB=db_user
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
+    restart: always
 
   db_static:
     container_name: db_static
     image: postgres:latest
     ports:
-      - 5432:5432
+      - 5432:5434
     environment:
       - POSTGRES_DB=db_static
       - POSTGRES_USER=django_admin
       - POSTGRES_PASSWORD=d4DPVwTb46,{f?5
+    restart: always
 
   hyperannales:
     build: .

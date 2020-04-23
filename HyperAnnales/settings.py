@@ -25,7 +25,7 @@ SECRET_KEY = '!_&!0#3^o#@jg$a+o$b!0s=uz-n#cjc&w&#gpm09ics2^v0s+m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,7 +80,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'qyD^Z<y>F9E86u5',
         'HOST': 'db_user',
-        'PORT': 5432,
+        'PORT': 5433,
     },
     'pdf_ref': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -88,7 +88,7 @@ DATABASES = {
         'USER': 'django_admin',
         'PASSWORD': 'd4DPVwTb46,{f?5',
         'HOST': 'db_static',
-        'PORT': 5432,
+        'PORT': 5434,
     }
 }
 
