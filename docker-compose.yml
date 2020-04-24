@@ -25,11 +25,11 @@ services:
 
   hyperannales:
     build: .
-    command: python HyperAnnales/manage.py runserver 127.0.0.1:6094
+    command: python HyperAnnales/manage.py runserver 0.0.0.0:6094
     volumes:
       - .:/home/HyperAnnales
     expose:
-      - 6094
+      - 6094:6094
     networks:
       - db_static_network
       - db_user_network
