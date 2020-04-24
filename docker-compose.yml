@@ -30,6 +30,9 @@ services:
       - .:/home/HyperAnnales
     expose:
       - 6094
+    links:
+      - "db_user"
+      - "db_static"
     depends_on:
       - db_user
       - db_static
