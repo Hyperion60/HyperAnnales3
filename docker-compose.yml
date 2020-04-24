@@ -4,8 +4,6 @@ services:
   db_user:
     container_name: db_user
     image: postgres:latest
-    ports:
-      - 5433:5432
     environment:
       - POSTGRES_DB=db_user
       - POSTGRES_USER=root
@@ -15,8 +13,6 @@ services:
   db_static:
     container_name: db_static
     image: postgres:latest
-    ports:
-      - 5434:5432
     environment:
       - POSTGRES_DB=db_static
       - POSTGRES_USER=django_admin
