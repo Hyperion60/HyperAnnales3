@@ -9,6 +9,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
     networks:
+      db_net:
+        - ipv4_address: 172.19.0.2
       - db_user_network
     restart: always
 
@@ -38,6 +40,11 @@ services:
       - db_static
 
   networks:
+    db_net:
+      ipam:
+        driver: default
+        config:
+          - subnet: 172.19.0.0/32
     db_user_network:
       driver: bridge
     db_static_network:
