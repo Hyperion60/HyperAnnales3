@@ -1,6 +1,8 @@
 FROM python:3.7
 ENV PYTHONUNBUFFERED 1
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Install packages and dependencies
 ADD ./requirements.txt /requirements.txt
@@ -56,6 +58,8 @@ RUN git clone git@github.com:Hyperion60/media_HA.git
 
 # Expose port
 EXPOSE 6094
+
+ENTRYPOINT ["/entrypoint.sh"]
 # RUN ls -lsha ~
 # Define command to launch website when starting the container
 # CMD ["/bin/sh", "-c", "/usr/local/bin/uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
