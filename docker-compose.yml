@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
     networks:
       db_net:
-        - ipv4_address: 172.19.0.2
+        ipv4_address: 172.19.0.2
       - db_user_network
     restart: always
 
