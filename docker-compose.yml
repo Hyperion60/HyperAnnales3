@@ -25,7 +25,7 @@ services:
 
   hyperannales:
     build: .
-    command: python HyperAnnales/manage.py runserver 0.0.0.0:6094
+    command: uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
     volumes:
       - .:/home/HyperAnnales
     expose:

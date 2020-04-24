@@ -14,7 +14,7 @@ RUN apt-get -y install python3-pip libssl-dev curl apt-utils
 # Install psycopg2
 RUN apt-get -y install gcc python3-dev musl-dev
 
-# Install git annd postgresql
+# Install git
 RUN apt-get -y install git git-core
 
 # Install pip3 packages
