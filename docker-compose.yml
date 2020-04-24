@@ -29,7 +29,7 @@ services:
     volumes:
       - .:/home/HyperAnnales
     expose:
-      - 6094:6094
+      - 6094
     networks:
       - db_static_network
       - db_user_network
