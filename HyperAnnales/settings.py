@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'HyperAnnales.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'db_user',
         'USER': 'root',
         'PASSWORD': 'qyD^Z<y>F9E86u5',
@@ -83,7 +83,7 @@ DATABASES = {
         'PORT': 5432,
     },
     'pdf_ref': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'db_static',
         'USER': 'django_admin',
         'PASSWORD': 'd4DPVwTb46,{f?5',

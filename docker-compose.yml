@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB=db_user
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
+    networks:
+      - db_user_network
     restart: always
 
   db_static:
@@ -17,6 +19,8 @@ services:
       - POSTGRES_DB=db_static
       - POSTGRES_USER=django_admin
       - POSTGRES_PASSWORD=d4DPVwTb46,{f?5
+    networks:
+      - db_static_network
     restart: always
 
   hyperannales:
@@ -26,9 +30,15 @@ services:
       - .:/home/HyperAnnales
     expose:
       - 6094
-    links:
-      - "db_user"
-      - "db_static"
+    networks:
+      - db_static_network
+      - db_user_network
     depends_on:
       - db_user
       - db_static
+
+  networks:
+    db_user_network:
+      driver: bridge
+    db_static_network:
+      driver: bridge
