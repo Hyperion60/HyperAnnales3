@@ -28,10 +28,12 @@ services:
     command: uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
     volumes:
       - .:/home/HyperAnnales
-    network_mode: "host"
+    ports:
+    - 6094:6094
     networks:
       - db_static_network
       - db_user_network
+      - ha_network
     depends_on:
       - db_user
       - db_static
@@ -41,3 +43,5 @@ networks:
       driver: bridge
     db_static_network:
       driver: bridge
+    ha_network:
+      driver: default
