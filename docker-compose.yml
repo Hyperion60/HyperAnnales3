@@ -28,10 +28,10 @@ services:
     command: uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
     volumes:
       - .:/home/HyperAnnales
-    network_mode: "host"
     networks:
       - db_static_network
       - db_user_network
+      - host
     depends_on:
       - db_user
       - db_static
