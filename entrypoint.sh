@@ -2,5 +2,5 @@
 
 set -e
 
-sleep 10
-uwsgi --wsgi-file "/home/HyperAnnales/HyperAnnales/wsgi.py" --http-socket 0.0.0.0:6094 --chdir "/home/HyperAnnales" --req-logger "file:/log/access.log" --logger "file:/log/error.log"
+sleep 5
+uwsgi --wsgi-file "/home/HyperAnnales/HyperAnnales/wsgi.py" --http-socket 127.0.0.1:6094 --chdir "/home/HyperAnnales"
