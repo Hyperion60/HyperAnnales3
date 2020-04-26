@@ -44,4 +44,5 @@ networks:
     db_static_network:
       driver: bridge
     ha_network:
-      driver: default
+      external:
+        driver: host
