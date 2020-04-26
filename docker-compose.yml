@@ -33,7 +33,6 @@ services:
     networks:
       - db_static_network
       - db_user_network
-      - ha_network
     depends_on:
       - db_user
       - db_static
@@ -43,6 +42,6 @@ networks:
       driver: bridge
     db_static_network:
       driver: bridge
-    ha_network:
+    default:
       external:
         name: host
