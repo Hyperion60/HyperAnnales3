@@ -45,4 +45,4 @@ networks:
       driver: bridge
     ha_network:
       external:
-        driver: host
+        name: host
