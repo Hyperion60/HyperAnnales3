@@ -24,14 +24,15 @@ services:
     restart: always
 
   hyperannales:
-    build: .
+    build:
+    - context: .
+    - network: host
     command: uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
     volumes:
       - .:/home/HyperAnnales
     networks:
       - db_static_network
       - db_user_network
-      - host
     depends_on:
       - db_user
       - db_static
