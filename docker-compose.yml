@@ -24,9 +24,7 @@ services:
     restart: always
 
   hyperannales:
-    build:
-    - context: .
-    - network: 'host'
+    build: .
     command: uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
     volumes:
       - .:/home/HyperAnnales
