@@ -6,4 +6,3 @@ sleep 10
 apt -y install tree
 cat HyperAnnales/HyperAnnales/uwsgi.ini
 tree HyperAnnales
-uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
