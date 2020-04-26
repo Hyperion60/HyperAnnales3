@@ -25,7 +25,6 @@ services:
 
   hyperannales:
     build: .
-    command: uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
     volumes:
       - .:/home/HyperAnnales
     ports:
