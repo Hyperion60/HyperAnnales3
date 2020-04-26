@@ -26,7 +26,7 @@ services:
   hyperannales:
     build:
     - context: .
-    - network: host
+    - network: 'host'
     command: uwsgi --ini HyperAnnales/HyperAnnales/uwsgi.ini
     volumes:
       - .:/home/HyperAnnales
