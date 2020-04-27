@@ -1,29 +1,21 @@
 FROM python:3.7
 ENV PYTHONUNBUFFERED 1
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Install packages and dependencies
 ADD ./requirements.txt /requirements.txt
 
-
-# Python 3.7 install
-# RUN apt update
-# RUN apt-get -y install build-essential zlib1g-dev libncurses5-dev libgdm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl sudo apt-utils
-# RUN curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
-# RUN tar -xf Python-3.7.3.tar.xz
-# RUN cd Python-3.7.3 && ./configure --enable-optimizations
-# RUN cd Python-3.7.3 && make install
-# RUN rm -rf Python-3.7.3.tar.xz Python-3.7.3
-
-
 # Install pip for Python 3.7
 RUN apt update && apt -y upgrade
-RUN apt-get -y install python3-pip
+RUN apt-get -y install python3-pip libssl-dev curl apt-utils
 
+# Install psycopg2
+RUN apt-get -y install gcc python3-dev musl-dev
 
 # Install git
 RUN apt-get -y install git git-core
-
 
 # Install pip3 packages
 RUN pip3 install -U pip
@@ -40,11 +32,9 @@ RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cat /etc/ssh/ssh_config
 RUN chmod go-w ~
 RUN chmod 700 ~/.ssh && ls -lsha ~/.ssh
-RUN ls -lsha ~/.ssh
 RUN mv /tmp/vps-key ~/.ssh/ && mv ~/.ssh/vps-key ~/.ssh/id_rsa
 RUN chmod 600 ~/.ssh/id_rsa
 RUN eval `ssh-agent -s` && ssh-add ~/.ssh/id_rsa
-RUN ls -lsha ~/.ssh/
 
 # Copy codes and sources of website
 WORKDIR /home
@@ -61,8 +51,6 @@ RUN git clone git@github.com:Hyperion60/static_HA.git
 RUN cd /home/HyperAnnales
 RUN git clone git@github.com:Hyperion60/db_HA.git
 
-RUN ls -lsha /home/HyperAnnales
-
 RUN cd /
 RUN mkdir media
 RUN cd media
@@ -70,6 +58,8 @@ RUN git clone git@github.com:Hyperion60/media_HA.git
 
 # Expose port
 EXPOSE 6094
-RUN ls -lsha ~
+
+ENTRYPOINT ["/entrypoint.sh"]
+# RUN ls -lsha ~
 # Define command to launch website when starting the container
-CMD ["uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
+# CMD ["/bin/sh", "-c", "/usr/local/bin/uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]

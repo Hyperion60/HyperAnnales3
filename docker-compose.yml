@@ -1,10 +1,46 @@
-version: '3'
+version: '3.4'
 
 services:
+  db_user:
+    container_name: db_user
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=db_user
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
+    networks:
+      - db_user_network
+    restart: always
+
+  db_static:
+    container_name: db_static
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=db_static
+      - POSTGRES_USER=django_admin
+      - POSTGRES_PASSWORD=d4DPVwTb46,{f?5
+    networks:
+      - db_static_network
+    restart: always
+
   hyperannales:
     build: .
     volumes:
-    - .:/home/HyperAnnales
+      - .:/home/HyperAnnales
+    ports:
+    - 6094:6094
+    networks:
+      - db_static_network
+      - db_user_network
+    depends_on:
+      - db_user
+      - db_static
 
-    expose:
-    - 6094
+networks:
+    db_user_network:
+      driver: bridge
+    db_static_network:
+      driver: bridge
+    default:
+      external:
+        name: host
