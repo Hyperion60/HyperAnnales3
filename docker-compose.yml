@@ -28,7 +28,7 @@ services:
     volumes:
       - .:/home/HyperAnnales
     ports:
-    - 6094:80
+    - 6094:6094
     networks:
       - db_static_network
       - db_user_network
