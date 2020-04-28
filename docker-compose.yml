@@ -9,7 +9,10 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
     volumes:
-      - db_HA/db_user.psql:.
+      - type: volume
+        source: db_HA/db_user.psql
+        target: /data
+
     networks:
       - db_user_network
     restart: always
@@ -46,3 +49,6 @@ networks:
     default:
       external:
         name: host
+
+volumes:
+  db_HA/db_user.psql:
