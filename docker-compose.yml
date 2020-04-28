@@ -8,6 +8,7 @@ services:
       - POSTGRES_DB=db_user
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
+      - PGDATA=/data
     volumes:
       - type: volume
         source: db_HA
