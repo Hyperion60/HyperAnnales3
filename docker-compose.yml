@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
     volumes:
       - type: volume
-        source: db_HA/db_user.psql
+        source: db_HA
         target: /data
 
     networks:
@@ -51,4 +51,4 @@ networks:
         name: host
 
 volumes:
-  db_HA/db_user.psql:
+  db_HA:
