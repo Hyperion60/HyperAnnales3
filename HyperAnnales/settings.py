@@ -135,6 +135,6 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = "/home/static_HA/"
 
-STATICFILES_DIRS = (
-    ('', "/home/static_HA/"),
-)
+STATICFILES_DIRS = [
+    '/home/static_HA/',
+]
