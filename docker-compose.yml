@@ -4,7 +4,6 @@ services:
   db_user:
     container_name: db_user
     image: postgres:latest
-    build: db_HA
     environment:
       - POSTGRES_DB=db_user
       - POSTGRES_USER=root
