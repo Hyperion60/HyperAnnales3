@@ -42,14 +42,9 @@ COPY . /home
 
 
 # Download static file, templates, database
-RUN cd /home/HyperAnnales
 RUN git clone git@github.com:Hyperion60/Templates_HA.git
 
-RUN cd /home/HyperAnnales
 RUN git clone git@github.com:Hyperion60/static_HA.git
-
-# RUN cd /home/HyperAnnales
-# RUN git clone git@github.com:Hyperion60/db_HA.git
 
 RUN cd /
 RUN mkdir media
