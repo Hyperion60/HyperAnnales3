@@ -133,4 +133,4 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = "/home/db_HA/"
+STATIC_ROOT = "/home/static_HA/"
