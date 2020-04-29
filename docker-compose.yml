@@ -42,6 +42,24 @@ services:
       - db_user
       - db_static
 
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@hyperion.tf
+      PGADMIN_DEFAULT_PASSWORD: Explosion2023!
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+    network:
+      - db_user_network
+      - db_static_network
+    restart: unless-stopped
+    depends_on:
+      - db_static
+      - db_user
+
 networks:
     db_user_network:
       driver: bridge
