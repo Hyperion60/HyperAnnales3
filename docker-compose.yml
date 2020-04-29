@@ -4,6 +4,7 @@ services:
   db_user:
     container_name: db_user
     image: postgres:latest
+    build: db_HA
     environment:
       - POSTGRES_DB=db_user
       - POSTGRES_USER=root
@@ -52,7 +53,7 @@ services:
       - pgadmin:/root/.pgadmin
     ports:
       - "5050:80"
-    network:
+    networks:
       - db_user_network
       - db_static_network
     restart: unless-stopped
@@ -71,3 +72,4 @@ networks:
 
 volumes:
   db_HA:
+  pgadmin:
