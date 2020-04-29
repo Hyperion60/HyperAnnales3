@@ -31,7 +31,7 @@ COPY ./git/vps-key /tmp/
 RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cat /etc/ssh/ssh_config
 RUN chmod go-w ~
-RUN chmod 700 ~/.ssh && ls -lsha ~/.ssh
+RUN chmod 700 ~/.ssh
 RUN mv /tmp/vps-key ~/.ssh/ && mv ~/.ssh/vps-key ~/.ssh/id_rsa
 RUN chmod 600 ~/.ssh/id_rsa
 RUN eval `ssh-agent -s` && ssh-add ~/.ssh/id_rsa
