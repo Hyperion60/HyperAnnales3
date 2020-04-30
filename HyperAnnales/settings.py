@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_sendfile',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,8 @@ STATIC_ROOT = "/home/static_HA/"
 STATICFILES_DIRS = [
     '/home/static_HA/',
 ]
+
+
+# Configuration to sendfile package
+
+SENDFILE_BACKEND = "django_sendfile.backends.simple"
