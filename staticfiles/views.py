@@ -10,4 +10,4 @@ def static_index(request):
 
 
 def serve_static(request, static):
-    return sendfile(request, static)
+    return sendfile(request, "/home/static_HA" + static)
