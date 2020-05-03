@@ -5,12 +5,12 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
-    def __create_user(self, email, username, password, **extra_field):
+
+    def create_user(self, email, username, password):
         if not email:
             raise ValueError("Users must have an email address")
         if not username:
             raise ValueError("Users must have an email address")
-
         user = self.model(
             email=self.normalize_email(email),
             username=username,
@@ -20,16 +20,20 @@ class MyAccountManager(BaseUserManager):
         user.save(using='default')
         return user
 
-    def create_user(self, email, username, password, **extra_field):
-        return self.__create_user(email, username, password, extra_field)
-
     def create_superuser(self, username, password, email=None, **extra_field):
-        extra_field.setdefault('is_staff', True)
-        extra_field.setdefault('is_admin', True)
-        extra_field.setdefault('is_superuser', True)
-        extra_field.setdefault('is_contributor', True)
-        extra_field.setdefault('is_active', True)
-        return self.__create_user(email, username, password, extra_field)
+        user = self.create_user(
+            email=self.normalize_email(email),
+            username=username,
+            password=password,
+         )
+
+        user.is_active = True
+        user.is_contributor = True
+        user.is_staff = True
+        user.is_admin = True
+        user.is_superuser = True
+        user.save(using='default')
+        return user
 
 
 class Account(AbstractBaseUser):
