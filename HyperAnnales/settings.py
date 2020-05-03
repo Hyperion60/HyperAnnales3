@@ -33,6 +33,10 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    # My apps
+    'account',
+
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +73,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'accounts.Account'
 
 WSGI_APPLICATION = 'HyperAnnales.wsgi.application'
 
