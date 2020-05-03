@@ -10,7 +10,7 @@ class AccountAdmin(UserAdmin):
     ordering = ('username',)
 
     filter_horizontal = ()
-    list_filter = ()
+    list_filter = ('is_active',)
     fieldsets = ()
 
 
