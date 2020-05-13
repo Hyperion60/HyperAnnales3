@@ -1,0 +1,22 @@
+{% extends "base-red.html" %}
+{% block content %}
+    <h4>Se connecter</h4>
+    <form class="site-form" action="/login/?next={{ redirect_to }}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s12">
+                <input maxlength="50" id="id_username" type="text" name="username" required autofocus/>
+                <label class="active" for="id_username">Nom d'utilisateur/Pseudo</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="id_password" name="password" type="password" required/>
+                <label class="active" for="id_password">Mot de passe</label>
+            </div>
+        </div>
+        <div class="center">
+            <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Connexion">
+        </div>
+    </form>
+{% endblock %}
