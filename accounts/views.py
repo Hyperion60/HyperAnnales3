@@ -34,7 +34,8 @@ def login_view(request):
         return redirect("index")
 
     context = {}
-    if request.POST:
+    context['test'] = 'test'
+    if request.method == 'POST':
         form = AccountAuthenticationForm(request.POST)
         if form.is_valid():
             username = request.POST['username']
