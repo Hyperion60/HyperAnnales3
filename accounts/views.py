@@ -46,9 +46,9 @@ def login_view(request):
             if user:
                 login(request, user)
                 return redirect("index")
-            else:
-                print("here3")
-                context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalides'
-                context['login_form'] = form
+
+        print("here3")
+        context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalides'
+        context['login_form'] = form
     print(context)
     return render(request, "accounts/login.html", context)
