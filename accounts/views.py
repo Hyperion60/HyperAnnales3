@@ -29,12 +29,11 @@ def logout_view(request):
 
 
 def login_view(request):
-    context = {}
-
     user = request.user
     if user.is_authenticated:
         return redirect("index")
 
+    context = {}
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
         if form.is_valid():
@@ -45,9 +44,9 @@ def login_view(request):
                 login(request, user)
                 return redirect("index")
             else:
-                context['error'] = "Nom d'utilisateur et/ou mot de passe invalides"
+                context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalides'
+                context['login_form'] = form
     else:
         form = AccountAuthenticationForm()
-
-    context['login_form'] = form
+        context['login_form'] = form
     return render(request, "accounts/login.html", context)
