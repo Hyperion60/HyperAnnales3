@@ -49,4 +49,5 @@ def login_view(request):
     else:
         form = AccountAuthenticationForm()
         context['login_form'] = form
+        context['error'] = 'Test'
     return render(request, "accounts/login.html", context)
