@@ -8,7 +8,9 @@ def registration_view(request):
     context = {}
     if request.POST:
         form = RegistrationForm(request.POST)
+        print("Here")
         if form.is_valid():
+            print("In")
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data('password1')
