@@ -44,6 +44,8 @@ def login_view(request):
             if user:
                 login(request, user)
                 return redirect("index")
+            else:
+                context['error'] = "Nom d'utilisateur et/ou mot de passe invalides"
     else:
         form = AccountAuthenticationForm()
 

@@ -1,6 +1,13 @@
 {% extends "base-red.html" %}
 {% block content %}
     <h4>Se connecter</h4>
+    {% if error %}
+        <div class="container">
+            <div class="center card-panel red accent-3">
+                {{ error }}
+            </div>
+        </div>
+    {% endif %}
     <form class="site-form" action="/login/?next={{ redirect_to }}" method="post">
         {% csrf_token %}
         <div class="row">
