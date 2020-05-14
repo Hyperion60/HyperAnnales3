@@ -34,21 +34,16 @@ def login_view(request):
         return redirect("index")
 
     context = {}
-    context['test'] = 'test'
     if request.method == 'POST':
         form = AccountAuthenticationForm(request.POST)
-        print("here1")
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(username=username, password=password)
-            print("here2")
             if user:
                 login(request, user)
                 return redirect("index")
 
-        print("here3")
-        context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalides'
+        context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
         context['login_form'] = form
-    print(context)
     return render(request, "accounts/login.html", context)
