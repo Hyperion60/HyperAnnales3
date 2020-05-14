@@ -24,6 +24,7 @@ def registration_view(request):
     else:
         form = RegistrationForm()
         context['registration_form'] = form
+        context['error'] = None
     return render(request, 'accounts/register.html', context)
 
 
