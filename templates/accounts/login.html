@@ -1,7 +1,7 @@
 {% extends "base-red.html" %}
 {% block content %}
     <h4>Se connecter</h4>
-    {% if error %}
+    {% if error is not None %}
         <div class="container">
             <div class="center card-panel red accent-3">
                 {{ error }}
