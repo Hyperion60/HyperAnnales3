@@ -9,6 +9,7 @@ def registration_view(request):
     if request.POST:
         form = RegistrationForm(request.POST)
         print("Here")
+        print(form)
         if form.is_valid():
             print("In")
             form.save()
