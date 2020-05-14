@@ -1,11 +1,18 @@
 {% extends "base-red.html" %}
 {% block content %}
-	<h3>S'enregistrer</h3>
+	<h4>S'enregistrer</h4>
 	<div class="card red lighten-4">
 		<div class="card-content">
 		<span class="card-content"><b>/!\ Si vous n'entrez pas une adresse @epita.fr, la procédure n'aboutira pas.</b></span>
 	</div></div>
-	<form class="site-form" action="/signup/" method="post">
+    {% if error is not None %}
+        <div class="container">
+            <div class="center card-panel red accent-3">
+                {{ error }}
+            </div>
+        </div>
+    {% endif %}
+	<form class="site-form" action="{% url 'register' %}" method="post">
 		{% csrf_token %}
 		<div class="row">
 			<div class="input-field col s12">
