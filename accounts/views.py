@@ -2,29 +2,28 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 
 from accounts.forms import RegistrationForm, AccountAuthenticationForm
+from accounts.models import *
 
 
 def registration_view(request):
     context = {}
     if request.POST:
-        form = RegistrationForm(request.POST)
-        print("Here")
-        print(form)
-        if form.is_valid():
-            print("In")
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data('password1')
-            account = authenticate(username=username, password=raw_password)
-            login(request, account)
-            return redirect("index")
-        else:
-            context['error'] = "Echec de la création du compte. Veuillez réessayer."
-            context['registration_form'] = form
-    else:
-        form = RegistrationForm()
-        context['registration_form'] = form
-        context['error'] = None
+        try:
+            username = request.POST['username']
+            email = request.POST['email']
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
+            if password1 != password2:
+                context['error'] = "Les mots de passe ne correspondent pas"
+            elif not len(username) or not len(email) or not len(password1) or not len(password2):
+                context['error'] = "Veuillez remplir tous les champs"
+            else:
+                u = Account.object.create_user(email, username, password1)
+                login(request, u)
+                return redirect("home")
+
+        except:
+            context['error'] = "Une erreur s'est produite. Veuillez réessayer"
     return render(request, 'accounts/register.html', context)
 
 
