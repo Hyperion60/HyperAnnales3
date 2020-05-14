@@ -45,10 +45,12 @@ def login_view(request):
                 login(request, user)
                 return redirect("index")
             else:
+                print("here")
                 context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalides'
                 context['login_form'] = form
     else:
         form = AccountAuthenticationForm()
+        print("ici")
         context['login_form'] = form
         context['error'] = 'Test'
     print(context)
