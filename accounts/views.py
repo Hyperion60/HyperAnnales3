@@ -10,12 +10,13 @@ def registration_view(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            email = form.cleaned_data.get('email')
+            username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data('password1')
-            account = authenticate(email=email, password=raw_password)
+            account = authenticate(username=username, password=raw_password)
             login(request, account)
             return redirect("index")
         else:
+            context['error'] = "Echec de la création du compte. Veuillez réessayer."
             context['registration_form'] = form
     else:
         form = RegistrationForm()
