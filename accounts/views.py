@@ -8,24 +8,22 @@ from accounts.models import *
 def registration_view(request):
     context = {}
     if request.POST:
-        username = request.POST['username']
-        email = request.POST['email']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        print("user = " + username + " email = " + email + " pass = " + password1)
-        if password1 != password2:
-            context['error'] = "Les mots de passe ne correspondent pas"
-        elif len(username) == 0 or len(email) == 0 or len(password1) == 0:
-            print("here1")
-            context['error'] = "Veuillez remplir tous les champs"
-        else:
-            print("here2")
-            u = Account.object.create_user(email, username, password1)
-            print("here3")
-            login(request, u)
-            print("here4")
-            context['error'] = None
-            return redirect("home")
+        try:
+            username = request.POST['username']
+            email = request.POST['email']
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
+            print("user = " + username + " email = " + email + " pass = " + password1)
+            if password1 != password2:
+                context['error'] = "Les mots de passe ne correspondent pas"
+            elif len(username) == 0 or len(email) == 0 or len(password1) == 0:
+                context['error'] = "Veuillez remplir tous les champs"
+            else:
+                u = Account.object.create_user(email, username, password1)
+                login(request, u)
+                return redirect("index")
+        except:
+            context['error'] = "Une erreur s'est produite. Veuillez réessayer"
     return render(request, 'accounts/register.html', context)
 
 
