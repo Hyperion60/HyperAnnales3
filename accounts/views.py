@@ -21,6 +21,7 @@ def registration_view(request):
             try:
                 user = Account.object.filter(email__exact=email)
                 print(user)
+                print(len(user))
                 context['error'] = "L'email a déjà été utilisé"
                 return render(request, 'accounts/register.html', context)
             except Account.DoesNotExist:
