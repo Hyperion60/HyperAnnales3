@@ -31,12 +31,10 @@ def registration_view(request):
                     context['error'] = "L'email a déjà été utilisé"
                     error = True
 
-            if error:
-                return render(request, 'accounts/register.html', context)
-
-            user = Account.object.create_user(email, username, password1)
-            login(request, user)
-            return redirect("index")
+            if not error:
+                user = Account.object.create_user(email, username, password1)
+                login(request, user)
+                return redirect("index")
     return render(request, 'accounts/register.html', context)
 
 
