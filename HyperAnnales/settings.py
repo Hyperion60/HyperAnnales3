@@ -29,12 +29,24 @@ ALLOWED_HOSTS = [
     'dev.annales.hyperion.tf',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
 
 # Application definition
 
 INSTALLED_APPS = [
     # My apps
     'accounts',
+
+    # Django REST
+    'rest_framework',
 
     # Django apps
     'django.contrib.admin',
@@ -45,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_sendfile',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +83,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'debug': DEBUG
         },
     },
 ]
@@ -134,6 +148,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'ssl0.ovh.net'
+
+EMAIL_HOST_USER = 'admin@hyperion.tf'
+
+EMAIL_HOST_PASSWORD = 'Gzb8Gh8vcdW2Zvb'
+
+EMAIL_PORT = '465'
+
+EMAIL_USE_SSL = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
