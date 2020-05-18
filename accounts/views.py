@@ -19,7 +19,8 @@ def registration_view(request):
             context['error'] = "Veuillez remplir tous les champs"
         else:
             try:
-                user = Account.objects.get(email=email)
+                user = Account.object.filter(email__exact=email)
+                print(user)
                 context['error'] = "L'email a déjà été utilisé"
                 return render(request, 'accounts/register.html', context)
             except Account.DoesNotExist:
