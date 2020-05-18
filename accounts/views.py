@@ -18,8 +18,13 @@ def registration_view(request):
         elif len(username) == 0 or len(email) == 0 or len(password1) == 0:
             context['error'] = "Veuillez remplir tous les champs"
         else:
-            u = Account.object.create_user(email, username, password1)
-            login(request, u)
+            try:
+                user = Account.objects.get(email=email)
+                context['error'] = "L'email a déjà été utilisé"
+                return render(request, 'accouts/register.html', context)
+            except Account.DoesNotExist:
+                user = Account.object.create_user(email, username, password1)
+            login(request, user)
             return redirect("index")
     return render(request, 'accounts/register.html', context)
 
