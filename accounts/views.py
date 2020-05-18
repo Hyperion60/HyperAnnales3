@@ -13,10 +13,9 @@ def registration_view(request):
             email = request.POST['email']
             password1 = request.POST['password1']
             password2 = request.POST['password2']
-            print("here")
+            print("user = " + username + " email = " + email + " pass = " + password1)
             if password1 != password2:
                 context['error'] = "Les mots de passe ne correspondent pas"
-
             elif len(username) == 0 or not len(email) or not len(password1) or not len(password2):
                 print("here1")
                 context['error'] = "Veuillez remplir tous les champs"
@@ -26,6 +25,7 @@ def registration_view(request):
                 print("here3")
                 login(request, u)
                 print("here4")
+                context['error'] = None
                 return redirect("home")
         except:
             context['error'] = "Une erreur s'est produite. Veuillez réessayer"
