@@ -21,7 +21,7 @@ def registration_view(request):
             try:
                 user = Account.objects.get(email=email)
                 context['error'] = "L'email a déjà été utilisé"
-                return render(request, 'accouts/register.html', context)
+                return render(request, 'accounts/register.html', context)
             except Account.DoesNotExist:
                 user = Account.object.create_user(email, username, password1)
             login(request, user)
