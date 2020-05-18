@@ -4,6 +4,10 @@ from django.contrib.auth import login, authenticate, logout
 from accounts.forms import RegistrationForm, AccountAuthenticationForm
 from accounts.models import *
 
+def __test_email(email):
+    host = email.split('@')
+    return host[1] == "epita.fr"
+
 
 def registration_view(request):
     context = {}
@@ -30,6 +34,10 @@ def registration_view(request):
                 else:
                     context['error'] = "L'email a déjà été utilisé"
                     error = True
+
+            if not __test_email(email):
+                context['error'] = "L'email n'est pas valide, entrez une adresse epita"
+                error = True
 
             if not error:
                 user = Account.object.create_user(email, username, password1)
