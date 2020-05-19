@@ -28,7 +28,6 @@ def __send_verification_email(request, user, email):
         }
     )
     send_mail(mail_subject, mail_message, "admin@hyperion.tf", [email], fail_silently=False)
-    send_mail()
 
 
 def registration_view(request):
