@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -27,8 +27,7 @@ def __send_verification_email(request, user, email):
             'token': account_activation_token.make_token(user=user),
         }
     )
-    mail = EmailMessage(mail_subject, mail_message, to=[email])
-    mail.send()
+    send_mail(mail_subject, mail_message, "admin@hyperion.tf", [email])
 
 
 def registration_view(request):
