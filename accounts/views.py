@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.sites.shortcuts import get_current_site
@@ -29,6 +31,16 @@ def __send_verification_email(request, user, email):
         }
     )
     send_mail(mail_subject, mail_message, EMAIL_HOST_USER, [email], fail_silently=False)
+
+    log_message = render_to_string('accounts/mail_template_log.html',
+        {
+            'mail': mail_message,
+            'timestamp': datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
+            'email': email,
+            'subject': mail_subject,
+        }
+    )
+    send_mail(mail_subject + "_log", log_message, "log@hyperion.tf", [EMAIL_HOST_USER], fail_silently=True)
 
 
 def registration_view(request):
