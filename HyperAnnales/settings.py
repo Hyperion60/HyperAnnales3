@@ -148,6 +148,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Email settings
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_HOST = 'ssl0.ovh.net'
