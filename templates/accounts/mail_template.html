@@ -3,6 +3,6 @@
 Bonjour {{ user.username }},
 Veuillez cliquer sur le lien pour confirmer votre inscription:
 
-http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+https://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 
 {% endautoescape %}
