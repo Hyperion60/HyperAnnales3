@@ -1,12 +1,34 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
-from accounts.forms import RegistrationForm, AccountAuthenticationForm
+from accounts.forms import AccountAuthenticationForm
 from accounts.models import *
+from accounts.tokens import account_activation_token
+
 
 def __test_email(email):
     host = email.split('@')
     return host[1] == "epita.fr"
+
+
+def __send_verification_email(request, user, email):
+    mail_subject = "Activation du compte HyperAnnales"
+    current_site = get_current_site(request)
+    mail_message = render_to_string('accounts/mail_template.html',
+        {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token(user),
+        }
+    )
+    mail = EmailMessage(mail_subject, mail_message, to=email)
+    mail.send()
 
 
 def registration_view(request):
@@ -41,8 +63,9 @@ def registration_view(request):
 
             if not error:
                 user = Account.object.create_user(email, username, password1)
-                login(request, user)
-                return redirect("index")
+                __send_verification_email(request, user, email)
+                context['mail'] = "Un email de validation vient d'être expedié pour confirmer votre compte."
+                return render(request, 'index.html', context)
     return render(request, 'accounts/register.html', context)
 
 
