@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
+from HyperAnnales.settings import EMAIL_HOST_USER
 from accounts.forms import AccountAuthenticationForm
 from accounts.models import *
 from accounts.tokens import account_activation_token
@@ -27,7 +28,7 @@ def __send_verification_email(request, user, email):
             'token': account_activation_token.make_token(user=user),
         }
     )
-    send_mail(mail_subject, mail_message, "admin@hyperion.tf", [email], fail_silently=False)
+    send_mail(mail_subject, mail_message, EMAIL_HOST_USER, [email], fail_silently=False)
 
 
 def registration_view(request):
