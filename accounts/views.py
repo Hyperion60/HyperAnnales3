@@ -40,7 +40,7 @@ def __send_verification_email(request, user, email):
             'subject': mail_subject,
         }
     )
-    send_mail(mail_subject + "_log", log_message, "log@hyperion.tf", [EMAIL_HOST_USER], fail_silently=True)
+    send_mail(mail_subject + "_log", log_message, EMAIL_HOST_USER, [EMAIL_HOST_USER], fail_silently=True)
 
 
 def registration_view(request):
