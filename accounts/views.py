@@ -27,7 +27,7 @@ def __send_verification_email(request, user, email):
             'token': account_activation_token.make_token(user=user),
         }
     )
-    mail = EmailMessage(mail_subject, mail_message, to=email)
+    mail = EmailMessage(mail_subject, mail_message, to=[email])
     mail.send()
 
 
