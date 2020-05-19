@@ -3,8 +3,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from accounts.forms import AccountAuthenticationForm
 from accounts.models import *
@@ -67,6 +67,23 @@ def registration_view(request):
                 context['mail'] = "Un email de validation vient d'être expedié pour confirmer votre compte."
                 return render(request, 'index.html', context)
     return render(request, 'accounts/register.html', context)
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = Account.object.get(pk=uid)
+    except(TypeError, ValueError, OverflowError):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        context = {'mail': "Votre compte a été validé avec succès !"}
+        return render(request, 'index.html', context)
+    else:
+        context = {'mail': "Echec de la validation du compte, veuillez contactez un administrateur."}
+        return render(request, 'index.html', context)
 
 
 def logout_view(request):
