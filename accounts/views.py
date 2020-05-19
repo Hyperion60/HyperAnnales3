@@ -24,7 +24,7 @@ def __send_verification_email(request, user, email):
             'user': user,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': account_activation_token(user),
+            'token': account_activation_token.make_token(user=user),
         }
     )
     mail = EmailMessage(mail_subject, mail_message, to=email)
