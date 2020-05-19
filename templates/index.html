@@ -1,5 +1,12 @@
 {% extends "base-red.html" %}
 {% block content %}
+    {% if mail is not None %}
+        <div class="container">
+            <div class="center card-panel green accent-2">
+                {{ mail }}
+            </div>
+        </div>
+    {% endif %}
     <h4>Ce site permet aux épithéens d'accéder aux TP et à leur correction, ainsi qu'aux différentes épreuves antérieures (QCM, Midterms, Partiels,...)</h4>
     <div class="card amber darken-2">
         <div class="card-content">
