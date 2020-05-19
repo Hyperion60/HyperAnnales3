@@ -27,9 +27,13 @@ from accounts.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
+
+    # Gestion utilisateur
     path('logout/', logout_view, name="logout"),
     path('login/', login_view, name="login"),
     path('register/', registration_view, name="register"),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name="activate"),
+
+    # Accueil
     path('', views.index, name="index")
 ]
