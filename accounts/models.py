@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.postgres.search import *
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ class MyAccountManager(BaseUserManager):
             raise ValueError("Users must have an email address")
         if not username:
             raise ValueError("Users must have an email address")
+
         user = self.model(
             email=self.normalize_email(email),
             username=username,
