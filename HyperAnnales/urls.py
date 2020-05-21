@@ -35,5 +35,6 @@ urlpatterns = [
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name="activate"),
 
     # Accueil
-    path('', views.index, name="index")
+    path('', views.index, name="index"),
+    path('about', views.about, name="about"),
 ]

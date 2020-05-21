@@ -1,0 +1,54 @@
+{% extends "base-red.html" %}
+{% block content %}
+<div style="border-bottom-width: 1px; border-bottom-color: black;">
+    <h4>Nous contacter</h4>
+    <table>
+        <tbody>
+            <tr>
+                <th>E-mail de liaison</th>
+                <th><a href="mailto:admin@hyperion.tf">admin@hyperion.tf</a></th>
+            </tr>
+            <tr>
+                <th>Membres du staff</th>
+                <th>{{ staff }}</th>
+            </tr>
+        </tbody>
+    </table>
+    <p>Nous sommes présent sur les différents serveurs Discord de promotion.</p>
+</div>
+<div>
+    <h4>A propos du site internet</h4>
+    <table>
+        <tbody>
+            <tr>
+                <th>Version</th>
+                <th>{{ HA_version }}</th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>{{ date }}</th>
+            </tr>
+            <tr>
+                <th>Hébergeur</th>
+                <th><a href="https://www.ovh.com">OVH</a></th>
+            </tr>
+            <tr>
+                <th>Back-end</th>
+                <th><a href="https://www.djangoproject.com/">Django {{ django_version }}</a></th>
+            </tr>
+            <tr>
+                <th>Front-end</th>
+                <th><a href="https://www.djangoproject.com/">Django {{ django_version }}</a> + <a href="https://angular.io/">Angular {{ angular_version }}</a></th>
+            </tr>
+            <tr>
+                <th>Base de données</th>
+                <th><a href="https://www.postgresql.org/">PostgreSQL {{ postgresql_version }}</a></th>
+            </tr>
+            <tr>
+                <th>Déploiement</th>
+                <th><a href="https://www.docker.com/">Docker {{ docker_version }}</a> + <a href="https://k3s.io/">Kube (k3s) {{ kube_version }}</a></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
