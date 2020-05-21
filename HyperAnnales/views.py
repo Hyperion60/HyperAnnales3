@@ -17,12 +17,14 @@ def __staff_members():
     staff_user = Account.object.filter(is_active=True, is_staff=True)
     output = ""
     for user in staff_user:
-        output = output + str(user.username)
+        output = output + " " + str(user.username)
     return output
 
 
 def about(request):
     context = {}
+    context['HA_version'] = "beta"
+    context['date'] = "21-05-2020"
     context['django_version'] = django.get_version()
     context['angular_version'] = "9"
     context['postgresql_version'] = __postgres_version()
