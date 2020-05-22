@@ -48,19 +48,19 @@ def __send_mail_reset_password(request, user):
     current_site = get_current_site(request)
     mail_message = render_to_string('accounts/mail_reset_pass.html',
         {
-             'user': user.username,
+             'user': user[0].username,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': account_activation_token.make_token(user=user.username),
+            'token': account_activation_token.make_token(user=user[0].username),
         }
     )
-    send_mail(mail_subject, mail_message, EMAIL_HOST_USER, [user.email], fail_silently=False)
+    send_mail(mail_subject, mail_message, EMAIL_HOST_USER, [user[0].email], fail_silently=False)
 
     log_message = render_to_string('accounts/mail_template_log.html',
         {
             'mail': mail_message,
             'timestamp': datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
-            'email': user.email,
+            'email': user[0].email,
             'subject': mail_subject,
         }
     )
