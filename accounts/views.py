@@ -157,7 +157,7 @@ def reset_password(request):
         else:
             context['mail'] = "Un email vient de vous être envoyé pour vous permettre de réinitialiser votre mot de" \
                               " passe"
-            return render(request, 'accounts/reset_password_send.html', context)
+            return redirect('index.html', context)
     return render(request, 'accounts/reset_password.html', context)
 
 
