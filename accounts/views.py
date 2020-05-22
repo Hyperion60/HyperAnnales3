@@ -51,7 +51,7 @@ def __send_mail_reset_password(request, user):
              'user': user[0].username,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user[0].pk)),
-            'token': account_activation_token.make_token(user=user[0].username),
+            'token': account_activation_token.make_token(user=(user[0].username)),
         }
     )
     send_mail(mail_subject, mail_message, EMAIL_HOST_USER, [user[0].email], fail_silently=False)
