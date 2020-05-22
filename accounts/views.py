@@ -157,7 +157,7 @@ def reset_password(request):
         else:
             context['mail'] = "Un email vient de vous être envoyé pour vous permettre de réinitialiser votre mot de" \
                               " passe"
-            return redirect('/', context)
+            return render(request, 'accounts/reset_password_send.html', context)
     return render(request, 'accounts/reset_password.html', context)
 
 
@@ -178,5 +178,5 @@ def change_password(request, uidb64, token):
             user.setpassword(password1)
             user.save(using='default')
             context['mail'] = "Votre mot de passe a bien été modifié."
-            return redirect('/', context)
+            return redirect('index.html', context)
     return redirect('/change_password/' + str(uidb64) + '/' + str(token) + '/', context)
