@@ -173,15 +173,15 @@ def change_password(request, uidb64, token):
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
             user = Account.object.get(pk=uid)
-            user = user[0]
         except(TypeError, ValueError, OverflowError):
             print('error')
             user = None
             context['error'] = "Le lien n'est pas valide"
         if user is not None and account_activation_token.check_token(user, token):
-            print(type(user))
-            user.set_password(password1)
-            user.save(using='default')
+            compte = user[0]
+            print(type(compte))
+            compte.set_password(password1)
+            compte.save(using='default')
             context['mail'] = "Votre mot de passe a bien été modifié."
             return redirect('/', context)
     context['uidb64'] = uidb64
