@@ -180,4 +180,4 @@ def change_password(request, uidb64, token):
             user.save(using='default')
             context['mail'] = "Votre mot de passe a bien été modifié."
             return redirect('index.html', context)
-    return redirect('/change_password/' + str(uidb64) + '/' + str(token) + '/', context)
+    return render(request, 'accounts/change_password.html', context)
