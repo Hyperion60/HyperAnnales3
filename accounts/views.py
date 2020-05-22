@@ -176,13 +176,11 @@ def change_password(request, uidb64, token):
         except(TypeError, ValueError, OverflowError):
             user = None
             context['error'] = "Le lien n'est pas valide"
-        if user is not None and len(user) == 1 and account_activation_token.check_token(user, token):
+        if user is not None and account_activation_token.check_token(user, token):
             user[0].setpassword(password1)
             user[0].save(using='default')
             context['mail'] = "Votre mot de passe a bien été modifié."
             return redirect('/', context)
-        if not len(user):
-            context['error'] = "Le lien n'est pas valide"
     context['uidb64'] = uidb64
     context['token'] = token
     return render(request, 'accounts/change_password.html', context)
