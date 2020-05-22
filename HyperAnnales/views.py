@@ -15,9 +15,11 @@ def __postgres_version():
 
 def __staff_members():
     staff_user = Account.object.filter(is_active=True, is_staff=True)
-    output = ""
-    for user in staff_user:
-        output = output + " " + str(user.username)
+    output = staff_user[0].username
+    i = 1
+    while i < len(staff_user):
+        output = output + ", " + str(staff_user[i].username)
+        i = i + 1
     return output
 
 
