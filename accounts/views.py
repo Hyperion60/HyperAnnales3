@@ -155,10 +155,10 @@ def reset_password(request):
         if not len(check):
             context['error'] = "L'email n'est relié à aucun compte existant"
         else:
-            context['mail'] = "Un email vient de vous être envoyé pour vous permettre de réinitialiser votre mot de" \
-                              " passe"
+            context['message'] = "Un e-mail vient de vous être envoyé pour vous permettre de modifier votre mot de" \
+                                 " passe"
             __send_mail_reset_password(request, check)
-            return render(request, 'accounts/reset_password_send.html', context)
+            return render(request, 'accounts/message_template.html', context)
     return render(request, 'accounts/reset_password.html', context)
 
 
@@ -180,6 +180,7 @@ def change_password(request, uidb64, token):
             user.setpassword(password1)
             user.save(using='default')
             context['mail'] = "Votre mot de passe a bien été modifié."
-            return redirect('index.html', context)
-    print("here1")
+            return redirect('/', context)
+    context['uidb64'] = uidb64
+    context['token'] = token
     return render(request, 'accounts/change_password.html', context)
