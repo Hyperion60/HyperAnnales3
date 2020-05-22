@@ -43,6 +43,30 @@ def __send_verification_email(request, user, email):
     send_mail(mail_subject + "_log", log_message, EMAIL_HOST_USER, [EMAIL_HOST_USER], fail_silently=True)
 
 
+def __send_mail_reset_password(request, user):
+    mail_subject = "Réinitialisation du mot de passe - HyperAnnales"
+    current_site = get_current_site(request)
+    mail_message = render_to_string('accounts/mail_reset_pass.html',
+        {
+             'user': user.username,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user=user.username),
+        }
+    )
+    send_mail(mail_subject, mail_message, EMAIL_HOST_USER, [user.email], fail_silently=False)
+
+    log_message = render_to_string('accounts/mail_template_log.html',
+        {
+            'mail': mail_message,
+            'timestamp': datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
+            'email': user.email,
+            'subject': mail_subject,
+        }
+    )
+    send_mail(mail_subject + "_log", log_message, EMAIL_HOST_USER, [EMAIL_HOST_USER], fail_silently=True)
+
+
 def registration_view(request):
     context = {}
     if request.POST:
@@ -50,7 +74,6 @@ def registration_view(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        print("user = " + username + " email = " + email + " pass = " + password1)
         if password1 != password2:
             context['error'] = "Les mots de passe ne correspondent pas"
         elif len(username) == 0 or len(email) == 0 or len(password1) == 0:
@@ -122,3 +145,38 @@ def login_view(request):
         context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
         context['login_form'] = form
     return render(request, "accounts/login.html", context)
+
+
+def reset_password(request):
+    context = {}
+    if request.POST:
+        email = request.POST['email']
+        check = Account.object.filter(email__exact=email)
+        if not len(check):
+            context['error'] = "L'email n'est relié à aucun compte existant"
+        else:
+            context['mail'] = "Un email vient de vous être envoyé pour vous permettre de réinitialiser votre mot de" \
+                              " passe"
+            return render(request, 'accounts/reset_password_send.html', context)
+    return render(request, 'accounts/reset_password.html', context)
+
+
+def change_password(request, uidb64, token):
+    context = {}
+    if request.POST:
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        if password1 != password2:
+            context['error'] = "Les mots de passe sont différents"
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = Account.object.get(pk=uid)
+        except(TypeError, ValueError, OverflowError):
+            user = None
+            context['error'] = "Le lien n'est pas valide"
+        if user is not None and account_activation_token.check_token(user, token):
+            user.setpassword(password1)
+            user.save(using='default')
+            context['mail'] = "Votre mot de passe a bien été modifié."
+            return redirect('index.html', context)
+    return redirect('/change_password/' + str(uidb64) + '/' + str(token) + '/', context)
