@@ -41,9 +41,7 @@ WORKDIR /home
 COPY . /home
 
 
-# Download static file, templates, database
-RUN git clone git@github.com:Hyperion60/Templates_HA.git
-
+# Download static file
 RUN git clone git@github.com:Hyperion60/static_HA.git
 
 RUN cd /
@@ -55,6 +53,3 @@ RUN git clone git@github.com:Hyperion60/media_HA.git
 EXPOSE 6094
 
 ENTRYPOINT ["/entrypoint.sh"]
-# RUN ls -lsha ~
-# Define command to launch website when starting the container
-# CMD ["/bin/sh", "-c", "/usr/local/bin/uwsgi", "--ini", "/home/HyperAnnales/uwsgi.ini"]
