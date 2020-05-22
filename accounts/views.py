@@ -164,6 +164,7 @@ def reset_password(request):
 
 def change_password(request, uidb64, token):
     context = {}
+    print("here")
     if request.POST:
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -180,4 +181,5 @@ def change_password(request, uidb64, token):
             user.save(using='default')
             context['mail'] = "Votre mot de passe a bien été modifié."
             return redirect('index.html', context)
+    print("here1")
     return render(request, 'accounts/change_password.html', context)
