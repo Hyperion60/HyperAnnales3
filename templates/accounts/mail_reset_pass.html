@@ -1,0 +1,8 @@
+{% autoescape off %}
+
+Bonjour {{ user }},
+Voici le lien pour réinitialiser votre mot de passe :
+
+http://{{ domain }}{% url 'change' uidb64=uid token=token %}
+
+{% endautoescape %}
