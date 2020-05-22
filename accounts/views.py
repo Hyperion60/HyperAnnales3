@@ -175,6 +175,7 @@ def change_password(request, uidb64, token):
             user = Account.object.get(pk=uid)
             user = user[0]
         except(TypeError, ValueError, OverflowError):
+            print('error')
             user = None
             context['error'] = "Le lien n'est pas valide"
         if user is not None and account_activation_token.check_token(user, token):
