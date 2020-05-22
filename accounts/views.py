@@ -181,8 +181,8 @@ def change_password(request, uidb64, token):
             print(type(user))
             user.set_password(password1)
             user.save(using='default')
-            context['mail'] = "Votre mot de passe a bien été modifié."
-            return redirect('/', context)
+            context['message'] = "Votre mot de passe a bien été modifié."
+            return render(request, 'accounts/message_template.html', context)
     context['uidb64'] = uidb64
     context['token'] = token
     return render(request, 'accounts/change_password.html', context)
