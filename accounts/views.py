@@ -135,26 +135,23 @@ def login_view(request):
 
     context = {}
     if request.method == 'POST':
-        form = AccountAuthenticationForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(username=username, password=password)
-            if user:
-                login(request, user)
-                return redirect("index")
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect("index")
 
-            print(username)
-            usermail = Account.object.filter(email__exact=username)
-            print(usermail)
-            if len(usermail):
-                print("here")
-                user = authenticate(username=usermail.username, password=password)
-                login(request, user)
-                return redirect("index")
+        print(username)
+        usermail = Account.object.filter(email__exact=username)
+        print(usermail)
+        if len(usermail):
+            print("here")
+            user = authenticate(username=usermail.username, password=password)
+            login(request, user)
+            return redirect("index")
 
         context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
-        context['login_form'] = form
     return render(request, "accounts/login.html", context)
 
 
