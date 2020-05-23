@@ -1,0 +1,54 @@
+{% extends "base-red.html" %}
+{% block content %}
+<div style="border-bottom-width: 1px; border-bottom-color: black;">
+    <h4>Nous contacter</h4>
+    <table>
+        <tbody>
+            <tr>
+                <th>E-mail de liaison</th>
+                <th>admin@hyperion.tf</th>
+            </tr>
+            <tr>
+                <th>Membres du staff</th>
+                <th>{{ staff }}</th>
+            </tr>
+        </tbody>
+    </table>
+    <p>Nous sommes présents sur les différents serveurs Discord de promotion.</p>
+</div>
+<div>
+    <h4>A propos du site internet</h4>
+    <table>
+        <tbody>
+            <tr>
+                <th>Version</th>
+                <th>{{ HA_version }}</th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>{{ date }}</th>
+            </tr>
+            <tr>
+                <th>Hébergeur</th>
+                <th>OVH</th>
+            </tr>
+            <tr>
+                <th>Back-end</th>
+                <th>Django {{ django_version }}</th>
+            </tr>
+            <tr>
+                <th>Front-end</th>
+                <th>Django {{ django_version }} + Angular {{ angular_version }}</th>
+            </tr>
+            <tr>
+                <th>Base de données</th>
+                <th>PostgreSQL {{ postgresql_version }}</th>
+            </tr>
+            <tr>
+                <th>Déploiement</th>
+                <th>Docker {{ docker_version }} + Kube (k3s) {{ kube_version }}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

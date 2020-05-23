@@ -8,6 +8,12 @@ services:
       - POSTGRES_DB=db_user
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=qyD^Z<y>F9E86u5
+      - PGDATA=/data
+    volumes:
+      - type: volume
+        source: db_HA
+        target: /data
+
     networks:
       - db_user_network
     restart: always
@@ -36,6 +42,24 @@ services:
       - db_user
       - db_static
 
+  pgadmin:
+    container_name: pgadmin_ha
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@hyperion.tf
+      PGADMIN_DEFAULT_PASSWORD: Explosion2023!
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - db_user_network
+      - db_static_network
+    restart: unless-stopped
+    depends_on:
+      - db_static
+      - db_user
+
 networks:
     db_user_network:
       driver: bridge
@@ -44,3 +68,7 @@ networks:
     default:
       external:
         name: host
+
+volumes:
+  db_HA:
+  pgadmin:

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Les exams, les TD et les correction de l'EPITA"/>
+    <meta name="keywords" content="annales examens exams TD correction corrigés epita sup spé ing1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" type="image/png" href="https://static.hyperion.tf/hyperion/img/favicon.ico"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/css/materialize.min.css"/>
+    <title>HyperAnnales 3.0 (dev)</title>
+    <style type="text/css">
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+        h3 {
+            font-size: 4vw;
+        }
+        @media (min-width: 900px) {
+            h4 {
+                font-size: 3vh;
+            }
+        }
+        @media (min-width: 1100px) {
+            h4 {
+                font-size: 2vw;
+            }
+            a {
+                font-size: 1.2vw;
+            }
+        }
+        @media (max-width: 1100px) {
+            a {
+                font-size: 1.8vw;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: #E0E0E0;">
+    <header class="hide-on-small-only">
+        <div class="row grey">
+            <div class="col l1"></div>
+            <div class="col l7 hide-on-med-and-down">
+                <h3>Bienvenue sur HyperAnnales</h3>
+            </div>
+            <div class="col l4 m12">
+                <img class="responsive-img center" src="https://static.hyperion.tf/hyperion/img/Logo_HA.png" alt="Logo HyperAnnales">
+            </div>
+        </div>
+    </header>
+    <nav class="nav-wrapper grey hide-on-med-and-up">
+        <div class="container">
+            <a href="#" class="brand-logo">HyperAnnales</a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-links">
+                <i class="material-icons">menu</i>
+            </a>
+        </div>
+    </nav>
+    <ul class="sidenav hide-on-med-and-up" id="mobile-links">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="#">Documents Administratifs</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="waves-effect red lighten-3">
+            <a href="{% url 'logout' %}" style="color: black">Déconnexion</a>
+        </li>
+        {% else %}
+        <li class="waves-effect cyan lighten-3">
+            <a href="{% url 'login' %}" style="color: black">Se connecter</a>
+        </li>
+        <li class="waves-effect green lighten-3">
+            <a href="{% url 'register' %}" style="color: black">S'enregistrer</a>
+        </li>
+        {% endif %}
+    </ul>
+    <div class="divider"></div>
+    <main role="main">
+        <div class="row">
+            <div class="col m3">
+                <ul class="collapsible cyan lighten-3 hide-on-small-only">
+                    <li>
+                        <a href="/" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Accueil</div></a>
+                    </li>
+                    <li>
+                        <a href="#" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Documents Administratifs</div></a>
+                    </li>
+                    <li>
+                        <a href="https://materializecss.com/color.html" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Tables couleurs</div></a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'logout' %}" style="color: black"><div class="collapsible-header waves-effect red lighten-3">Déconnexion</div></a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}" style="color: black"><div class="collapsible-header waves-effect cyan lighten-3">Se connecter</div></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'register' %}" style="color: black"><div class="collapsible-header waves-effect green lighten-3">S'enregistrer</div></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col m9">
+                <div class="col m12" style="background-color: #E0E0E0;">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="page-footer light-blue darken-4">
+        <div class="footer-copyright">
+            <div class="col m3" style="margin-left: 1em;">
+                2020 - HyperAnnales
+            </div>
+            <div class="col m6"></div>
+            <div class="col m3" style="margin-right: 1em">
+                <a style="color: white; font-size: 15px;" href="/about"><b>À Propos</b></a>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
+    <script>
+     $(document).ready(function(){
+        $('.collapsible').collapsible();
+      });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Date: {{ timestamp }}
+To: {{ email }}
+Subject: {{ subject }}
+
+#--Debut-mail-----
+{{ mail }}
+#--End-mail-------
+
+{% endautoescape %}
