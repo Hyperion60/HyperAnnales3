@@ -115,10 +115,9 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         context = {'mail': "Votre compte a été validé avec succès !"}
-        return render(request, 'index.html', context)
     else:
-        context = {'mail': "Echec de la validation du compte, veuillez contactez un administrateur."}
-        return render(request, 'index.html', context)
+        context = {'error': "Echec de la validation du compte, veuillez contactez un administrateur."}
+    return render(request, 'index.html', context)
 
 
 def logout_view(request):
