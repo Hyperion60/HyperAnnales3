@@ -15,7 +15,7 @@ import os
 
 
 # Import environment files
-env_path = "/var/www/HyperAnnales3/secret/password.env"
+env_path = "/home/secret/password.env"
 load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
