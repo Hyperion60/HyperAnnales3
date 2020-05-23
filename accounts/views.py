@@ -147,7 +147,8 @@ def login_view(request):
         print(usermail)
         if len(usermail):
             print("here")
-            user = authenticate(username=usermail.username, password=password)
+            username = usermail[0].username
+            user = authenticate(username=username, password=password)
             login(request, user)
             return redirect("index")
 
