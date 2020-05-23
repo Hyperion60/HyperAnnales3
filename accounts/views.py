@@ -116,7 +116,10 @@ def activate(request, uidb64, token):
         login(request, user)
         context = {'mail': "Votre compte a été validé avec succès !"}
     else:
-        context = {'error': "Echec de la validation du compte, veuillez contactez un administrateur."}
+        if user.is_active:
+            context = {'error': "Le lien a déjà été utilisé. Le compte est actif."}
+        else:
+            context = {'error': "Echec de la validation du compte, veuillez contactez un administrateur."}
     return render(request, 'index.html', context)
 
 
