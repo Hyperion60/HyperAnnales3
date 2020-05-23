@@ -170,7 +170,6 @@ def reset_password(request):
 
 def change_password(request, uidb64, token):
     context = {}
-    print("here")
     if request.POST:
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -179,12 +178,10 @@ def change_password(request, uidb64, token):
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
             user = Account.object.get(pk=uid)
-        except(TypeError, ValueError, OverflowError):
-            print('error')
+        except(TypeError, ValueError, OverflowError, Account.DoesNotExist):
             user = None
             context['error'] = "Le lien n'est pas valide"
         if user is not None and account_activation_token.check_token(user, token):
-            print(type(user))
             user.set_password(password1)
             user.save(using='default')
             context['message'] = "Votre mot de passe a bien été modifié."
