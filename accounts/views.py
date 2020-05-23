@@ -144,8 +144,11 @@ def login_view(request):
                 login(request, user)
                 return redirect("index")
 
+            print(username)
             usermail = Account.object.filter(email__exact=username)
+            print(usermail)
             if len(usermail):
+                print("here")
                 user = authenticate(username=usermail.username, password=password)
                 login(request, user)
                 return redirect("index")
