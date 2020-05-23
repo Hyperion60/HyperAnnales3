@@ -108,7 +108,7 @@ DATABASES = {
         'NAME': os.getenv("USER_NAME"),
         'USER': os.getenv("USER_USER"),
         'PASSWORD': os.getenv("USER_PASS"),
-        'HOST': os.get("USER_HOST"),
+        'HOST': os.getenv("USER_HOST"),
         'PORT': os.getenv("USER_PORT"),
     },
     'pdf_ref': {
