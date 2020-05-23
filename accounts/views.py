@@ -140,8 +140,12 @@ def login_view(request):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(username=username, password=password)
+            mail = authenticate(email=username, password=password)
             if user:
                 login(request, user)
+                return redirect("index")
+            elif mail:
+                login_view(request, mail)
                 return redirect("index")
 
         context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
