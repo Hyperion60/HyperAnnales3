@@ -168,7 +168,7 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER_OVH")
 
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASS_OVH")
 
-EMAIL_PORT = int(os.getenv("EMAIL_PORT_OVH"))
+EMAIL_PORT = os.getenv("EMAIL_PORT_OVH")
 
 EMAIL_USE_SSL = bool(os.getenv("EMAIL_SSL_OVH"))
 
