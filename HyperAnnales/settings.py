@@ -50,6 +50,7 @@ REST_FRAMEWORK = {
 INSTALLED_APPS = [
     # My apps
     'accounts',
+    'static_files',
 
     # Django REST
     'rest_framework',
