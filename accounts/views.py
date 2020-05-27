@@ -185,7 +185,7 @@ def change_password(request, uidb64, token):
             context['error'] = "Le lien n'est pas valide"
         if user is not None and account_activation_token.check_token(user, token):
             user.set_password(password1)
-            user.save(using='default')
+            user.save()
             context['message'] = "Votre mot de passe a bien été modifié."
             return render(request, 'accounts/message_template.html', context)
     context['uidb64'] = uidb64

@@ -19,7 +19,7 @@ class MyAccountManager(BaseUserManager):
         )
 
         user.set_password(password)
-        user.save(using='default')
+        user.save()
         return user
 
     def create_superuser(self, username, password, email=None):
@@ -34,7 +34,7 @@ class MyAccountManager(BaseUserManager):
         user.is_staff = True
         user.is_admin = True
         user.is_superuser = True
-        user.save(using='default')
+        user.save()
         return user
 
 
