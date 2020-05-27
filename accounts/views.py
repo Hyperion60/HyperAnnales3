@@ -9,7 +9,6 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from HyperAnnales.settings import EMAIL_HOST_USER
-from accounts.forms import AccountAuthenticationForm
 from accounts.models import *
 from accounts.tokens import account_activation_token
 
