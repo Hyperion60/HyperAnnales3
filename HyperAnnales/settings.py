@@ -110,7 +110,7 @@ DATABASES = {
         'USER': os.getenv("USER_USER"),
         'PASSWORD': os.getenv("USER_PASS"),
         'HOST': os.getenv("USER_HOST"),
-        'PORT': os.getenv("USER_PORT"),
+        'PORT': int(os.getenv("USER_PORT")),
     },
     'pdf_ref': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -118,7 +118,7 @@ DATABASES = {
         'USER': os.getenv("PDF_USER"),
         'PASSWORD': os.getenv("PDF_PASS"),
         'HOST': os.getenv("PDF_HOST"),
-        'PORT': os.getenv("PDF_PORT"),
+        'PORT': int(os.getenv("PDF_PORT")),
     }
 }
 
@@ -168,9 +168,9 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER_OVH")
 
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASS_OVH")
 
-EMAIL_PORT = os.getenv("EMAIL_PORT_OVH")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT_OVH"))
 
-EMAIL_USE_SSL = os.getenv("EMAIL_SSL_OVH")
+EMAIL_USE_SSL = bool(os.getenv("EMAIL_SSL_OVH"))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
