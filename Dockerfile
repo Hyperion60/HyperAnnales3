@@ -40,9 +40,6 @@ RUN eval `ssh-agent -s` && ssh-add ~/.ssh/id_rsa
 WORKDIR /home
 COPY . /home
 
-RUN apt install tree
-RUN tree /home
-
 
 # Download static file
 RUN git clone git@github.com:Hyperion60/static_HA.git
