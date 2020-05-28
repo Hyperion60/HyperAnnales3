@@ -13,13 +13,19 @@ def __postgres_version():
     brut = str(connection.cursor().connection.server_version)
     str_version = ""
     is_point = True
+    is_OK = True
     for letter in brut:
-        if letter == "0":
+        if letter == '0':
             if is_point:
-                str_version = str_version + '.'
+                str_version += '.'
                 is_point = False
-        str_version = str_version + letter
-        is_point = True
+            else:
+                str_version += letter
+                is_point = True
+            is_OK = False
+        if is_OK:
+            str_version += letter
+        is_OK = True
     return str_version
 
 
