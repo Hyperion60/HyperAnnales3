@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 from accounts.views import (
@@ -40,4 +40,6 @@ urlpatterns = [
     # Accueil
     path('', views.index, name="index"),
     path('about', views.about, name="about"),
+    # Static content
+    path('static_content/', include('static_files.urls')),
 ]
