@@ -1,0 +1,91 @@
+{% extends "base-red.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab"><a href="#contrib">Contributions</a></li>
+            {% if user.is_staff %}
+            <li class="tab"><a href="#handle">Gestion</a></li>
+            {% else %}
+            <li class="tab disabled"><a href="#">Gestion</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div id="contrib" class="col s12">
+        <ul class="collapsible">
+            {% file in contribution %}
+            <li>
+                <div class="collapsible-header">
+                    <p>{% file.year.year %} > {% file.semester.semester %} > {% file.name %}</p>
+                </div>
+                <div class="collapsible-body">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Vues</td>
+                                <td>WIP</td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>{% file.date %}</td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td>{% file.extension.type %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="waves-effect waves-light btn" href="/static_files/admin/change/{% file.random_key %}">Modifier</a>
+                </div>
+            </li>
+            {% endfor %}
+            <li>
+                <a href="/static_files/admin/add/" style="color:black;">
+                    <div class="collapsible-header waves-effect">Ajouter un nouveau fichier</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="handle" class="col s12">
+        {% if user.is_staff %}
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header">
+                    Années
+                </div>
+                <ul class="collapsible">
+                    {% for year in years %}
+                   <li>
+                        <div class="collapsible-header">
+                            {% year.year %}
+                        </div>
+                       <div class="collapsible-body">
+                           <p>Semestre actuelle : {% year.active_semester %}</p>
+                           <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{% year.year %}">Modifier</a>
+                       </div>
+                   </li>
+                    {% endfor %}
+                    <li>
+                        <a href="/static_files/admin/add/year/" style="color:black;">
+                            <div class="collapsible-header waves-effect">Ajouter un nouvelle année</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="collapsible-header">
+                    Matières
+                </div>
+                <div class="collapsible-body">
+                    <div class="collection">
+                        {% for matiere in subjects %}
+                        <a href="#" class="collection-item" style="color: black; font-size: 15px;">{% matiere.subject %}</a>
+                        {% endfor %}
+                        <a href="#" class="collection-item" style="color: black; font-size: 15px;">Nouvelle matière</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
