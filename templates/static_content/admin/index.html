@@ -13,7 +13,7 @@
     </div>
     <div id="contrib" class="col s12">
         <ul class="collapsible">
-            {% file in contribution %}
+            {% for file in contribution %}
             <li>
                 <div class="collapsible-header">
                     <p>{% file.year.year %} > {% file.semester.semester %} > {% file.name %}</p>
