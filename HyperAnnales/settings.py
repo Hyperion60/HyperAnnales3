@@ -104,7 +104,8 @@ WSGI_APPLICATION = 'HyperAnnales.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': {},
+    'user_ref': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv("USER_NAME"),
         'USER': os.getenv("USER_USER"),

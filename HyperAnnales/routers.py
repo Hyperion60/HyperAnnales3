@@ -6,14 +6,14 @@ class HyperionRouter:
         if model._meta.app_label in self.route_static_app:
             return 'ref_pdf'
         if model._meta.app_label in self.route_user_app:
-            return 'default'
+            return 'user_ref'
         return None
 
     def db_for_write(self, model, **hints):
         if model._meta.app_label in self.route_static_app:
             return 'ref_pdf'
         if model._meta.app_label in self.route_user_app:
-            return 'default'
+            return 'user_ref'
         return None
 
     def allow_relation(self, obj1, obj2, **hints):
@@ -28,5 +28,5 @@ class HyperionRouter:
         if app_label in self.route_static_app:
             return db == 'pdf_ref'
         if app_label in self.route_user_app:
-            return db == 'default'
+            return db == 'user_ref'
         return None
