@@ -37,9 +37,9 @@ urlpatterns = [
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name="activate"),
     path('reset_password/', reset_password, name="reset"),
     url(r'^change_password/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', change_password, name="change"),
+    # Static content
+    path('static_content/', include('static_files.urls')),
     # Accueil
     path('', views.index, name="index"),
     path('about', views.about, name="about"),
-    # Static content
-    path('static_content/', include('static_files.urls')),
 ]
