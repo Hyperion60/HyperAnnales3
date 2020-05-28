@@ -1,5 +1,5 @@
 class HyperionRouter:
-    route_user_app = {'auth', 'contenttypes', 'accounts', 'django', 'sessions'}
+    route_user_app = {'auth', 'contenttypes', 'accounts', 'django', 'sessions', 'admin'}
     route_static_app = {'static_files'}
 
     def db_for_read(self, model, **hints):
