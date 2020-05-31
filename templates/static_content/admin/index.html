@@ -53,24 +53,26 @@
                 <div class="collapsible-header">
                     Années
                 </div>
-                <ul class="collapsible">
-                    {% for year in years %}
-                   <li>
-                        <div class="collapsible-header">
-                            {{ year }}
-                        </div>
-                       <div class="collapsible-body">
-                           <p>Semestre actuelle : {{ year.active_semester }}</p>
-                           <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{{ year.year }}">Modifier</a>
-                       </div>
-                   </li>
-                    {% endfor %}
-                    <li>
-                        <a href="/static_files/admin/add/year/" style="color:black;">
-                            <div class="collapsible-header waves-effect">Ajouter un nouvelle année</div>
-                        </a>
-                    </li>
-                </ul>
+                <div class="collapsible-body">
+                    <ul class="collapsible">
+                        {% for year in years %}
+                       <li>
+                            <div class="collapsible-header">
+                                {{ year }}
+                            </div>
+                           <div class="collapsible-body">
+                               <p>Semestre actuelle : {{ year.active_semester }}</p>
+                               <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{{ year.year }}">Modifier</a>
+                           </div>
+                       </li>
+                        {% endfor %}
+                        <li>
+                            <a href="/static_files/admin/add/year/" style="color:black;">
+                                <div class="collapsible-header waves-effect">Ajouter un nouvelle année</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li>
                 <div class="collapsible-header">
