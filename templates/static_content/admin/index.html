@@ -17,7 +17,7 @@
             {% for file in contribution %}
             <li>
                 <div class="collapsible-header">
-                    <p>{% file.year.year %} > {% file.semester.semester %} > {% file.name %}</p>
+                    <p>{% file.year %} > {% file.semester %} > {% file.name %}</p>
                 </div>
                 <div class="collapsible-body">
                     <table>
@@ -60,7 +60,7 @@
                     {% for year in years %}
                    <li>
                         <div class="collapsible-header">
-                            {% year.year %}
+                            {% year %}
                         </div>
                        <div class="collapsible-body">
                            <p>Semestre actuelle : {% year.active_semester %}</p>
