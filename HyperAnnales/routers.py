@@ -20,7 +20,7 @@ class HyperionRouter:
     def allow_relation(self, obj1, obj2, **hints):
         if (
             obj1._meta.app_label in self.route_static_app or
-            obj2._meta.app_label in self.route_static_app
+            obj2._meta.app_label in self.route_user_app
         ):
             return True
         return None
