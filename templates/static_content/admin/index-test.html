@@ -14,7 +14,7 @@
     <div id="contrib" class="col s12">
         <ul>
             {% for file in contribution %}
-            <li>{% file %}</li>
+            <li>{{ file }}</li>
             {% endfor %}
             <li>New file</li>
         </ul>
@@ -25,13 +25,13 @@
             <li>Années</li>
             <ul>
                 {% for year in years %}
-                <li>{% year %}</li>
+                <li>{{ year }}</li>
                 {% endfor %}
             </ul>
             <li>Matières</li>
             <ul>
                 {% for matiere in subjects %}
-                <li>{% matiere %}</li>
+                <li>{{ matiere }}</li>
                 {% endfor %}
             </ul>
         </ul>
