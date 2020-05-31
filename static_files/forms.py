@@ -15,9 +15,16 @@ SEMESTER = (
     (10, "Semestre 10"),
 )
 
+YEAR = (
+    (2022, "2022"),
+    (2023, "2023"),
+    (2024, "2024"),
+    (2025, "2025"),
+)
+
 
 class CreateYearForm(forms.Form):
-    year = forms.IntegerField()
+    year = forms.ChoiceField(choices=YEAR)
     active_semester = forms.ChoiceField(choices=SEMESTER)
 
 
