@@ -31,4 +31,4 @@ def create_year(request):
         raise PermissionDenied
     context = {}
     context['form'] = CreateYearForm()
-    return render(request, "templates/static_content/add/year.html", context)
+    return render(request, "static_content/add/year.html", context)
