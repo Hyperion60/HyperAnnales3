@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from static_files.models import YearFile, SubjectFile, StaticContent
+from static_files.forms import CreateYearForm
 
 # Create your views here.
 
@@ -22,3 +23,12 @@ def static_admin(request):
     if not len(context['contribution']):
         context['contribution'] = None
     return render(request, "static_content/admin/index.html", context)
+
+
+@login_required(login_url="/login/")
+def create_year(request):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    context = {}
+    context['form'] = CreateYearForm()
+    return render(request, "templates/static_content/add/year.html", context)
