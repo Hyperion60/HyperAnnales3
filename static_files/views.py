@@ -21,4 +21,4 @@ def static_admin(request):
         context['subjects'] = None
     if not len(context['contribution']):
         context['contribution'] = None
-    return render(request, "static_content/admin/index-test.html", context)
+    return render(request, "static_content/admin/index.html", context)

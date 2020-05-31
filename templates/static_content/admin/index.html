@@ -13,11 +13,10 @@
     </div>
     <div id="contrib" class="col s12">
         <ul class="collapsible">
-            {% if contribution %}
             {% for file in contribution %}
             <li>
                 <div class="collapsible-header">
-                    <p>{% file.year %} > {% file.semester %} > {% file.name %}</p>
+                    <p>{{ file.year }} > {{ file.semester }} > {{ file.name }}</p>
                 </div>
                 <div class="collapsible-body">
                     <table>
@@ -28,11 +27,11 @@
                             </tr>
                             <tr>
                                 <td>Date</td>
-                                <td>{% file.date %}</td>
+                                <td>{{ file.date }}</td>
                             </tr>
                             <tr>
                                 <td>Type</td>
-                                <td>{% file.extension.type %}</td>
+                                <td>{{ file.extension.type }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -40,7 +39,6 @@
                 </div>
             </li>
             {% endfor %}
-            {% endif %}
             <li>
                 <a href="/static_files/admin/add/" style="color:black;">
                     <div class="collapsible-header waves-effect">Ajouter un nouveau fichier</div>
@@ -56,19 +54,17 @@
                     Années
                 </div>
                 <ul class="collapsible">
-                    {% if years %}
                     {% for year in years %}
                    <li>
                         <div class="collapsible-header">
-                            {% year %}
+                            {{ year }}
                         </div>
                        <div class="collapsible-body">
-                           <p>Semestre actuelle : {% year.active_semester %}</p>
+                           <p>Semestre actuelle : {{ year.active_semester }}</p>
                            <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{% year.year %}">Modifier</a>
                        </div>
                    </li>
                     {% endfor %}
-                    {% endif %}
                     <li>
                         <a href="/static_files/admin/add/year/" style="color:black;">
                             <div class="collapsible-header waves-effect">Ajouter un nouvelle année</div>
@@ -83,7 +79,7 @@
                 <div class="collapsible-body">
                     <div class="collection">
                         {% for matiere in subjects %}
-                        <a href="#" class="collection-item" style="color: black; font-size: 15px;">{% matiere.subject %}</a>
+                        <a href="#" class="collection-item" style="color: black; font-size: 15px;">{{ matiere.subject }}</a>
                         {% endfor %}
                         <a href="#" class="collection-item" style="color: black; font-size: 15px;">Nouvelle matière</a>
                     </div>
