@@ -15,4 +15,10 @@ def static_admin(request):
         context['years'] = YearFile.objects.all()
         context['subjects'] = SubjectFile.objects.all()
     context['contribution'] = StaticContent.objects.filter(author=request.user).order_by('name')
+    if not len(context['years']):
+        context['years'] = None
+    if not len(context['subjects']):
+        context['subjects'] = None
+    if not len(context['contribution']):
+        context['contribution'] = None
     return render(request, "static_content/admin/index-test.html", context)
