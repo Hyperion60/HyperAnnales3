@@ -28,7 +28,6 @@ class CreateYearForm(forms.Form):
     active_semester = forms.ChoiceField(choices=SEMESTER)
 
 
-
 class CreatePDForm(ModelForm):
     year = forms.ModelMultipleChoiceField(queryset=YearFile.objects.all())
     class Meta:
