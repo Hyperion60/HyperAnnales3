@@ -30,5 +30,10 @@ def create_year(request):
     if not request.user.is_staff:
         raise PermissionDenied
     context = {}
-    context['form'] = CreateYearForm()
+    if request.POST:
+        form = CreateYearForm()
+        if form.is_valid():
+            print(form)
+    else:
+        context['form'] = CreateYearForm()
     return render(request, "static_content/add/year.html", context)
