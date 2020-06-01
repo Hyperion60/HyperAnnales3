@@ -32,6 +32,8 @@ def create_year(request):
     context = {}
     if request.POST:
         form = CreateYearForm()
+        print(form)
+        print(form.is_valid())
         if form.is_valid():
             print(form)
     else:
