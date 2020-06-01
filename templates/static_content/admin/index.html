@@ -65,10 +65,10 @@
                         {% for year in years %}
                        <li>
                             <div class="collapsible-header">
-                                {{ year }}
+                                {{ year.year }}
                             </div>
                            <div class="collapsible-body">
-                               <p>Semestre actuelle : {{ year.active_semester }}</p>
+                               <p>Semestre actuel : {{ year.active_semester.semester }}</p>
                                <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{{ year.year }}">Modifier</a>
                            </div>
                        </li>
