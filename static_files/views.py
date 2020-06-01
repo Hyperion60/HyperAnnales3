@@ -35,8 +35,7 @@ def create_year(request):
         print(form)
         print(form.is_valid())
         if form.is_valid():
-            year = form.save(commit=False)
-            print(year)
+            print(form.cleaned_data)
     else:
         context['form'] = CreateYearForm()
     return render(request, "static_content/add/year.html", context)
