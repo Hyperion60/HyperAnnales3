@@ -1,0 +1,29 @@
+{% extends "base-red.html" %}
+{% block content %}
+    <h4>Ajouter des années</h4>
+    {% if error is not None %}
+        <div class="container">
+            <div class="center card-panel red accent-3">
+                {{ error }}
+            </div>
+        </div>
+    {% endif %}
+    <form class="site-form" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s12">
+                <input maxlength="50" id="id_begin" type="number" name="begin" required autofocus/>
+                <label class="active" for="id_begin">Année de début</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input maxlength="50" id="id_end" name="number" type="end" required/>
+                <label class="active" for="id_end">Année de fin</label>
+            </div>
+        </div>
+        <div class="center">
+            <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Créer">
+        </div>
+    </form>
+{% endblock %}
