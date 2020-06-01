@@ -11,11 +11,11 @@ STATIC_PATH = "/home/static_HA/epita/"
 
 
 class SemesterFile(models.Model):
-    semester = models.IntegerField()
+    semester = models.IntegerField(unique=True)
 
 
 class YearFile(models.Model):
-    year = models.IntegerField()
+    year = models.IntegerField(unique=True)
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE)
 
 
