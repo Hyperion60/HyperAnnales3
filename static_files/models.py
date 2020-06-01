@@ -10,12 +10,13 @@ from shutil import copyfile
 STATIC_PATH = "/home/static_HA/epita/"
 
 
-class YearFile(models.Model):
-    year = models.IntegerField()
-
-
 class SemesterFile(models.Model):
     semester = models.IntegerField()
+
+
+class YearFile(models.Model):
+    year = models.IntegerField()
+    active_semester = models.ForeignKey(SemesterFile, models.CASCADE)
 
 
 class SubjectFile(models.Model):
