@@ -11,6 +11,13 @@
             {% endif %}
         </ul>
     </div>
+    {% if message is not None %}
+    <div class="container">
+        <div class="center card-panel green accent-2">
+            {{ message }}
+        </div>
+    </div>
+    {% endif %}
     <div id="contrib" class="col s12">
         <ul class="collapsible">
             {% for file in contribution %}
