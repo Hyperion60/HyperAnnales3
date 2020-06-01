@@ -63,7 +63,9 @@ def create_file(request, raw_path):
     date = datetime.now().strftime("%d-%m-%Y_%H:%M:%S")
     weight = round(os.stat(raw_path).st_size / 1024)
     author = request.user
-    key = randint(1, 999999)
+    key = 0
+    while key == 0 and len(StaticContent.objects.filter(random_key__exact=key)):
+        key = randint(1, 999999)
     path = STATIC_PATH + str(year) + "/" + str(semester) + "/" + str(subject) + "/" + str(name) + "-" + str(key) + ".pdf"
     file = StaticContent(year=year,
                          semester=semester,
