@@ -31,7 +31,7 @@ def create_year(request):
         raise PermissionDenied
     context = {}
     if request.POST:
-        form = CreateYearForm()
+        form = CreateYearForm(request.POST)
         print(form)
         print(form.is_valid())
         if form.is_valid():
