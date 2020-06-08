@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 
-from static_files.models import SemesterFile, YearFile
-from static_files.methods import create_year, get_year, set_year
+
+from static_files.methods.year_methods import create_year, get_year, set_year
 from static_files.forms import CreateYearForm, SetYearSemester
 
 
