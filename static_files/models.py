@@ -16,13 +16,13 @@ class SemesterFile(models.Model):
 
 class YearFile(models.Model):
     year = models.IntegerField(unique=True)
-    active_semester = models.ForeignKey(SemesterFile, models.CASCADE)
+    active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
 
 
 class SubjectFile(models.Model):
     subject = models.CharField(max_length=100, unique=True)
-    semester = models.ForeignKey(SemesterFile, models.CASCADE)
-    year = models.ForeignKey(YearFile, models.CASCADE)
+    semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
+    year = models.ForeignKey(YearFile, models.CASCADE, default=None)
 
 
 class CategoryFile(models.Model):
@@ -36,9 +36,9 @@ class CategoryFile(models.Model):
     category = models.CharField(max_length=10, choices=LIST_CAT, default=None)
     title = models.CharField(max_length=150)
     place = models.IntegerField()
-    subject = models.ForeignKey(SubjectFile, models.CASCADE)
-    semester = models.ForeignKey(SemesterFile, models.CASCADE)
-    year = models.ForeignKey(YearFile, models.CASCADE)
+    subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
+    semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
+    year = models.ForeignKey(YearFile, models.CASCADE, default=None)
 
 
 class ExtensionFile(models.Model):
@@ -48,23 +48,25 @@ class ExtensionFile(models.Model):
 
 
 class StaticContent(models.Model):
-    year = models.ForeignKey(YearFile, models.CASCADE)
-    semester = models.ForeignKey(SemesterFile, models.CASCADE)
-    subject = models.ForeignKey(SubjectFile, models.CASCADE)
-    category = models.ForeignKey(CategoryFile, models.CASCADE)
-    name = models.CharField(max_length=255)
-    path = models.CharField(max_length=255)
+    year = models.ForeignKey(YearFile, models.CASCADE, default=None)
+    semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
+    subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
+    category = models.ForeignKey(CategoryFile, models.CASCADE, default=None)
+    name = models.CharField(max_length=255, default=None)
+    path = models.CharField(max_length=255, default=None)
     date = models.DateField()
     weight = models.IntegerField()
-    author = models.ForeignKey(Account, models.CASCADE)
+    author = models.ForeignKey(Account, models.CASCADE, default=None)
     random_key = models.IntegerField(unique=True)
-    extension = models.ForeignKey(ExtensionFile, models.CASCADE)
+    extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=None)
 
 
 def create_subject(request):
     subject = request.POST['subject']
-    new_subject = SubjectFile(subject=subject)
-    new_subject.save(using='pdf_ref')
+    subject_s = SubjectFile.objects.filter(subject__exact=subject)
+    if not len(subject_s):
+        new_subject = SubjectFile(subject=subject)
+        new_subject.save(using='pdf_ref')
 
 
 def create_file(request, raw_path):
