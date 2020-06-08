@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 from static_files.methods.year_methods import create_year, get_year, set_year
-from static_files.forms import CreateYearForm, SetYearSemester
+from static_files.form.year_forms import CreateYearForm, SetYearSemester
 
 
 # Create all years classes and all semester classes (init function for begin website
