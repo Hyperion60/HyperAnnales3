@@ -33,7 +33,7 @@ class CategoryFile(models.Model):
         ('QCM', 'blue'),
         ('Aide/Cours', 'green'),
     )
-    category = models.CharField(max_length=10, choices=LIST_CAT)
+    category = models.CharField(max_length=10, choices=LIST_CAT, default=None)
     title = models.CharField(max_length=150)
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE)
