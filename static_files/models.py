@@ -14,7 +14,7 @@ class SemesterFile(models.Model):
     semester = models.IntegerField(unique=True)
 
     def __str__(self):
-        return self.semester
+        return str(self.semester)
 
 
 class YearFile(models.Model):
@@ -22,7 +22,7 @@ class YearFile(models.Model):
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
 
     def __str__(self):
-        return self.year
+        return str(self.year)
 
 
 class SubjectFile(models.Model):
