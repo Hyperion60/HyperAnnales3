@@ -1,8 +1,8 @@
 from django.urls import path
-from static_files import views
+from static_files.views import admin_views, category_views
 
 
 urlpatterns = [
-    path('admin/', views.static_admin),
-    path('add/year/', views.set_year_semester),
+    path('admin/', admin_views.static_admin),
+    path('add/category/', category_views.CreateCategoryView),
 ]
