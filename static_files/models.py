@@ -13,16 +13,25 @@ STATIC_PATH = "/home/static_HA/epita/"
 class SemesterFile(models.Model):
     semester = models.IntegerField(unique=True)
 
+    def __str__(self):
+        return self.semester
+
 
 class YearFile(models.Model):
     year = models.IntegerField(unique=True)
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.year
 
 
 class SubjectFile(models.Model):
     subject = models.CharField(max_length=100, unique=True)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.subject
 
 
 class CategoryFile(models.Model):

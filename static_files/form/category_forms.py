@@ -13,7 +13,7 @@ class CreateCategoryForm(forms.Form):
 
     title = forms.CharField(max_length=150)
     subject = forms.ModelChoiceField(queryset=SubjectFile.objects.all(), to_field_name="subject")
-    semester = forms.ModelChoiceField(queryset=SemesterFile.objects.all(), label="semester")
+    semester = forms.ModelChoiceField(queryset=SemesterFile.objects.all(), to_field_name="semester")
     year = forms.ModelChoiceField(queryset=YearFile.objects.all(), to_field_name="year")
     category = forms.ChoiceField(choices=LIST_CAT)
 
