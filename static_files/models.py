@@ -20,33 +20,45 @@ class YearFile(models.Model):
 
 
 class SubjectFile(models.Model):
-    subject = models.CharField(max_length=100)
+    subject = models.CharField(max_length=100, unique=True)
+    semester = models.ForeignKey(SemesterFile, models.CASCADE)
+    year = models.ForeignKey(YearFile, models.CASCADE)
+
+
+class CategoryFile(models.Model):
+    LIST_CAT = (
+        ('TD', 'blue'),
+        ('Documents', 'green'),
+        ('Controles', 'red'),
+        ('QCM', 'blue'),
+        ('Aide/Cours', 'green'),
+    )
+    category = models.CharField(max_length=10, choices=LIST_CAT)
+    title = models.CharField(max_length=150)
+    place = models.IntegerField()
+    subject = models.ForeignKey(SubjectFile, models.CASCADE)
+    semester = models.ForeignKey(SemesterFile, models.CASCADE)
+    year = models.ForeignKey(YearFile, models.CASCADE)
+
+
+class ExtensionFile(models.Model):
+    extension = models.CharField(max_length=5, unique=True)
+    type = models.CharField(max_length=50)
+    function = models.CharField(max_length=100)
 
 
 class StaticContent(models.Model):
     year = models.ForeignKey(YearFile, models.CASCADE)
     semester = models.ForeignKey(SemesterFile, models.CASCADE)
     subject = models.ForeignKey(SubjectFile, models.CASCADE)
+    category = models.ForeignKey(CategoryFile, models.CASCADE)
     name = models.CharField(max_length=255)
     path = models.CharField(max_length=255)
     date = models.DateField()
     weight = models.IntegerField()
     author = models.ForeignKey(Account, models.CASCADE)
-    random_key = models.IntegerField()
-
-
-def create_year(request):
-    year = int(request.POST['year'])
-    # test_y = YearFile.objects.filter(year__exact=year)
-    # if not len(test_y):
-    new_promo = YearFile(year=year)
-    new_promo.save(using='pdf_ref')
-
-
-def create_semester(request):
-    semester = int(request.POST['year'])
-    new_semester = SemesterFile(semester=semester)
-    new_semester.save(using='pdf_ref')
+    random_key = models.IntegerField(unique=True)
+    extension = models.ForeignKey(ExtensionFile, models.CASCADE)
 
 
 def create_subject(request):
