@@ -1,0 +1,15 @@
+{% extends "base-red.html" %}
+{% block content %}
+{% if error is not None %}
+<div class="container">
+    <div class="center card-panel red accent-3">
+        {{ error }}
+    </div>
+</div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
