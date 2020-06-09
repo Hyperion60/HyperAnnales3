@@ -14,10 +14,9 @@
             <input maxlength="150" id="id_begin" type="text" name="begin" required autofocus/>
             <label class="active" for="id_begin">Nom de la matière</label>
         </div>
-    </div>
-    <div class="row">
+        {% for field in
         <div class="input-field col s12">
-            <select>
+            <select name="year" id="id_year">
                 {% for item in year %}
                     {{ item }}
                 {% endfor %}
@@ -25,7 +24,7 @@
             <label>Année :</label>
         </div>
         <div class="input-field col s12">
-            <select>
+            <select name="semester" id="id_semester">
                 {% for item in semester %}
                     {{ item }}
                 {% endfor %}
@@ -33,7 +32,7 @@
             <label>Semestre :</label>
         </div>
         <div class="input-field col s12">
-            <select>
+            <select name="subject" id="id_subject">
                 {% for item in subject %}
                     {{ item }}
                 {% endfor %}
@@ -41,7 +40,7 @@
             <label>Matière :</label>
         </div>
         <div class="input-field col s12">
-            <select>
+            <select name="category" id="id_category">
                 {% for item in category %}
                     {{ item }}
                 {% endfor %}
