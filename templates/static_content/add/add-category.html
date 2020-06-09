@@ -9,9 +9,46 @@
 {% endif %}
 <form method="post">
     {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s12">
+            <input maxlength="150" id="id_begin" type="text" name="begin" required autofocus/>
+            <label class="active" for="id_begin">Nom de la matière</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <select>
+                <option value="" disabled selected>Choisissez l'année</option>
+                {% for item in form['year'] %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Année :</label>
+        </div>
+        <div class="input-field col s12">
+            <select>
+                <option value="" disabled selected>Choisissez le semestre</option>
+                {% for item in form['semestre'] %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Semestre :</label>
+        </div>
+        <div class="input-field col s12">
+            <select>
+                <option value="" disabled selected>Choisissez la matière</option>
+                {% for item in form['subject'] %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Matière :</label>
+        </div>
+    </div>
+    <div class="center">
+        <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Créer">
+    </div>
     {% for field in form %}
         {{ field }}
     {% endfor %}
-    <input type="submit" value="Submit"/>
 </form>
 {% endblock %}
