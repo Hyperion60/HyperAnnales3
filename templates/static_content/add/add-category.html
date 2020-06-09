@@ -40,6 +40,14 @@
             </select>
             <label>Matière :</label>
         </div>
+        <div class="input-field col s12">
+            <select>
+                {% for item in category %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Matière :</label>
+        </div>
     </div>
     <div class="center">
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Créer">
