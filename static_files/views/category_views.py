@@ -17,7 +17,7 @@ def CreateCategoryView(request):
             print(subject)
             context['error'] = "Not implemented"
         else:
-            context['error'] = form
+            context['error'] = form.cleaned_data['year']
     else:
         form = CreateCategoryForm()
         context['year'] = form['year']
