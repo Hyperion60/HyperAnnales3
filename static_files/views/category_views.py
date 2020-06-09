@@ -17,12 +17,13 @@ def CreateCategoryView(request):
             print(subject)
             context['error'] = "Not implemented"
         else:
+            year = form.cleaned_data['year']
             context['error'] = form.cleaned_data['year']
     else:
         form = CreateCategoryForm()
         context['year'] = form['year']
         context['semester'] = form['semester']
-
+        context['category'] = form['category']
         context['subject'] = form['subject']
     return render(request, "static_content/add/add-category.html", context)
 
