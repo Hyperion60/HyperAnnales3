@@ -19,6 +19,9 @@ def CreateCategoryView(request):
         else:
             context['error'] = "Form is not valid"
     else:
-        context = CreateCategoryForm()
+        form = CreateCategoryForm()
+        context['year'] = form['year']
+        context['semester'] = form['semester']
+        context['subject'] = form['subject']
     return render(request, "static_content/add/add-category.html", context)
 
