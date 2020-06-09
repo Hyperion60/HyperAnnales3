@@ -19,7 +19,7 @@
         <div class="input-field col s12">
             <select>
                 <option value="" disabled selected>Choisissez l'année</option>
-                {% for item in form['year'] %}
+                {% for item in year %}
                     {{ item }}
                 {% endfor %}
             </select>
@@ -28,7 +28,7 @@
         <div class="input-field col s12">
             <select>
                 <option value="" disabled selected>Choisissez le semestre</option>
-                {% for item in form['semestre'] %}
+                {% for item in semestre %}
                     {{ item }}
                 {% endfor %}
             </select>
@@ -37,7 +37,7 @@
         <div class="input-field col s12">
             <select>
                 <option value="" disabled selected>Choisissez la matière</option>
-                {% for item in form['subject'] %}
+                {% for item in subject %}
                     {{ item }}
                 {% endfor %}
             </select>
@@ -47,8 +47,5 @@
     <div class="center">
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Créer">
     </div>
-    {% for field in form %}
-        {{ field }}
-    {% endfor %}
 </form>
 {% endblock %}
