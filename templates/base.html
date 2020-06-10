@@ -101,11 +101,11 @@
                     {% for semester, subjects in semesters.items %}
                     {% if subjects is not None %}
                     <li>
-                        <div class="collapsible-header">{{ semester }}</div>
+                        <div class="collapsible-header">Semestre {{ semester }}</div>
                         <div class="collapsible-body"><span>
-                            <ul>
+                            <ul class="collapsible cyan lighten-3 hide-on-small-only">
                                 {% for subject in subjects %}
-                                <li><a href="#"></a>{{ subject }}</li>
+                                <li><a href="#">{{ subject }}</a></li>
                                 {% endfor %}
                             </ul></span>
                         </div>
