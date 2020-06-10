@@ -47,6 +47,7 @@ def SetSemesterYearView(request, year):
             context['error'] = "Champ introuvable"
             error = True
         if not error:
+            print(request.POST)
             set_year(year, semester)
             return render(request, "static_content/admin/message_template.html",
                           {'message': "Le semestre actif a bien été modifié"})
