@@ -1,4 +1,5 @@
 from static_files.models import YearFile
+from static_files.methods.semester_methods import create_semester, get_semester
 
 
 def create_year(year, semester=1):
