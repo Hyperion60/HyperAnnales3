@@ -2,7 +2,7 @@ from static_files.models import SemesterFile
 
 
 def create_semester(semester):
-    test_s = SemesterFile.objects.filter(semester__exact=semester)
+    test_s = SemesterFile.objects.filter(semester=semester)
     if not len(test_s):
         new_semester = SemesterFile(semester=semester)
         new_semester.save(using='pdf_ref')
