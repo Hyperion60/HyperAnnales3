@@ -63,15 +63,15 @@
                 <div class="collapsible-body">
                     <ul class="collapsible">
                         {% for year in years %}
-                       <li>
+                        <li>
                             <div class="collapsible-header">
                                 {{ year.year }}
                             </div>
                            <div class="collapsible-body">
                                <p>Semestre actuel : {{ year.active_semester.semester }}</p>
-                               <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{{ year.year }}">Modifier</a>
+                               <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{{ year.pk }}">Modifier</a>
                            </div>
-                       </li>
+                        </li>
                         {% endfor %}
                         <li>
                             <a href="/static_content/add/year/" style="color:black; font-size: 15px">
@@ -88,6 +88,16 @@
                 <div class="collapsible-body">
                     <div class="collection">
                         {% for matiere in subjects %}
+                        <li>
+                            <div class="collapsible-header">
+                                {{ matiere.subject }}
+                            </div>
+                           <div class="collapsible-body">
+                               <p>Année : {{ matiere.year.year }}</p>
+                               <p>Semestre : {{ matiere.semester.semester }}</p>
+                               <a class="waves-effect waves-light btn" href="/static_files/admin/change/subject/{{ matiere.pk }}">Modifier</a>
+                           </div>
+                        </li>
                         <a href="#" class="collection-item" style="color: black; font-size: 15px;">{{ matiere.subject }}</a>
                         {% endfor %}
                         <a href="#" class="collection-item" style="color: black; font-size: 15px;">Nouvelle matière</a>
