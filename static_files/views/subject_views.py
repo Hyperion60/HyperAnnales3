@@ -19,8 +19,9 @@ def CreateSubjectView(request):
             semester = request.POST['semester']
             title = request.POST['title']
         except KeyError:
-            context['error'] = "Un ou plusieurs champs sont introuvables"
-            error = True
+            if year is None or semester is None or title is None:
+                context['error'] = "Un ou plusieurs champs sont introuvables"
+                error = True
         if not error:
             context = CreateSubject(context, title, semester, year)
             try:
