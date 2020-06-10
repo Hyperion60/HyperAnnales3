@@ -10,7 +10,7 @@ def CreateSubject(context, subject, semester, year):
         context['error'] = "Information invalide"
         error = True
     if not error:
-        if year_obj.semester.active_semester < semester_obj.semester:
+        if year_obj.active_semester.semester < semester_obj.semester:
             context['error'] = "Vous ne pouvez pas ajouter de matière à un semestre futur"
         else:
             new_subject = SubjectFile(subject=subject, semester=semester_obj, year=year_obj)
