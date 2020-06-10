@@ -65,13 +65,12 @@
     </nav>
     <ul class="sidenav hide-on-med-and-up" id="mobile-links">
         <li><a href="/">Accueil</a></li>
-        {% for semester in semesters %}
-        {% if semesters.semester %}
+        {% for semester, subjects in semesters.items %}
         <li>
             <div class="collapsible-header">{{ semester }}</div>
             <div class="collapsible-body"><span>
                 <ul>
-                    {% for subject in semesters.semester %}
+                    {% for subject in subjects %}
                     <li><a href="#"></a>{{ subject }}</li>
                     {% endfor %}
                 </ul></span>
@@ -100,12 +99,20 @@
                     <li>
                         <a href="/" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Accueil</div></a>
                     </li>
+                    {% for semester in semesters %}
+                    {% if semesters.semester %}
                     <li>
-                        <a href="#" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Documents Administratifs</div></a>
+                        <div class="collapsible-header">{{ semester }}</div>
+                        <div class="collapsible-body"><span>
+                            <ul>
+                                {% for subject in semesters.semester %}
+                                <li><a href="#"></a>{{ subject }}</li>
+                                {% endfor %}
+                            </ul></span>
+                        </div>
                     </li>
-                    <li>
-                        <a href="https://materializecss.com/color.html" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Tables couleurs</div></a>
-                    </li>
+                    {% endif %}
+                    {% endfor %}
                     {% if request.user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}" style="color: black"><div class="collapsible-header waves-effect red lighten-3">Déconnexion</div></a>
