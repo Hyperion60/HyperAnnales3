@@ -19,5 +19,5 @@ def get_year(year):
 # year(pk), semester(pk)
 def set_year(year, semester):
     year_obj = YearFile.objects.get(pk=year)
-    year_obj.semester = SemesterFile.objects.get(pk=semester)
+    year_obj.active_semester = SemesterFile.objects.get(pk=semester)
     year_obj.save()
