@@ -10,7 +10,10 @@ def CreateSubject(context, subject, semester, year):
         context['error'] = "Information invalide"
         error = True
     if not error:
-        new_subject = SubjectFile(subject=subject, semester=semester_obj, year=year_obj)
-        new_subject.save()
-        context['message'] = "Nouvelle matière créée"
+        if year_obj.semester.semester < semester_obj.semester:
+            context['error'] = "Vous ne pouvez pas ajouter de matière à un semestre futur"
+        else:
+            new_subject = SubjectFile(subject=subject, semester=semester_obj, year=year_obj)
+            new_subject.save()
+            context['message'] = "Nouvelle matière créée"
     return context
