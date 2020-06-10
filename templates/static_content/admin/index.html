@@ -42,7 +42,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a class="waves-effect waves-light btn" href="/static_content/admin/change/{{ file.random_key }}">Modifier</a>
+                    <a class="waves-effect waves-light btn" href="/static_content/change/{{ file.random_key }}">Modifier</a>
                 </div>
             </li>
             {% endfor %}
@@ -69,7 +69,7 @@
                             </div>
                            <div class="collapsible-body">
                                <p>Semestre actuel : {{ year.active_semester.semester }}</p>
-                               <a class="waves-effect waves-light btn" href="/static_files/admin/change/year/{{ year.pk }}">Modifier</a>
+                               <a class="waves-effect waves-light btn" href="/static_files/change/year/{{ year.pk }}">Modifier</a>
                            </div>
                         </li>
                         {% endfor %}
@@ -95,7 +95,7 @@
                            <div class="collapsible-body">
                                <p>Année : {{ matiere.year.year }}</p>
                                <p>Semestre : {{ matiere.semester.semester }}</p>
-                               <a class="waves-effect waves-light btn" href="/static_files/admin/change/subject/{{ matiere.pk }}">Modifier</a>
+                               <a class="waves-effect waves-light btn" href="/static_files/change/subject/{{ matiere.pk }}">Modifier</a>
                            </div>
                         </li>
                         {% endfor %}
