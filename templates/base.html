@@ -66,7 +66,7 @@
     <ul class="sidenav hide-on-med-and-up" id="mobile-links">
         <li><a href="/">Accueil</a></li>
         {% for semester, subjects in semesters %}
-        {% if subjects is not None %}
+        {% if subjects|length %}
         <li>
             <div class="collapsible-header">{{ semester }}</div>
             <div class="collapsible-body"><span>

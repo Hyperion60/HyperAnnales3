@@ -10,7 +10,7 @@ def queryset_template(year, context):
     for semester in list_semester:
         subject = SubjectFile.objects.filter(year=year_obj, semester=semester).order_by('subject')
         if not len(subject):
-            subjects[semester.semester] = None
+            subjects[semester.semester] = []
         else:
             subjects[semester.semester] = subject
     context['semesters'] = subjects
