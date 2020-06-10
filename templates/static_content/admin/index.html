@@ -75,7 +75,7 @@
                         {% endfor %}
                         <li>
                             <a href="/static_content/add/year/" style="color:black; font-size: 15px">
-                                <div class="collapsible-header waves-effect">Ajouter un nouvelle année</div>
+                                <div class="collapsible-header waves-effect">Ajouter une nouvelle année</div>
                             </a>
                         </li>
                     </ul>
@@ -86,7 +86,7 @@
                     Matières
                 </div>
                 <div class="collapsible-body">
-                    <div class="collection">
+                    <ul class="collapsible">
                         {% for matiere in subjects %}
                         <li>
                             <div class="collapsible-header">
@@ -100,7 +100,12 @@
                         </li>
                         <a href="#" class="collection-item" style="color: black; font-size: 15px;">{{ matiere.subject }}</a>
                         {% endfor %}
-                        <a href="#" class="collection-item" style="color: black; font-size: 15px;">Nouvelle matière</a>
+                        <li>
+                            <a href="/static_content/add/subject/" style="color:black; font-size: 15px">
+                                <div class="collapsible-header waves-effect">Ajouter une nouvelle matière</div>
+                            </a>
+                        </li>
+                    </ul>
                     </div>
                 </div>
             </li>
