@@ -14,12 +14,11 @@ def CreateCategoryView(request):
     error = False
     if request.POST:
         year, semester, subject, category, title = None, None, None, None, None
-        form = CreateCategoryForm(request.POST)
         try:
             year = request.POST['year']
             semester = request.POST['semester']
             subject = request.POST['subject']
-            category = form.cleaned_data['category']
+            category = request.POST['category']
             title = request.POST['title']
         except KeyError:
             context['error'] = "Un ou plusieurs champs sont introuvables"
