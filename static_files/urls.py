@@ -3,7 +3,8 @@ from static_files.views import admin_views,\
     category_views,\
     subject_views,\
     semester_views,\
-    year_views
+    year_views,\
+    base_template
 
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('add/subject/', subject_views.CreateSubjectView),
     path('add/year/', year_views.CreateYearView),
     path('change/year/<int:year>/', year_views.SetSemesterYearView),
+    path('test/<int:year>', base_template.test_template),
 ]
