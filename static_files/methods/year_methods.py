@@ -5,7 +5,7 @@ from static_files.methods.semester_methods import create_semester, get_semester
 # year(int), semester(pk)
 def create_year(year, semester):
     semester_obj = SemesterFile.objects.get(pk=semester)
-    new_year = YearFile(year=year, semester=semester_obj)
+    new_year = YearFile(year=year, active_semester=semester_obj)
     new_year.save()
 
 
