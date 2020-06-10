@@ -17,7 +17,7 @@ def CreateYearView(request):
     if request.POST:
         year, semester = None, None
         try:
-            year = request.POST['year']
+            year = int(request.POST['year'])
             semester = request.POST['active_semester']
         except KeyError:
             context['error'] = "Champ introuvable"
