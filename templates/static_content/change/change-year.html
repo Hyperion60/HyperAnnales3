@@ -11,7 +11,7 @@
     {% csrf_token %}
     <div class="row">
         <div class="input-field col s12">
-            <select name="category" id="id_category">
+            <select name="active_semester" id="id_active_semester">
                 {% for item in active_semester %}
                     {{ item }}
                 {% endfor %}
