@@ -19,7 +19,7 @@ def CreateSemesterView(request):
             context['error'] = "Entrez un numéro de semestre"
             error = True
         if not error:
-            if 0 > semester < 11:
+            if semester < 0 or semester > 10:
                 create_semester(semester)
                 return render(request, "static_content/admin/message-template.html",
                               {'message': "Le semestre a bien été créé"})
