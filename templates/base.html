@@ -99,6 +99,7 @@
                         <a href="/" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Accueil</div></a>
                     </li>
                     {% for semester, subjects in semesters.items %}
+                    {% if subjects is not None %}
                     <li>
                         <div class="collapsible-header">{{ semester }}</div>
                         <div class="collapsible-body"><span>
@@ -109,6 +110,7 @@
                             </ul></span>
                         </div>
                     </li>
+                    {% endif %}
                     {% endfor %}
                     {% if request.user.is_authenticated %}
                     <li>
