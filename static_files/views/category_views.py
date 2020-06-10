@@ -18,6 +18,8 @@ def CreateCategoryView(request):
             context['error'] = "Not implemented"
         else:
             print(request.POST)
+            test = request.POST['year']
+            print(test)
             year = form.cleaned_data['year']
             context['error'] = form.cleaned_data['year']
     else:
