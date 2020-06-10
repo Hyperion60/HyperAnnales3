@@ -65,13 +65,13 @@
     </nav>
     <ul class="sidenav hide-on-med-and-up" id="mobile-links">
         <li><a href="/">Accueil</a></li>
-        {% for semester in semesters %}
-        {% if semester is not None %}
+        {% for semester, subjects in semesters %}
+        {% if subjects is not None %}
         <li>
             <div class="collapsible-header">{{ semester }}</div>
             <div class="collapsible-body"><span>
                 <ul>
-                    {% for subject in semester %}
+                    {% for subject in subjects %}
                     <li><a href="#"></a>{{ subject }}</li>
                     {% endfor %}
                 </ul></span>

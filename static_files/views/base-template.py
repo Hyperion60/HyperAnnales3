@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 from static_files.models import YearFile, SemesterFile, SubjectFile
 
 
@@ -13,3 +15,9 @@ def queryset_template(year, context):
             subjects[semester.semester] = subject
     context['semesters'] = subjects
     return context
+
+
+def test_template(request, year):
+    context = {}
+    context = queryset_template(year, context)
+    return render(request, "static_content/base-test.html", context)
