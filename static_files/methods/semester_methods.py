@@ -2,8 +2,6 @@ from static_files.models import SemesterFile
 
 
 def create_semester(semester):
-    if semester < 0 or semester > 10:
-        return None
     test_s = SemesterFile.objects.filter(semester=semester)
     if not len(test_s):
         new_semester = SemesterFile(semester=semester)
