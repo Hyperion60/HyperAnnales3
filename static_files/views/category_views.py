@@ -25,10 +25,13 @@ def CreateCategoryView(request):
             error = True
         if not error:
             context = CreateCategory(context, year, semester, subject, title, category)
-            if context['error'] is not None:
-                error = True
-            if context['message'] is not None:
-                return render(request, "static_content/admin/message_template.html", {'message': context['message']})
+            try:
+                if context['error'] is not None:
+                    error = True
+            except KeyError:
+                if context['message'] is not None:
+                    return render(request, "static_content/admin/message_template.html",
+                                  {'message': context['message']})
     form = CreateCategoryForm()
     context['year'] = form['year']
     context['semester'] = form['semester']
