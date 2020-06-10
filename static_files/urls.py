@@ -12,4 +12,5 @@ urlpatterns = [
     path('add/semester/', semester_views.CreateSemesterView),
     path('add/subject/', subject_views.CreateSubjectView),
     path('add/year/', year_views.CreateYearView),
+    path('change/year/<int:year>/', year_views.SetSemesterYearView),
 ]

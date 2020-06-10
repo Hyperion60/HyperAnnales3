@@ -1,15 +1,12 @@
-from static_files.models import YearFile
+from static_files.models import YearFile, SemesterFile
 from static_files.methods.semester_methods import create_semester, get_semester
 
 
-def create_year(year, semester=1):
-    test_y = YearFile.objects.filter(year__exact=year)
-    test_s = create_semester(semester)
-    if not len(test_y):
-        new_promo = YearFile(year=year, active_semester=test_s)
-        new_promo.save(using='pdf_ref')
-        return new_promo
-    return test_y[0]
+# year(int), semester(pk)
+def create_year(year, semester):
+    semester_obj = SemesterFile.objects.get(pk=semester)
+    new_year = YearFile(year=year, semester=semester_obj)
+    new_year.save()
 
 
 def get_year(year):
@@ -19,9 +16,8 @@ def get_year(year):
     return None
 
 
+# year(pk), semester(pk)
 def set_year(year, semester):
-    change = get_year(year)
-    if change is None:
-        return False
-    change.active_semester = get_semester(semester)
-    return True
+    year_obj = YearFile.objects.get(pk=year)
+    year_obj.semester = SemesterFile.objects.get(pk=semester)
+    year_obj.save()
