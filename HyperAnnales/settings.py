@@ -52,9 +52,6 @@ INSTALLED_APPS = [
     'accounts',
     'static_files',
 
-    # Token
-    'request_token',
-
     # Django REST
     'rest_framework',
 
@@ -77,7 +74,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'request_token.middleware.RequestTokenMiddleware',
 ]
 
 ROOT_URLCONF = 'HyperAnnales.urls'

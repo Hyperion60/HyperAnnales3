@@ -11,4 +11,3 @@ mysqlclient == 1.4.*
 six==1.14.*
 python-dotenv == 0.13.*
 markdown2 == 2.3.*
-django-request-token == 0.10.*
