@@ -53,7 +53,6 @@ class CategoryFile(models.Model):
 class ExtensionFile(models.Model):
     extension = models.CharField(max_length=5, unique=True)
     type = models.CharField(max_length=50)
-    function = models.CharField(max_length=100)
 
 
 class StaticContent(models.Model):
@@ -68,6 +67,9 @@ class StaticContent(models.Model):
     author = models.ForeignKey(Account, models.CASCADE, default=None)
     random_key = models.IntegerField(unique=True)
     extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.name
 
 
 def create_subject(request):

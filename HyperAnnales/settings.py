@@ -185,3 +185,5 @@ STATIC_URL = "/static/"
 # Configuration to sendfile package
 
 SENDFILE_BACKEND = "django_sendfile.backends.simple"
+
+KEY_TOKEN = os.getenv("PRIVATE_TOKEN")

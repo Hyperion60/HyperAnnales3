@@ -11,4 +11,4 @@ mysqlclient == 1.4.*
 six==1.14.*
 python-dotenv == 0.13.*
 markdown2 == 2.3.*
-pycryptodomex == 3.4.3
+tokenlib == 2.0.*
