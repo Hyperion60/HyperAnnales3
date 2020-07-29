@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db import connection
+from django.db import connections
 from django.views.decorators.cache import cache_page
 from accounts.models import *
 import django
@@ -10,7 +10,7 @@ def index(request):
 
 
 def __postgres_version():
-    brut = str(connection.cursor().connection.server_version)
+    brut = str(connections['user_ref'].cursor().connection.server_version)
     str_version = ""
     is_point = True
     is_OK = True
