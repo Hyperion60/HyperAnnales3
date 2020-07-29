@@ -9,7 +9,8 @@ from static_files.models import StaticContent
 from static_files.methods.extension_methods import template_choice
 
 import time
-import tokenlib, sendfile
+import tokenlib
+from django_sendfile import sendfile
 
 
 @cache_page(4 * 60)
