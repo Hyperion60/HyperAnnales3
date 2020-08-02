@@ -54,6 +54,16 @@ class ExtensionFile(models.Model):
     extension = models.CharField(max_length=5, unique=True)
     type = models.CharField(max_length=50)
 
+class StaticFile(models.Model):
+    path = models.CharField(max_length=255, default=None)
+    date = models.DateField()
+    filename = models.CharField(max_length=255, default=None)
+    weight = models.IntegerField()
+    author = models.ForeignKey(Account, models.CASCADE, default=None)
+    random_key = models.IntegerField(unique=True)
+    extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=None)
+    content = models.ForeignKey(StaticContent, models.CASCADE, default=None)
+
 
 class StaticContent(models.Model):
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
@@ -61,12 +71,7 @@ class StaticContent(models.Model):
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=None)
     name = models.CharField(max_length=255, default=None)
-    path = models.CharField(max_length=255, default=None)
-    date = models.DateField()
-    weight = models.IntegerField()
-    author = models.ForeignKey(Account, models.CASCADE, default=None)
-    random_key = models.IntegerField(unique=True)
-    extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=None)
+    file = models.ForeignKey(StaticFile, models.CASCADE, default=None)
 
     def __str__(self):
         return self.name

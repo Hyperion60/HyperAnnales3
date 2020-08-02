@@ -1,25 +1,33 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+import sendfile
+import tokenlib
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 
 from HyperAnnales.settings import KEY_TOKEN
-from static_files.views.base_template import queryset_template
-from static_files.models import StaticContent
 from static_files.methods.extension_methods import template_choice
+from static_files.models import StaticContent
+from static_files.views.base_template import queryset_template
 
-import time
-import tokenlib, sendfile
+
+def FileFormView(request):
+    pass
 
 
+# Website views
 @cache_page(4 * 60)
 @login_required(login_url="/login/")
 def CreateFileView(request, method, year, id):
     context = {}
     context = queryset_template(year, context)
     context['token'] = tokenlib.make_token({"id": id}, secret=KEY_TOKEN)
-    context['title'] = StaticContent.objects.get(pk=id).name
-    return render(request, template_choice(method), context)
+    file = StaticContent.objects.get(pk=id)
+    context['title'] = file.name
+    context['semester'] = file.semester.semester
+    context['year'] = file.year.year
+    context['subject'] = file.subject.subject
+    return render(request, template_choice(file.extension.type), context)
 
 
 @cache_page(4 * 60)

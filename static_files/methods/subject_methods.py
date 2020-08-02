@@ -1,6 +1,7 @@
 from static_files.models import SubjectFile, SemesterFile, YearFile
 
 
+# context(dict), subject(str), semester(pk), year(pk)
 def CreateSubject(context, subject, semester, year):
     error = False
     try:

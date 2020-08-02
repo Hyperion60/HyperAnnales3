@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <div class="col s6"><h4>{{ title }}</h4></div>
+    <nav>
+        <div class="nav-wrapper grey">
+            <div class="col s12">
+                <a href="/{{ year }}" class="breadcrumb">{{ year }}</a>
+                <a href="/{{ year }}/{{ semester }}/" class="breadcrumb">{{ semester }}</a>
+                <a href="/{{ year }}/{{ semester }}/{{ category }}/" class="breadcrumb">{{ category }}</a>
+                <a href="#" class="breadcrumb">{{ title }}</a>
+            </div>
+        </div>
+    </nav>
 </div>
 <div class="row">
     <div class="pdfobject-container s12">
