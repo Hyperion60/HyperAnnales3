@@ -1,4 +1,4 @@
-from sendfile import sendfile
+from django_sendfile import sendfile
 import markdown2
 
 
