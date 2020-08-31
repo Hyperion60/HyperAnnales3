@@ -1,0 +1,108 @@
+{% extends "base-red.html" %}
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	<div class="row">
+		{% if not step %}
+		<div class="input-field">
+			<label>Annee :</label>
+			<select name="year" id="id_year">
+				{% for year in years %}
+				<option value="{{ year.pk }}">{{ year.year }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% else %}
+		<div class="input-field">
+            <input type="hidden" name="year" value="{{ year.pk }}">
+			<label>Annee :</label>
+			<select name="year" id="id_year" disabled>
+				<option value="{{ year.pk }}">{{ year.year }}</option>
+			</select>
+		</div>
+		{% endif %}
+		{% if step == 1 %}
+		<div class="input-field">
+			<label>Semestre :</label>
+			<select name="semester" id="id_semester">
+				{% for semester in semesters %}
+				<option value="{{ semester.pk }}">{{ semester.semester }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% endif %}
+		{% if step > 1 %}
+		<div class="input-field">
+            <input type="hidden" name="semester" value="{{ semester.pk }}">
+			<label>Semestre :</label>
+			<select name="semester" id="id_semester" disabled>
+				<option value="{{ semester.pk }}">{{ semester.semester }}</option>
+			</select>
+		</div>
+		{% endif %}
+		{% if step == 2 %}
+		<div class="input-field">
+			<label for="subject">Matiere :</label>
+			<select name="subject" id="id_subject">
+                {% if user.is_staff %}
+                <option value="0">None</option>
+                {% endif %}
+				{% for subject in subjects %}
+				<option value="{{ subject.pk }}">{{ subject.subject }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% endif %}
+		{% if user.is_staff and step == 2 %}
+			<label for="new_subject">Nouvelle Matiere :</label>
+			<input type="text" id="id_new_subject" name="new_subject">
+		{% endif %}
+        {% if step > 2 %}
+        <div class="input-field">
+            <input type="hidden" name="subject" value="{{ subject.pk }}">
+            <label>Matiere : </label>
+            <select name="subject" id="id_subject" disabled>
+                <option value="{{ subject.pk }}">{{ subject.subject }}</option>
+            </select>
+        </div>
+        {% endif %}
+        {% if step == 3 %}
+        <div class="input-field">
+            <label for="category">Category</label>
+            <select name="category" id="id_category">
+            {% if user.is_staff %}
+                <option value="0">None</option>
+            {% endif %}
+            {% for cat in categories %}
+                <option value="{{ cat.pk }}">{{ cat.title }}</option>
+            {% endfor %}
+            </select>
+	    </div>
+        {% endif %}
+        {% if user.is_staff and step == 3 %}
+        <label for="new_category">Nouvelle Categorie :</label>
+        <input type="text" id="id_new_category" name="new_category">
+        <select name="list_category" id="id_list_category">
+        {% for cat in type %}
+            <option value="{{ cat }}">{{ cat }}</option>
+        {% endfor %}
+        </select>
+        {% endif %}
+        {% if step > 3 %}
+        <div class="input-field">
+            <input type="hidden" name="category" value="{{ category.pk }}">
+            <label>Categorie : </label>
+            <select name="category" id="id_category" disabled>
+                <option value="{{ category.pk }}">{{ category.title }}</option>
+            </select>
+        </div>
+        {% endif %}
+        {% if step == 4 %}
+        <input type="file" accept=".pdf,.md,.txt,.zip" id="id_file" name="file">
+        <input type="text" id="id_link" name="link">
+        {% endif %}
+        </div>
+
+	<button type="submit" value="next">Next</button>
+</form>
+{% endblock %}
