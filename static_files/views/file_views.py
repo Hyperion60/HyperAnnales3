@@ -1,4 +1,4 @@
-import sendfile
+from django_sendfile import sendfile
 import tokenlib
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
