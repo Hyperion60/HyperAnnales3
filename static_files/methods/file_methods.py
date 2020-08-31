@@ -33,7 +33,7 @@ def file_select(request, context):
     else:
         context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
     context['step'] = 4
-    return render(request, 'dropdown-test.html', context)
+    return render(request, "static_content/add/add-file.html", context)
 
 
 def __create_subject(request, context, year_obj, semester_obj):
@@ -58,7 +58,7 @@ def category_select(request, context):
     context['subject'] = subject_obj
     context['categories'] = CategoryFile.objects.filter(year=year_obj, semester=semester_obj, subject=subject_obj).order_by('title')
     context['type'] = ['TD', 'Documents', 'Controles', 'QCM', 'Aide/Cours']
-    return render(request, 'dropdown-test.html', context)
+    return render(request, "static_content/add/add-file.html", context)
 
 
 def subject_select(request, context):
@@ -69,7 +69,7 @@ def subject_select(request, context):
     context['semester'] = semester_obj
     context['subjects'] = SubjectFile.objects.filter(year=year_obj,\
                           semester=semester_obj).order_by('subject')
-    return render(request, 'dropdown-test.html', context)
+    return render(request, "static_content/add/add-file.html", context)
 
 
 def semester_select(request, context):
@@ -77,7 +77,7 @@ def semester_select(request, context):
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     context['year'] = year_obj
     context['semesters'] = SemesterFile.objects.filter(semester__lte=year_obj.active_semester.semester).order_by('semester')
-    return render(request, 'dropdown-test.html', context)
+    return render(request, "static_content/add/add-file.html", context)
 
 
 # Dispatch
