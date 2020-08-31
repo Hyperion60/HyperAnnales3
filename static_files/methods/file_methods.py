@@ -37,10 +37,15 @@ def file_select(request, context):
 
 
 def __create_subject(request, context, year_obj, semester_obj):
-    new_sub = SubjectFile(year=year_obj, semester=semester_obj,\
-                          subject=request.POST['new_subject'])
-    new_sub.save()
-    context['subject'] = new_sub
+    new_sub = SubjectFile.objects.filters(year=year_obj, semester=semester_obj,\
+                                          subject=request.POST['new_subject'])
+    if not len(new_sub):
+        new_sub = SubjectFile(year=year_obj, semester=semester_obj,\
+                              subject=request.POST['new_subject'])
+        new_sub.save()
+        context['subject'] = new_sub
+    else:
+        context['subject'] = new_sub[0]
     return new_sub
 
 
