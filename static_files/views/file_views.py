@@ -9,6 +9,11 @@ from HyperAnnales.settings import KEY_TOKEN
 from static_files.methods.extension_methods import template_choice
 from static_files.models import StaticContent
 from static_files.views.base_template import queryset_template
+from static_files.methods.file_methods import init_view
+
+
+def init_addfile_view(request):
+    return init_view(request)
 
 
 def FileFormView(request):
