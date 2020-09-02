@@ -26,7 +26,7 @@ class YearFile(models.Model):
 
 
 class SubjectFile(models.Model):
-    subject = models.CharField(max_length=100, unique=True)
+    subject = models.CharField(max_length=100, unique=False)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
 
@@ -43,7 +43,7 @@ class CategoryFile(models.Model):
         ('Aide/Cours', 'green'),
     )
     category = models.CharField(max_length=10, choices=LIST_CAT, default=None)
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=150, unique=False)
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
