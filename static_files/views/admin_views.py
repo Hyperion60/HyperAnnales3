@@ -14,7 +14,7 @@ def static_admin(request):
     if request.user.is_staff:
         context['years'] = YearFile.objects.all().order_by('year')
         context['subjects'] = SubjectFile.objects.all().order_by('subject')
-    context['contribution'] = StaticContent.objects.filter(StaticFile__author=request.user).order_by('name')
+    context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
     if not len(context['years']):
         context['years'] = None
     if not len(context['subjects']):
