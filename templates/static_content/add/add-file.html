@@ -5,7 +5,7 @@
 	<div class="row">
 		{% if not step %}
 		<div class="input-field">
-			<label>Annee :</label>
+			<label class="active" for="id_year">Annee :</label>
 			<select name="year" id="id_year">
 				{% for year in years %}
 				<option value="{{ year.pk }}">{{ year.year }}</option>
@@ -15,7 +15,7 @@
 		{% else %}
 		<div class="input-field">
             <input type="hidden" name="year" value="{{ year.pk }}">
-			<label>Annee :</label>
+			<label class="active" for="id_year">Annee :</label>
 			<select name="year" id="id_year" disabled>
 				<option value="{{ year.pk }}">{{ year.year }}</option>
 			</select>
@@ -23,7 +23,7 @@
 		{% endif %}
 		{% if step == 1 %}
 		<div class="input-field">
-			<label>Semestre :</label>
+			<label class="active" for="id_semester">Semestre :</label>
 			<select name="semester" id="id_semester">
 				{% for semester in semesters %}
 				<option value="{{ semester.pk }}">{{ semester.semester }}</option>
@@ -34,7 +34,7 @@
 		{% if step > 1 %}
 		<div class="input-field">
             <input type="hidden" name="semester" value="{{ semester.pk }}">
-			<label>Semestre :</label>
+			<label class="active" for="id_semester">Semestre :</label>
 			<select name="semester" id="id_semester" disabled>
 				<option value="{{ semester.pk }}">{{ semester.semester }}</option>
 			</select>
@@ -42,7 +42,7 @@
 		{% endif %}
 		{% if step == 2 %}
 		<div class="input-field">
-			<label for="subject">Matiere :</label>
+			<label class="active" for="id_subject">Matiere :</label>
 			<select name="subject" id="id_subject">
                 {% if user.is_staff %}
                 <option value="0">None</option>
@@ -54,13 +54,13 @@
 		</div>
 		{% endif %}
 		{% if user.is_staff and step == 2 %}
-			<label for="new_subject">Nouvelle Matiere :</label>
+			<label class="active" for="id_new_subject">Nouvelle Matiere :</label>
 			<input type="text" id="id_new_subject" name="new_subject">
 		{% endif %}
         {% if step > 2 %}
         <div class="input-field">
             <input type="hidden" name="subject" value="{{ subject.pk }}">
-            <label>Matiere : </label>
+            <label class="active" for="id_subject">Matiere : </label>
             <select name="subject" id="id_subject" disabled>
                 <option value="{{ subject.pk }}">{{ subject.subject }}</option>
             </select>
@@ -68,7 +68,7 @@
         {% endif %}
         {% if step == 3 %}
         <div class="input-field">
-            <label for="category">Category</label>
+            <label class="active" for="id_category">Category</label>
             <select name="category" id="id_category">
             {% if user.is_staff %}
                 <option value="0">None</option>
@@ -80,7 +80,7 @@
 	    </div>
         {% endif %}
         {% if user.is_staff and step == 3 %}
-        <label for="new_category">Nouvelle Categorie :</label>
+        <label class="active" for="id_new_category">Nouvelle Categorie :</label>
         <input type="text" id="id_new_category" name="new_category">
         <select name="list_category" id="id_list_category">
         {% for cat in type %}
@@ -91,7 +91,7 @@
         {% if step > 3 %}
         <div class="input-field">
             <input type="hidden" name="category" value="{{ category.pk }}">
-            <label>Categorie : </label>
+            <label class="active" for="id_category">Categorie : </label>
             <select name="category" id="id_category" disabled>
                 <option value="{{ category.pk }}">{{ category.title }}</option>
             </select>
