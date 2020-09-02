@@ -97,6 +97,6 @@ def init_view(request):
             return subject_select(request, context)
         elif request.POST.get('year', default=None):
             return semester_select(request, context)
-    context['years'] = YearFile.objects.all()
+    context['years'] = YearFile.objects.all().order_by('year')
     context['step'] = 0
     return render(request, "static_content/add/add-file.html", context)
