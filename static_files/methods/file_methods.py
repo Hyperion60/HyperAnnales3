@@ -6,7 +6,7 @@ def __create_category(request, context):
     place = len(CategoryFile.objects.filter(year=context['year'],\
                                             semester=context['semester'],\
                                             subject=context['subject']))
-    new_cat = CategoryFile.objects.filters(year=context['year'],\
+    new_cat = CategoryFile.objects.filter(year=context['year'],\
                                             semester=context['semester'],\
                                             subject=context['subject'],\
                                             title=request.POST['new_category'])
