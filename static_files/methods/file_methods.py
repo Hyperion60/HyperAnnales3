@@ -2,6 +2,14 @@ from static_files.models import *
 from django.shortcuts import render
 
 
+def create_instance(request, context):
+    if request.POST.get('filename', default=None):
+        print(request.FILES)
+
+
+    pass
+
+
 def __create_category(request, context):
     place = len(CategoryFile.objects.filter(year=context['year'],\
                                             semester=context['semester'],\
@@ -89,7 +97,10 @@ def semester_select(request, context):
 def init_view(request):
     context = {}
     if request.POST:
-        if request.POST.get('category', default=None):
+        if request.POST.get('filename', default=None) or\
+           request.POST.get('link'), default=None):
+            return create_instance(request, context)
+        elif request.POST.get('category', default=None):
             return file_select(request, context)
         elif request.POST.get('subject', default=None):
             return category_select(request, context)
