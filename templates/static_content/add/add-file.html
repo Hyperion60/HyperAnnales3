@@ -1,6 +1,10 @@
 {% extends "base-red.html" %}
 {% block content %}
+{% if step != 4 %}
 <form method="post">
+{% else %}
+<form method="post" enctype="multipart/form-data">
+{% endif %}
 	{% csrf_token %}
 	<div class="row">
 		{% if not step %}
