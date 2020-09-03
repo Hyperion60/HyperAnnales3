@@ -98,7 +98,7 @@ def init_view(request):
     context = {}
     if request.POST:
         if request.POST.get('filename', default=None) or\
-           request.POST.get('link'), default=None):
+           request.POST.get('link', default=None):
             return create_instance(request, context)
         elif request.POST.get('category', default=None):
             return file_select(request, context)
