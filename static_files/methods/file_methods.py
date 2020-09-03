@@ -1,5 +1,6 @@
 from static_files.models import *
 from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
 
 
 def create_instance(request, context):
