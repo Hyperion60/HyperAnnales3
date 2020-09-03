@@ -5,9 +5,12 @@ from django.shortcuts import render
 def create_instance(request, context):
     if request.POST.get('filename', default=None):
         print(request.FILES)
-
-
-    pass
+        new_file = request.FILES['file']
+        fs = FileSystemStorage()
+        filename = fs.save(request.POST['filename'], new_file)
+        upload_file_url = fs.url(filename)
+        print(filename)
+    return render(request, "static_content/add/add-file.html", context)
 
 
 def __create_category(request, context):
