@@ -10,7 +10,7 @@ def create_instance(request, context):
         fs = FileSystemStorage()
         filename = fs.save(request.POST['filename'], new_file)
         upload_file_url = fs.url(filename)
-        print(filename)
+        print(upload_file_url)
     return render(request, "static_content/add/add-file.html", context)
 
 
