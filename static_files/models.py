@@ -10,6 +10,13 @@ from shutil import copyfile
 STATIC_PATH = "/home/static_HA/epita/"
 
 
+class SchoolFile(models.Model):
+    school = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return str(self.school)
+1
+
 class SemesterFile(models.Model):
     semester = models.IntegerField(unique=True)
 
@@ -18,6 +25,7 @@ class SemesterFile(models.Model):
 
 
 class YearFile(models.Model):
+    location = models.ForeignKey(SchoolFile, models.CASCADE, default=
     year = models.IntegerField(unique=True)
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
 
