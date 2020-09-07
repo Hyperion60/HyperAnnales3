@@ -3,6 +3,10 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
 
+def build_path(context):
+
+
+
 def create_instance(request, context):
     if request.POST.get('filename', default=None):
         print(request.FILES)
