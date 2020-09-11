@@ -25,9 +25,10 @@ class SemesterFile(models.Model):
 
 
 class YearFile(models.Model):
-    location = models.ForeignKey(SchoolFile, models.CASCADE, default=
+    location = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
     year = models.IntegerField(unique=True)
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
+    school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
 
     def __str__(self):
         return str(self.year)
@@ -37,6 +38,7 @@ class SubjectFile(models.Model):
     subject = models.CharField(max_length=100, unique=False)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
+    school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
 
     def __str__(self):
         return self.subject
@@ -56,6 +58,7 @@ class CategoryFile(models.Model):
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
+    school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
 
 
 class ExtensionFile(models.Model):
@@ -75,6 +78,7 @@ class StaticFile(models.Model):
 
 
 class StaticContent(models.Model):
+    school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
