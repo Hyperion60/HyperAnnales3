@@ -15,7 +15,7 @@ from accounts.tokens import account_activation_token
 
 def __test_email(email):
     host = email.split('@')
-    return host[1] == "epita.fr"
+    return host[1] == "epita.fr" or host[1] == "esiee-amiens.eu"
 
 
 def __send_verification_email(request, user, email):
@@ -92,7 +92,7 @@ def registration_view(request):
                     error = True
 
             if not __test_email(email):
-                context['error'] = "L'email n'est pas valide, entrez une adresse epita"
+                context['error'] = "L'email n'est pas valide, entrez une adresse epita ou esiee"
                 error = True
 
             if not error:
