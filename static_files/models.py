@@ -15,7 +15,6 @@ class SchoolFile(models.Model):
 
     def __str__(self):
         return str(self.school)
-1
 
 class SemesterFile(models.Model):
     semester = models.IntegerField(unique=True)

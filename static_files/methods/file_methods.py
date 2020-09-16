@@ -4,16 +4,47 @@ from django.core.files.storage import FileSystemStorage
 
 
 def build_path(context):
-
+    path = "/" + context['school'] + "/"
+    path += context['year'] + "/"
+    path += context['semester'] + "/"
+    path += context['subject'] + "/"
+    return path
+    
 
 
 def create_instance(request, context):
+    context['school'] = SchoolFile.objects.get(pk=request.user.school)
+    context['year'] = YearFile.objects.get(pk=request.POST['year'])
+    context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
+    context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
+    context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
     if request.POST.get('filename', default=None):
         print(request.FILES)
         new_file = request.FILES['file']
-        fs = FileSystemStorage()
+        fs = FileSystemStorage(build_path(context))
+        file_name = # title-key.extension 
         filename = fs.save(request.POST['filename'], new_file)
         upload_file_url = fs.url(filename)
+        # Create instance File Content
+        new_staticfile = StaticFile(path=build_path(context),
+                                    date=now(), # Fix
+                                    filename=context['title'],
+                                    weight=test, # Fix
+                                    author=request.user,
+                                    random_key=function, # Fix
+                                    extension=extend) # Fix
+        new_staticfile.save()
+        # Create instance Static Content
+        new_content = StaticContent(school=context['school'],
+                                    year=context['year'],
+                                    semester=context['semester'],
+                                    subject=context['subject'],
+                                    category=context['category'],
+                                    name=context['title'],
+                                    file=new_staticfile)
+        new_content.save()
+        new_staticfile.content = new_content
+        new_staticfile.save()
         print(upload_file_url)
     return render(request, "static_content/add/add-file.html", context)
 
