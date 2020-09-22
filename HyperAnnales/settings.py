@@ -180,6 +180,8 @@ EMAIL_USE_SSL = bool(int(os.getenv("EMAIL_SSL_OVH")))
 
 STATIC_URL = "/static/"
 
+MEDIA_ROOT = "/media/static_HA/"
+
 # STATIC_ROOT = "/home/static_HA/"
 
 # Configuration to sendfile package
