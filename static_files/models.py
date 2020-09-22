@@ -26,7 +26,7 @@ class SemesterFile(models.Model):
 class YearFile(models.Model):
     year = models.IntegerField(unique=True)
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
-    school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
+    school = models.ForeignKey(SchoolFile, models.CASCADE, default=None)
 
     def __str__(self):
         return str(self.year)
@@ -36,7 +36,7 @@ class SubjectFile(models.Model):
     subject = models.CharField(max_length=100, unique=False)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
-    school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
+    school = models.ForeignKey(SchoolFile, models.CASCADE, default=None)
 
     def __str__(self):
         return self.subject
@@ -56,7 +56,7 @@ class CategoryFile(models.Model):
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
     semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     year = models.ForeignKey(YearFile, models.CASCADE, default=None)
-    school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
+    school = models.ForeignKey(SchoolFile, models.CASCADE, default=None)
 
 
 class ExtensionFile(models.Model):
