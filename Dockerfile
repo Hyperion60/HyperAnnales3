@@ -42,7 +42,7 @@ COPY . /home
 
 
 # Download static file
-RUN mkdir /media/ && cd /media/ && git clone git@github.com:Hyperion60/static_HA.git
+RUN cd /media/ && git clone git@github.com:Hyperion60/static_HA.git
 
 RUN cd /media && git clone git@github.com:Hyperion60/media_HA.git
 
