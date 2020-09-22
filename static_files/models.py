@@ -24,7 +24,6 @@ class SemesterFile(models.Model):
 
 
 class YearFile(models.Model):
-    location = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
     year = models.IntegerField(unique=True)
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
     school = models.ForeignKey(SchoolFile, models.CASCADE, default=1)
