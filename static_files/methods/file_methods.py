@@ -3,13 +3,18 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
 
-def build_path(context):
+def __build_path(context):
     path = "/" + context['school'] + "/"
     path += context['year'] + "/"
     path += context['semester'] + "/"
     path += context['subject'] + "/"
     return path
     
+def __create_key():
+    key = 0
+    while not key and len(StaticContent.objects.filter(random_key__exact=key)):
+        key = randint(1, 999999)
+    return key
 
 
 def create_instance(request, context):
@@ -18,20 +23,22 @@ def create_instance(request, context):
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
+    context['title'] = str(request.POST['title'])
     if request.POST.get('filename', default=None):
+        key = __create_key()
         print(request.FILES)
         new_file = request.FILES['file']
-        fs = FileSystemStorage(build_path(context))
-        file_name = # title-key.extension 
-        filename = fs.save(request.POST['filename'], new_file)
+        fs = FileSystemStorage()
+        file_name = (context['title'] + "-" + str(key) + "." + context['extension'])
+        filename = fs.save(__build_path() + file_name, new_file)
         upload_file_url = fs.url(filename)
         # Create instance File Content
         new_staticfile = StaticFile(path=build_path(context),
-                                    date=now(), # Fix
+                                    date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
                                     filename=context['title'],
-                                    weight=test, # Fix
+                                    weight=new_file._size,
                                     author=request.user,
-                                    random_key=function, # Fix
+                                    random_key=key,
                                     extension=extend) # Fix
         new_staticfile.save()
         # Create instance Static Content
