@@ -42,12 +42,9 @@ COPY . /home
 
 
 # Download static file
-RUN git clone git@github.com:Hyperion60/static_HA.git
+RUN mkdir /media/ && cd /media/ && git clone git@github.com:Hyperion60/static_HA.git
 
-RUN cd /
-RUN mkdir media
-RUN cd media
-RUN git clone git@github.com:Hyperion60/media_HA.git
+RUN cd /media && git clone git@github.com:Hyperion60/media_HA.git
 
 # Expose port
 EXPOSE 6094
