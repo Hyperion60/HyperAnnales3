@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
+from static_files.models import School
 from static_files.form.year_forms import SetYearSemester
 from static_files.methods.year_methods import create_year, set_year
 
@@ -22,9 +23,16 @@ def CreateYearView(request):
         except KeyError:
             context['error'] = "Champ introuvable"
             error = True
+        list_school = School.objects.filter(school=user.school)
+        if len(list_school):
+            school = list_school[0]
+        else:
+            print(user.school)
+            context['error'] = "Ecole de l'utilisateur introvable"
+            error = True
         if not error:
             if 2013 < year < datetime.now().year + 6:
-                create_year(year, semester)
+                create_year(year, semester, school
                 return render(request, "static_content/admin/message_template.html",
                               {'message': "L'année a bien été créée"})
             context['error'] = "Année entrée invalide"
@@ -46,8 +54,14 @@ def SetSemesterYearView(request, year):
         except KeyError:
             context['error'] = "Champ introuvable"
             error = True
+        list_school = School.objects.filter(school=user.school)
+        if len(list_school):
+            school = list_school[0]
+        else:
+            context['error'] = "Ecole de l'utilisateur introuvable"
+            error = True
         if not error:
-            set_year(year, semester)
+            set_year(year, semester, school)
             return render(request, "static_content/admin/message_template.html",
                           {'message': "Le semestre actif a bien été modifié"})
     form = SetYearSemester()

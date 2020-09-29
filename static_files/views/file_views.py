@@ -7,7 +7,7 @@ from django.views.decorators.cache import cache_page
 
 from HyperAnnales.settings import KEY_TOKEN
 from static_files.methods.extension_methods import template_choice
-from static_files.models import StaticContent
+from static_files.models import StaticContent, School
 from static_files.views.base_template import queryset_template
 from static_files.methods.file_methods import init_view
 
@@ -32,6 +32,7 @@ def CreateFileView(request, method, year, id):
     context['semester'] = file.semester.semester
     context['year'] = file.year.year
     context['subject'] = file.subject.subject
+    context['school'] = request.user.school
     return render(request, template_choice(file.extension.type), context)
 
 

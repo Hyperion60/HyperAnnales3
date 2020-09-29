@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
+from static_files.models import School
 from static_files.form.category_forms import CreateCategoryForm
 from static_files.methods.category_methods import CreateCategory
 
@@ -20,11 +21,12 @@ def CreateCategoryView(request):
             subject = request.POST['subject']
             category = request.POST['category']
             title = request.POST['title']
+            school = School.objects.filter(school__exact=request.user.school)
         except KeyError:
             context['error'] = "Un ou plusieurs champs sont introuvables"
             error = True
         if not error:
-            context = CreateCategory(context, year, semester, subject, title, category)
+            context = CreateCategory(context, school, year, semester, subject, title, category)
             try:
                 if context['error'] is not None:
                     error = True

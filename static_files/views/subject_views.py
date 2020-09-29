@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
+from static_files.models import School
 from static_files.form.subject_forms import SetSubject
 from static_files.methods.subject_methods import CreateSubject
 
@@ -18,6 +19,7 @@ def CreateSubjectView(request):
             year = request.POST['year']
             semester = request.POST['semester']
             title = request.POST['title']
+            school = School.objects.filter(school__exact=request.user.school)
         except KeyError:
             if year is None or semester is None or title is None:
                 context['error'] = "Un ou plusieurs champs sont introuvables"
