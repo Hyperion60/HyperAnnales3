@@ -32,7 +32,7 @@ def CreateYearView(request):
             error = True
         if not error:
             if 2013 < year < datetime.now().year + 6:
-                create_year(year, semester, school
+                create_year(year, semester, school)
                 return render(request, "static_content/admin/message_template.html",
                               {'message': "L'année a bien été créée"})
             context['error'] = "Année entrée invalide"
