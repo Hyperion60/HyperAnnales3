@@ -143,19 +143,16 @@ def login_view(request):
 
         print(username)
         usermail = Account.object.filter(email__exact=username)
-        print(usermail)
         if len(usermail):
-            print("here")
             username = usermail[0].username
             user = authenticate(username=username, password=password)
-            print(usermail[0].is_active)
             if user:
                 login(request, user)
                 return redirect("index")
             if not usermail[0].is_active:
                 context['error'] = "Compte non validé. Utilisez le lien reçu par email. Si le problème persiste contacter un administrateur."
-
-        context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
+            else:
+                context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
     return render(request, "accounts/login.html", context)
 
 
