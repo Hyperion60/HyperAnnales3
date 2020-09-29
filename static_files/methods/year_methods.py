@@ -72,7 +72,7 @@ def create_base_subject(year, semester):
     elif semester.semester == 6:
         # Electifs
         if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject="MAIF")):
-            new_subject = SubjectFile(subject="MAIF", semester=semester, year=year), school=School.objects.filter(school="EPITA")[0]
+            new_subject = SubjectFile(subject="MAIF", semester=semester, year=year, school=School.objects.filter(school="EPITA")[0])
             new_subject.save()
 
         list_subject = ['S']
