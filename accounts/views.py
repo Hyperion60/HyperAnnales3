@@ -149,13 +149,10 @@ def login_view(request):
             username = usermail[0].username
             user = authenticate(username=username, password=password)
             if user:
-                print(user)
                 login(request, user)
                 return redirect("index")
-            if len(usermail):
-                print(usermail[0].username)
-                login(request, usermail[0].pk)
-                return redirect("index")
+            if not usermail[0].is_active:
+                context['error'] = "Compte non validé. Utilisez le lien reçu par email. Si le problème persiste contacter un administrateur."
 
         context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
     return render(request, "accounts/login.html", context)
