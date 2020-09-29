@@ -148,6 +148,7 @@ def login_view(request):
             print("here")
             username = usermail[0].username
             user = authenticate(username=username, password=password)
+            print(usermail[0].is_active)
             if user:
                 login(request, user)
                 return redirect("index")
