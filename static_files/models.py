@@ -41,6 +41,9 @@ class SubjectFile(models.Model):
     def __str__(self):
         return self.subject
 
+    def school(self):
+        return self.school
+
 
 class CategoryFile(models.Model):
     LIST_CAT = (
@@ -107,7 +110,8 @@ def create_file(request, raw_path):
     key = 0
     while key == 0 and len(StaticContent.objects.filter(random_key__exact=key)):
         key = randint(1, 999999)
-    path = STATIC_PATH + str(year) + "/" + str(semester) + "/" + str(subject) + "/" + str(name) + "-" + str(key) + ".pdf"
+    path = STATIC_PATH + str(year) + "/" + str(semester) + "/" + str(subject) +\
+                    "/" + str(name) + "-" + str(key) + ".pdf"
     file = StaticContent(year=year,
                          semester=semester,
                          subject=subject,
