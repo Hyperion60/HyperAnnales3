@@ -63,3 +63,9 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def in_School(self, school):
+        if (((self.email).split('@'))[1]) == "hyperion.tf":
+            return True
+        return self.school == school
+
