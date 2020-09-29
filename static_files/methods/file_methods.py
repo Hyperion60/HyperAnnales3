@@ -17,13 +17,27 @@ def __create_key():
     return key
 
 
+def __create_new_extension(request):
+    list_extension = ExtensionFile.objects.filter(extension__exact=request.POST['new_extension']):
+    if not len(list_extension):
+        new_extend = ExtensionFile(extension=request.POST['new_extension'],
+                                   type=request.POST['proc_type'])
+        new_extend.save()
+        return new_extend
+    return list_extension[0]
+
+
 def create_instance(request, context):
-    context['school'] = SchoolFile.objects.get(pk=request.user.school)
+    context['school'] = SchoolFile.objects.filter(school__exact=request.user.school)
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
     context['title'] = str(request.POST['title'])
+    if request.POST['new_extension']:
+        context['extension'] = __create_new_extension(request)
+    else:
+        context['extension'] = ExtensionFile.objects.get(pk=request.POST['extension'])
     if request.POST.get('filename', default=None):
         key = __create_key()
         print(request.FILES)
@@ -39,7 +53,7 @@ def create_instance(request, context):
                                     weight=new_file._size,
                                     author=request.user,
                                     random_key=key,
-                                    extension=extend) # Fix
+                                    extension=context['extension'])
         new_staticfile.save()
         # Create instance Static Content
         new_content = StaticContent(school=context['school'],
@@ -77,7 +91,7 @@ def __create_category(request, context):
         context['category'] = new_cat[0]
     return new_cat
 
-
+# Add select extension
 def file_select(request, context):
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
@@ -86,6 +100,8 @@ def file_select(request, context):
         context['category'] = __create_category(request, context)
     else:
         context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
+    context['extension'] = ExtensionFile.objects.all().order_by('extension')
+    context['type'] = Extension.objets.distinct('type').order_by('type')
     context['step'] = 4
     return render(request, "static_content/add/add-file.html", context)
 

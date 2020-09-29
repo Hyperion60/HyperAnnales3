@@ -60,18 +60,19 @@ def create_base_subject(year, semester):
         for subject in list_subject:
             if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
                 subject_methods.CreateSubject(_, subject, SemesterFile.objects.get(pk=semester),
-                                              YearFile.objects.get(pk=year))
+                                              YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0])
 
     elif semester.semester == 5:
         list_subject = ['Complexité', 'Réseaux', 'Système', 'THL', 'Mathématiques']
         for subject in list_subject:
             if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
                 subject_methods.CreateSubject(_, subject, SemesterFile.objects.get(pk=semester),
-                                              YearFile.objects.get(pk=year))
+                                              YearFile.objects.get(pk=year)), School.objects.filter(school="EPITA")[0]
+
     elif semester.semester == 6:
         # Electifs
         if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject="MAIF")):
-            new_subject = SubjectFile(subject="MAIF", semester=semester, year=year)
+            new_subject = SubjectFile(subject="MAIF", semester=semester, year=year), school=School.objects.filter(school="EPITA")[0]
             new_subject.save()
 
         list_subject = ['S']
@@ -79,25 +80,25 @@ def create_base_subject(year, semester):
         for subject in list_subject:
             if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
                 subject_methods.CreateSubject(_, subject, SemesterFile.objects.get(pk=semester),
-                                              YearFile.objects.get(pk=year))
+                                              YearFile.objects.get(pk=year)), School.objects.filter(school="EPITA")[0]
 
 # year(int), semester(pk)
-def create_year(year, semester):
+def create_year(year, semester, school):
     semester_obj = SemesterFile.objects.get(pk=semester)
-    new_year = YearFile(year=year, active_semester=semester_obj)
+    new_year = YearFile(year=year, active_semester=semester_obj, school=school)
     create_base_subject(new_year, semester_obj)
     new_year.save()
 
 
-def get_year(year):
-    test_y = YearFile.objects.filter(year__exact=year)
+def get_year(year, school):
+    test_y = YearFile.objects.filter(year__exact=year, school__exact=school)
     if len(test_y):
         return test_y[0]
     return None
 
 
-# year(pk), semester(pk)
+# year(year, semester(pk), school)
 def set_year(year, semester):
-    year_obj = YearFile.objects.get(pk=year)
+    year_obj = YearFile.objects.filter(year__exact=year, school__exact=school)
     year_obj.active_semester = SemesterFile.objects.get(pk=semester)
     year_obj.save()
