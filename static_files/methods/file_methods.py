@@ -21,7 +21,7 @@ def __create_new_extension(request):
     is_exist = request.POST['new_extension']
     list_extension = None
     if is_exist:
-        list_extension = ExtensionFile.objects.filter(extension__exact=request.POST['new_extension']):
+        list_extension = ExtensionFile.objects.filter(extension__exact=request.POST['new_extension'])
     if not is_exist or not len(list_extension):
         new_extend = ExtensionFile(extension=request.POST['new_extension'],
                                    type=request.POST['proc_type'])
