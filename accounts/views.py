@@ -154,7 +154,7 @@ def login_view(request):
                 return redirect("index")
             if len(usermail):
                 print(usermail[0].username)
-                login(request, usermail[0].username)
+                login(request, usermail[0].pk)
                 return redirect("index")
 
         context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
