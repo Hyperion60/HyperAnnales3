@@ -153,6 +153,8 @@ def login_view(request):
                 context['error'] = "Compte non validé. Utilisez le lien reçu par email. Si le problème persiste contacter un administrateur."
             else:
                 context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
+        else:
+            context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
     return render(request, "accounts/login.html", context)
 
 
