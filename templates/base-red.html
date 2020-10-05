@@ -67,7 +67,6 @@
         <li><a href="/">Accueil</a></li>
         <li><a href="#">Documents Administratifs</a></li>
         {% if request.user.is_authenticated %}
-        <li>{{ request.user.is_contributor }}</li>
         {% if request.user.is_contributor %}
         <li class="waves-effect yellow lighten-3">
             <a href="/static_content/admin/" style="color: black">Zone Contribution</a>
@@ -100,6 +99,11 @@
                         <a href="https://materializecss.com/color.html" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Tables couleurs</div></a>
                     </li>
                     {% if request.user.is_authenticated %}
+                    {% if request.user.is_contributor %}
+                    <li class="waves-effect yellow lighten-3">
+                        <a href="/static_content/admin/" style="color: black">Zone Contribution</a>
+                    </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'logout' %}" style="color: black"><div class="collapsible-header waves-effect red lighten-3">Déconnexion</div></a>
                     </li>
