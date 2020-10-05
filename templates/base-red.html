@@ -67,6 +67,7 @@
         <li><a href="/">Accueil</a></li>
         <li><a href="#">Documents Administratifs</a></li>
         {% if request.user.is_authenticated %}
+        <li>{{ request.user.is_contributor }}</li>
         {% if request.user.is_contributor %}
         <li class="waves-effect yellow lighten-3">
             <a href="/static_content/admin/" style="color: black">Zone Contribution</a>
