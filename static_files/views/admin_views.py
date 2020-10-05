@@ -21,6 +21,7 @@ def static_admin(request):
             context['subjects'] = SubjectFile.objects.filter(school__exact=(request.user.school)).order_by('subject')
             context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
 
+    print(reauest.user.school)
     if not len(context['years']):
         context['years'] = None
     if not len(context['subjects']):
