@@ -26,7 +26,6 @@ class SemesterFile(models.Model):
 class YearFile(models.Model):
     year = models.IntegerField(unique=True)
     active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
-    school = models.ForeignKey(School, models.CASCADE, default=None)
 
     def __str__(self):
         return str(self.year)
