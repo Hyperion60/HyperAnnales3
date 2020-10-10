@@ -17,8 +17,8 @@ def static_admin(request):
             context['subjects'] = SubjectFile.objects.all().order_by('subject')
             context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
         else:
-            context['years'] = YearFile.objects.filter(school__exact=(request.user.school)).order_by('year')
-            context['subjects'] = SubjectFile.objects.filter(school__exact=(request.user.school)).order_by('subject')
+            context['years'] = YearFile.objects.filter(school_school__exact=(request.user.school)).order_by('year')
+            context['subjects'] = SubjectFile.objects.filter(school_school__exact=(request.user.school)).order_by('subject')
             context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
 
     print(request.user.school)
