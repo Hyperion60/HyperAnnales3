@@ -25,7 +25,7 @@ def CreateSubjectView(request):
                 context['error'] = "Un ou plusieurs champs sont introuvables"
                 error = True
         if not error:
-            context = CreateSubject(context, title, semester, year)
+            context = CreateSubject(context, title, semester, year, school)
             try:
                 if context['error'] is not None:
                     error = True
