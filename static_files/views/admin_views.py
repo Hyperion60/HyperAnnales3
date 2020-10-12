@@ -11,6 +11,9 @@ def static_admin(request):
     if not request.user.is_contributor:
         raise PermissionDenied
     context = {}
+    context['years'] = None
+    context['subjects'] = None
+    context['contribution'] = None
     if request.user.is_staff:
         if request.user.is_admin:
             context['years'] = YearFile.objects.all().order_by('year')
@@ -20,13 +23,5 @@ def static_admin(request):
             context['years'] = YearFile.objects.filter(school_school__exact=(request.user.school)).order_by('year')
             context['subjects'] = SubjectFile.objects.filter(school_school__exact=(request.user.school)).order_by('subject')
             context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
-
-    print(request.user.school)
-    if not len(context['years']):
-        context['years'] = None
-    if not len(context['subjects']):
-        context['subjects'] = None
-    if not len(context['contribution']):
-        context['contribution'] = None
     return render(request, "static_content/admin/index.html", context)
 
