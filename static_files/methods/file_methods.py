@@ -1,74 +1,37 @@
 from static_files.models import *
+from static_files.methods.annexe_methods import create_random_key
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
 
-def __build_path(context):
-    path = "/" + context['school'] + "/"
-    path += context['year'] + "/"
-    path += context['semester'] + "/"
-    path += context['subject'] + "/"
+def build_path(context):
+    path = str(context['school'].school) + "/"
+    path += str(context['year'].year) + "/"
+    path += str(context['semester'].semester) + "/"
+    path += str(context['subject'].subject) + "/"
     return path
     
-def __create_key():
-    key = 0
-    while not key and len(StaticContent.objects.filter(random_key__exact=key)):
-        key = randint(1, 999999)
-    return key
-
-
-def __create_new_extension(request):
-    is_exist = request.POST['new_extension']
-    list_extension = None
-    if is_exist:
-        list_extension = ExtensionFile.objects.filter(extension__exact=request.POST['new_extension'])
-    if not is_exist or not len(list_extension):
-        new_extend = ExtensionFile(extension=request.POST['new_extension'],
-                                   type=request.POST['proc_type'])
-        new_extend.save()
-        return new_extend
-    return list_extension[0]
 
 
 def create_instance(request, context):
-    context['school'] = SchoolFile.objects.filter(school__exact=request.user.school)
+    context['school'] = SchoolFile.objects.get(pk=request.user.school)
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
-    context['title'] = str(request.POST['title'])
-    if request.POST['new_extension']:
-        context['extension'] = __create_new_extension(request)
-    else:
-        context['extension'] = ExtensionFile.objects.get(pk=request.POST['extension'])
     if request.POST.get('filename', default=None):
-        key = __create_key()
-        print(request.FILES)
+        context['filename'] = request.POST['filename']
+        context['key'] = create_random_key()
+        context['extension'] = (request.FILES['file'].name).split('.')[1]
+        context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['extension'])
+        context['path'] = build_path(context)
+        context['raw_path'] = context['path'] + context['name']
         new_file = request.FILES['file']
         fs = FileSystemStorage()
-        file_name = (context['title'] + "-" + str(key) + "." + context['extension'])
-        filename = fs.save(__build_path() + file_name, new_file)
+        filename = fs.save(context['raw_path'], new_file)
         upload_file_url = fs.url(filename)
-        # Create instance File Content
-        new_staticfile = StaticFile(path=build_path(context),
-                                    date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
-                                    filename=context['title'],
-                                    weight=new_file._size,
-                                    author=request.user,
-                                    random_key=key,
-                                    extension=context['extension'])
-        new_staticfile.save()
         # Create instance Static Content
-        new_content = StaticContent(school=context['school'],
-                                    year=context['year'],
-                                    semester=context['semester'],
-                                    subject=context['subject'],
-                                    category=context['category'],
-                                    name=context['title'],
-                                    file=new_staticfile)
-        new_content.save()
-        new_staticfile.content = new_content
-        new_staticfile.save()
+        create_file(context, request)
         print(upload_file_url)
     return render(request, "static_content/add/add-file.html", context)
 
@@ -94,7 +57,7 @@ def __create_category(request, context):
         context['category'] = new_cat[0]
     return new_cat
 
-# Add select extension
+
 def file_select(request, context):
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
@@ -103,8 +66,6 @@ def file_select(request, context):
         context['category'] = __create_category(request, context)
     else:
         context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
-    context['extension'] = ExtensionFile.objects.all().order_by('extension')
-    context['type'] = Extension.objets.distinct('type').order_by('type')
     context['step'] = 4
     return render(request, "static_content/add/add-file.html", context)
 
