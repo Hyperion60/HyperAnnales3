@@ -1,4 +1,4 @@
-from static_files.models import YearFile, SemesterFile, SubjectFile
+from static_files.models import YearFile, SemesterFile, SubjectFile, School
 from static_files.methods.subject_methods import CreateSubject
 
 # Liste matières
@@ -53,30 +53,31 @@ list_glsr_s6 = ['PRPA : Programmation Parallèle',
 
 
 def create_base_subject(year, semester):
+    context = {}
     # Prepa
     if semester.semester < 5:
         list_subject = ['Mathématiques', 'Algorithmiques', 'Physique', 'Electronique',
                         'Architecture', 'Sciences Humaines', 'QCM']
         for subject in list_subject:
-            if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
-                CreateSubject(subject, SemesterFile.objects.get(pk=semester), YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save
+            if not len(SubjectFile.objects.filter(year=year.year).filter(semester=semester.semester).filter(subject=subject)):
+                CreateSubject(context, subject, semester.pk, year.pk, School.objects.filter(school="EPITA")[0])
 
     elif semester.semester == 5:
         list_subject = ['Complexité', 'Réseaux', 'Système', 'THL', 'Mathématiques']
         for subject in list_subject:
-            if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
-                CreateSubject(subject, SemesterFile.objects.get(pk=semester), YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save
+            if not len(SubjectFile.objects.filter(year=year.year).filter(semester=semester.semester).filter(subject=subject)):
+                CreateSubject(context, subject, semester.pk, year.pk, School.objects.filter(school="EPITA")[0])
 
     elif semester.semester == 6:
         # Electifs
-        if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject="MAIF")):
-            new_subject = SubjectFile(subject="MAIF", semester=semester, year=year, school=School.objects.filter(school="EPITA")[0])
+        if not len(SubjectFile.objects.filter(year=year.year).filter(semester=semester.semester).filter(subject="MAIF")):
+            new_subject = SubjectFile(subject="MAIF", semester=semester, year=year, location=School.objects.filter(school="EPITA")[0])
             new_subject.save()
 
         list_subject = ['Mathématiques', 'Réseaux', 'Sécurité', 'Programmation', 'Entreprise']
         for subject in list_subject:
-            if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
-                CreateSubject(subject, SemesterFile.objects.get(pk=semester), YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save()
+            if not len(SubjectFile.objects.filter(year=year.year).filter(semester=semester.semester).filter(subject=subject)):
+                CreateSubject(context, subject, semester.pk, year.pk, School.objects.filter(school="EPITA")[0])
 
 # year(int), semester(pk)
 def create_year(year, semester, school):
