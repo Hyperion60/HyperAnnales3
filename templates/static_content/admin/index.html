@@ -87,25 +87,39 @@
                 </div>
                 <div class="collapsible-body">
                     <ul class="collapsible">
-                        {% for matiere in subjects %}
+                        {% for year in years %}
                         <li>
                             <div class="collapsible-header">
-                                {{ matiere.subject }}
+                                {{ year.year }}
                             </div>
-                           <div class="collapsible-body">
-                               <p>Année : {{ matiere.year.year }}</p>
-                               <p>Semestre : {{ matiere.semester.semester }}</p>
-                               <a class="waves-effect waves-light btn" href="/static_content/change/subject/{{ matiere.pk }}">Modifier</a>
-                           </div>
+                            <div class="collapsible-body">
+                                {% for semester in semesters %}
+                                <li>
+                                    <div class="collapsible-header">
+                                        {{ semester.semester }}
+                                    </div>
+                                    <div class="collapsible-body">
+                                        {% for matiere in subjects %}
+                                        {% if matiere.year.year == year.year and matiere.semester.semester == semester.semester %}
+                                        <li>
+                                            <div class="collapsible-header">
+                                                {{ matiere.subject }}
+                                            </div>
+                                            <div class="collapsible-body">
+                                               <p>Année : {{ matiere.year.year }}</p>
+                                               <p>Semestre : {{ matiere.semester.semester }}</p>
+                                                <a class="waves-effect waves-light btn" href="/static_content/change/subject/{{ matiere.pk }}">Modifier</a>
+                                            </div>
+                                        </li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </div>
                         </li>
                         {% endfor %}
-                        <li>
-                            <a href="/static_content/add/subject/" style="color:black; font-size: 15px">
-                                <div class="collapsible-header waves-effect">Ajouter une nouvelle matière</div>
-                            </a>
-                        </li>
                     </ul>
-                    </div>
                 </div>
             </li>
         </ul>
