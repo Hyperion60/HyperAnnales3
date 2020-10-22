@@ -16,7 +16,9 @@ def static_admin(request):
     context['contribution'] = None
     if request.user.is_staff:
         context['years'] = YearFile.objects.all().order_by('year')
+        context['semesters'] = SemesterFile.objects.all().order_by('semester')
         context['subjects'] = SubjectFile.objects.all().order_by('subject')
-        context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
+    context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
+    print(context)
     return render(request, "static_content/admin/index.html", context)
 
