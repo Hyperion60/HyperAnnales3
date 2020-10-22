@@ -50,7 +50,7 @@ class SubjectFile(models.Model):
         return self.subject
 
     def school(self):
-        return self.school
+        return self.location
 
 
 class CategoryFile(models.Model):
