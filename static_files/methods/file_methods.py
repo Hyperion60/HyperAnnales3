@@ -1,5 +1,6 @@
 from static_files.models import *
 from static_files.methods.annexe_methods import create_random_key
+from static_files.methods.subject_methods import CreateSubject
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
@@ -14,7 +15,7 @@ def build_path(context):
 
 
 def create_instance(request, context):
-    context['school'] = SchoolFile.objects.get(pk=request.user.school)
+    context['school'] = School.objects.get(pk=request.user.school)
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
@@ -70,25 +71,13 @@ def file_select(request, context):
     return render(request, "static_content/add/add-file.html", context)
 
 
-def __create_subject(request, context, year_obj, semester_obj):
-    new_sub = SubjectFile.objects.filter(year=year_obj, semester=semester_obj,\
-                                          subject=request.POST['new_subject'])
-    if not len(new_sub):
-        new_sub = SubjectFile(year=year_obj, semester=semester_obj,\
-                              subject=request.POST['new_subject'])
-        new_sub.save()
-        context['subject'] = new_sub
-    else:
-        context['subject'] = new_sub[0]
-    return new_sub
-
-
 def category_select(request, context):
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
     print(request.POST)
     if not int(request.POST['subject']):
-        subject_obj = __create_subject(request, context, year_obj, semester_obj)
+        context = CreateSubject(context, request.POST['new_subject'], semester_obj.pk, year_obj.pk, School.objects.filter(school__exact=request.user.school)[0])
+        subject_obj = context['new_subject_obj']
     else:
         subject_obj = SubjectFile.objects.get(pk=request.POST['subject'])
     context['year'] = year_obj
@@ -102,9 +91,11 @@ def category_select(request, context):
 
 def subject_select(request, context):
     context['step'] = 2
+    print("Here 1")
+    print(request.POST)
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
-    school_obj = SchoolFile.objects.get(pk=request.user.school.pk)
+    school_obj = School.objects.filter(school__exact=request.user.school)
     context['year'] = year_obj
     context['semester'] = semester_obj
     context['subjects'] = SubjectFile.objects.filter(year=year_obj,\
