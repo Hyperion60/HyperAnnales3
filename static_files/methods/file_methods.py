@@ -38,17 +38,11 @@ def create_instance(request, context):
 
 
 def __create_category(request, context):
-    place = len(CategoryFile.objects.filter(year=context['year'],\
-                                            semester=context['semester'],\
-                                            subject=context['subject']))
-    new_cat = CategoryFile.objects.filter(year=context['year'],\
-                                            semester=context['semester'],\
-                                            subject=context['subject'],\
-                                            title=request.POST['new_category'])
+    place = len(CategoryFile.objects.filter(subject=context['subject']))
+    new_cat = CategoryFile.objects.filter(subject=context['subject'],\
+                                          title=request.POST['new_category'])
     if not len(new_cat):
-        new_cat = CategoryFile(year=context['year'],\
-                               semester=context['semester'],\
-                               subject=context['subject'],\
+        new_cat = CategoryFile(subject=context['subject'],\
                                title=request.POST['new_category'],\
                                category=request.POST['list_category'],\
                                place=place)
@@ -84,15 +78,13 @@ def category_select(request, context):
     context['semester'] = semester_obj
     context['step'] = 3
     context['subject'] = subject_obj
-    context['categories'] = CategoryFile.objects.filter(year=year_obj, semester=semester_obj, subject=subject_obj).order_by('title')
+    context['categories'] = CategoryFile.objects.filter(subject=subject_obj).order_by('title')
     context['type'] = ['TD', 'Documents', 'Controles', 'QCM', 'Aide/Cours']
     return render(request, "static_content/add/add-file.html", context)
 
 
 def subject_select(request, context):
     context['step'] = 2
-    print("Here 1")
-    print(request.POST)
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
     school_obj = School.objects.filter(school__exact=request.user.school)
