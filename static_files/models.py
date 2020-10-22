@@ -65,9 +65,25 @@ class CategoryFile(models.Model):
     title = models.CharField(max_length=150, unique=False)
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
-    semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
-    year = models.ForeignKey(YearFile, models.CASCADE, default=None)
-    school = models.ForeignKey(School, models.CASCADE, default=None)
+
+
+    def semester_obj(self):
+        return self.subject.semester
+
+    def semester(self):
+        return self.subject.semester.semester
+
+    def year_obj(self):
+        return self.subject.year
+
+    def year(self):
+        return self.subject.year.year
+
+    def school_obj(self):
+        return self.subject.location
+
+    def school(self):
+        return self.subject.location.school
 
 
 class ExtensionFile(models.Model):
@@ -87,16 +103,32 @@ class StaticFile(models.Model):
 
 
 class StaticContent(models.Model):
-    school = models.ForeignKey(School, models.CASCADE, default=None)
-    year = models.ForeignKey(YearFile, models.CASCADE, default=None)
-    semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
-    subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
+#school = models.ForeignKey(School, models.CASCADE, default=None)
+#year = models.ForeignKey(YearFile, models.CASCADE, default=None)
+#semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
+#subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=None)
     name = models.CharField(max_length=255, default=None)
+    place = models.IntegerField() # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, default=None)
 
     def __str__(self):
         return self.name
+
+    def subject(self):
+        return self.category.subject
+
+    def semester_obj(self):
+        return self.category.semester_obj()
+
+    def semester(self):
+        return self.category.semester()
+
+    def year_obj(self):
+        return self.category.year_obj()
+
+    def year(self):
+        return self.category.year()
 
 
 def create_subject(request):
@@ -119,12 +151,9 @@ def create_file(context, request):
                                 extension=ExtensionFile.objects.filter(extension__exact=context['extension'])[0])
     new_staticFile.save()
 
-    new_staticContent = StaticContent(school=context['school'],
-                                      year=context['year'],
-                                      semester=context['semester'],
-                                      subject=context['subject'],
-                                      category=context['category'],
+    new_staticContent = StaticContent(category=context['category'],
                                       name=context['filename'],
+                                      place=len(StaticContent.objects.filter(category=context['category'])),
                                       file=new_staticFile)
     new_staticContent.save()
     new_staticFile.content = new_staticContent
