@@ -59,15 +59,13 @@ def create_base_subject(year, semester):
                         'Architecture', 'Sciences Humaines', 'QCM']
         for subject in list_subject:
             if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
-                CreateSubject(subject, SemesterFile.objects.get(pk=semester),
-                                              YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save
+                CreateSubject(subject, SemesterFile.objects.get(pk=semester), YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save
 
     elif semester.semester == 5:
         list_subject = ['Complexité', 'Réseaux', 'Système', 'THL', 'Mathématiques']
         for subject in list_subject:
             if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
-                CreateSubject(subject, SemesterFile.objects.get(pk=semester),
-                                              YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save
+                CreateSubject(subject, SemesterFile.objects.get(pk=semester), YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save
 
     elif semester.semester == 6:
         # Electifs
@@ -78,8 +76,7 @@ def create_base_subject(year, semester):
         list_subject = ['Mathématiques', 'Réseaux', 'Sécurité', 'Programmation', 'Entreprise']
         for subject in list_subject:
             if not len(SubjectFile.objects.filter(year=year).filter(semester=semester).filter(subject=subject)):
-                CreateSubject(subject, SemesterFile.objects.get(pk=semester),
-                                              YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save()
+                CreateSubject(subject, SemesterFile.objects.get(pk=semester), YearFile.objects.get(pk=year), School.objects.filter(school="EPITA")[0]).save()
 
 # year(int), semester(pk)
 def create_year(year, semester, school):
