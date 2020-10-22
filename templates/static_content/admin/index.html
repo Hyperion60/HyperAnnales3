@@ -93,29 +93,33 @@
                                 {{ year.year }}
                             </div>
                             <div class="collapsible-body">
-                                {% for semester in semesters %}
-                                <li>
-                                    <div class="collapsible-header">
-                                        {{ semester.semester }}
-                                    </div>
-                                    <div class="collapsible-body">
-                                        {% for matiere in subjects %}
-                                        {% if matiere.year.year == year.year and matiere.semester.semester == semester.semester %}
-                                        <li>
-                                            <div class="collapsible-header">
-                                                {{ matiere.subject }}
-                                            </div>
-                                            <div class="collapsible-body">
-                                               <p>Année : {{ matiere.year.year }}</p>
-                                               <p>Semestre : {{ matiere.semester.semester }}</p>
-                                                <a class="waves-effect waves-light btn" href="/static_content/change/subject/{{ matiere.pk }}">Modifier</a>
-                                            </div>
-                                        </li>
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </li>
-                                {% endfor %}
+                                <ul class="collapsible">
+                                    {% for semester in semesters %}
+                                    <li>
+                                        <div class="collapsible-header">
+                                            {{ semester.semester }}
+                                        </div>
+                                        <div class="collapsible-body">
+                                            <ul class="collapsible">
+                                                {% for matiere in subjects %}
+                                                {% if matiere.year.year == year.year and matiere.semester.semester == semester.semester %}
+                                                <li>
+                                                    <div class="collapsible-header">
+                                                        {{ matiere.subject }}
+                                                    </div>
+                                                    <div class="collapsible-body">
+                                                        <p>Année : {{ matiere.year.year }}</p>
+                                                        <p>Semestre : {{ matiere.semester.semester }}</p>
+                                                        <a class="waves-effect waves-light btn" href="/static_content/change/subject/{{ matiere.pk }}">Modifier</a>
+                                                    </div>
+                                                </li>
+                                               {% endif %}
+                                               {% endfor %}
+                                           </ul>
+                                        </div>
+                                    </li>
+                                   {% endfor %}
+                               </ul>
                             </div>
                         </li>
                         {% endfor %}
