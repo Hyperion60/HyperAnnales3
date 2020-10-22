@@ -14,11 +14,14 @@ def CreateSubject(context, subject, semester, year, school):
         if year_obj.active_semester.semester < semester_obj.semester:
             context['error'] = "Vous ne pouvez pas ajouter de matière à un semestre futur"
         else:
-            if not len(SubjectFile.objects.filter(year=YearFile.objects.get(pk=year), semester=SemesterFile.objects.get(pk=semester), subject__exact=subject)):
+            list_subj = SubjectFile.objects.filter(year=YearFile.objects.get(pk=year), semester=SemesterFile.objects.get(pk=semester), subject__exact=subject))
+            if not len(list_subj):
                 new_subject = SubjectFile(subject=subject, semester=semester_obj, year=year_obj, location=school)
                 new_subject.save()
+                context['new_subject_obj'] = new_subject
                 context['message'] = "Nouvelle matière créée"
             else:
+                context['new_subject_obj'] = list_subj[0]
                 context['error'] = "La matière existe deja"
     return context
 
