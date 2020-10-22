@@ -1,5 +1,5 @@
 from static_files.models import YearFile, SemesterFile, SubjectFile
-from static_files.methods import subject_methods
+from static_files.methods.subject_methods import CreateSubject
 
 # Liste matières
 list_prepa = ['Mathématiques', 'Algorithmiques', 'Physique', 'Electronique',
