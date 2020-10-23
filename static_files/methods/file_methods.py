@@ -92,7 +92,7 @@ def subject_select(request, context):
     context['semester'] = semester_obj
     context['subjects'] = SubjectFile.objects.filter(year=year_obj, \
                                                      semester=semester_obj, \
-                                                     school=school_obj).order_by('subject')
+                                                     location=school_obj).order_by('subject')
     return render(request, "static_content/add/add-file.html", context)
 
 
