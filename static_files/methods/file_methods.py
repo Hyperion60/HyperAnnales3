@@ -90,8 +90,8 @@ def subject_select(request, context):
     school_obj = School.objects.filter(school__exact=request.user.school)
     context['year'] = year_obj
     context['semester'] = semester_obj
-    context['subjects'] = SubjectFile.objects.filter(year=year_obj,\
-                                                     semester=semester_obj,
+    context['subjects'] = SubjectFile.objects.filter(year=year_obj, \
+                                                     semester=semester_obj, \
                                                      school=school_obj).order_by('subject')
     return render(request, "static_content/add/add-file.html", context)
 
