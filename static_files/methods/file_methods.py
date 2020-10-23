@@ -87,7 +87,7 @@ def subject_select(request, context):
     context['step'] = 2
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
-    school_obj = School.objects.filter(school__exact=request.user.school)
+    school_obj = School.objects.filter(school__exact=request.user.school)[0]
     print("Here !")
     print(year_obj)
     print(semester_obj)
