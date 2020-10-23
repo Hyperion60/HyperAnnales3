@@ -88,14 +88,9 @@ def subject_select(request, context):
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
     school_obj = School.objects.filter(school__exact=request.user.school)[0]
-    print("Here !")
-    print(year_obj)
-    print(semester_obj)
-    print(school_obj)
     context['year'] = year_obj
     context['semester'] = semester_obj
     context['subjects'] = SubjectFile.objects.filter(year=year_obj, semester=semester_obj,  location=school_obj).order_by('subject')
-    print(context['subjects'])
     return render(request, "static_content/add/add-file.html", context)
 
 
