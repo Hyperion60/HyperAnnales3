@@ -109,7 +109,7 @@ class StaticContent(models.Model):
 #subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=None)
     name = models.CharField(max_length=255, default=None)
-    place = models.IntegerField() # Place into categoryFile
+    place = models.IntegerField(default=0) # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, default=None)
 
     def __str__(self):
