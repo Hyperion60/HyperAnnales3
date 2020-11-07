@@ -87,8 +87,14 @@ class CategoryFile(models.Model):
 
 
 class ExtensionFile(models.Model):
-    extension = models.CharField(max_length=5, unique=True)
+    extension = models.CharField(max_length=5, unique=True) # Name
     type = models.CharField(max_length=50)
+
+    def template(self, static_file):
+        return template_choice(self, token, static_file)
+
+    def token(static_file):
+        return open_file(static_file.pk)
 
 
 class StaticFile(models.Model):
@@ -103,10 +109,6 @@ class StaticFile(models.Model):
 
 
 class StaticContent(models.Model):
-#school = models.ForeignKey(School, models.CASCADE, default=None)
-#year = models.ForeignKey(YearFile, models.CASCADE, default=None)
-#semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
-#subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=None)
     name = models.CharField(max_length=255, default=None)
     place = models.IntegerField(default=0) # Place into categoryFile
