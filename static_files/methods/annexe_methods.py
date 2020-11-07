@@ -1,4 +1,24 @@
+from apscheduler.schedulers.blocking import BlockingScheduler
+from git import Repo
 from static_files.models import *
+
+
+sched = BlockingScheduler()
+
+
+@sched.scheduled_job('interval', minutes=3)
+def update_git():
+    PATH = "/media/static_HA/.git"
+    COMMIT_MESSAGE = "Add file"
+    try:
+        repo = Repo(PATH)
+        repo.git.add(update=True)
+        repo.index.commit(COMMIT_MESSAGE)
+        origin = repo.remote(name='origin')
+        origin.push()
+    except:
+        print("Error during push")
+    return
 
 
 def school_file_count(school):
