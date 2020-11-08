@@ -112,7 +112,7 @@
             <label class="active" for="id_extension">Extension du fichier : </label>
             <select name="extension" id="id_extension">
             {% for extension in extensions %}
-                <option value="{{ extension }}">{{ extension }}</option>
+                <option value="{{ extension.pk }}">{{ extension.type }}</option>
             {% endfor %}
             </select>
        </div>
