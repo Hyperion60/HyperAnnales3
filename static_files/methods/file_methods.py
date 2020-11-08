@@ -24,7 +24,7 @@ def create_instance(request, context):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
         context['fileextension'] = (request.FILES['file'].name).split('.')[1]
-        context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['extension'])
+        context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
         context['path'] = build_path(context)
         context['raw_path'] = context['path'] + context['name']
         new_file = request.FILES['file']
