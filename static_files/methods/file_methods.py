@@ -15,7 +15,7 @@ def build_path(context):
 
 
 def create_instance(request, context):
-    context['school'] = School.objects.get(pk=request.user.school)
+    context['school'] = School.objects.get(school=request.user.school)
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
