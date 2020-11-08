@@ -61,6 +61,7 @@ def file_select(request, context):
         context['category'] = __create_category(request, context)
     else:
         context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
+    context['extensions'] = ExtensionFile.objects.all().order_by('type')
     context['step'] = 4
     return render(request, "static_content/add/add-file.html", context)
 
