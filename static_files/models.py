@@ -1,7 +1,6 @@
 from django.db import models
 from accounts.models import Account
 from HyperAnnales.settings import MEDIA_ROOT as root_path
-from static_files.methods.annexe_methods import *
 
 import os
 from datetime import datetime
