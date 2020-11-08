@@ -115,18 +115,8 @@
                 <option value="{{ extension }}">{{ extension }}</option>
             {% endfor %}
             </select>
-        </div>
-        {% if user.is_staff and step == 4 %}
-        <label class="active" for="id_new_extension">Nouvelle extension :</label>
-        <input type="text" id="id_new_extension" name="new_extension">
-        <label class="active" for="id_list_extension">Choisir la methode d'ouverture depuis celles existante :</label>
-        <select name="list_extension" id="id_list_extension">
-        {% for extension in extensions %}
-            <option value="{{ extension }}">{{ extension }}</option>
-        {% endfor %}
-        </select>
-        {% endif %}
-        <div class="input-field">
+       </div>
+       <div class="input-field">
             <label class="active" for="id_link">Lien URL : </label>
             <input type="text" id="id_link" name="link">
         </div>
