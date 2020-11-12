@@ -15,7 +15,7 @@ def build_path(context):
 
 
 def create_instance(request, context):
-    context['school'] = School.objects.get(pk=request.user.school)
+    context['school'] = School.objects.get(school=request.user.school)
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
@@ -23,8 +23,8 @@ def create_instance(request, context):
     if request.POST.get('filename', default=None):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
-        context['extension'] = (request.FILES['file'].name).split('.')[1]
-        context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['extension'])
+        context['fileextension'] = (request.FILES['file'].name).split('.')[1]
+        context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
         context['path'] = build_path(context)
         context['raw_path'] = context['path'] + context['name']
         new_file = request.FILES['file']
@@ -61,6 +61,7 @@ def file_select(request, context):
         context['category'] = __create_category(request, context)
     else:
         context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
+    context['extensions'] = ExtensionFile.objects.all().order_by('type')
     context['step'] = 4
     return render(request, "static_content/add/add-file.html", context)
 

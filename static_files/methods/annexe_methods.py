@@ -2,7 +2,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from git import Repo
 from static_files.models import *
 
-
 sched = BlockingScheduler()
 
 
