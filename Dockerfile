@@ -46,6 +46,8 @@ RUN cd /media/ && git clone git@github.com:Hyperion60/static_HA.git
 
 RUN cd /media && git clone git@github.com:Hyperion60/media_HA.git
 
+RUN git config --global user.email "admin@hyperion.tf" && git config --global user.name "Hyperion"
+
 # Expose port
 EXPOSE 6094
 
