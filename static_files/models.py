@@ -10,8 +10,6 @@ from shutil import copyfile
 
 STATIC_PATH = "/home/static_HA/epita/"
 
-GIT_FOLDER = "static_HA/"
-
 
 class School(models.Model):
     school = models.CharField(max_length=30, unique=True)
@@ -155,7 +153,7 @@ def create_file(context, request):
     new_staticFile = StaticFile(path=context['path'],
                                 date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
                                 filename=context['filename'],
-                                weight=round(os.path(root_path + GIT_FOLDER + context['raw_path']).st_size / 1024),
+                                weight=round(os.path(root_path + context['raw_path']).st_size / 1024),
                                 author=request.user,
                                 randomkey=context['key'],
                                 extension=ExtensionFile.objects.filter(extension__exact=context['extension']))
