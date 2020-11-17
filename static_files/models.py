@@ -159,7 +159,7 @@ def create_file(context, request):
     check_extension(context)
     if (context['extension'].extension == "url"):
         new_staticFile = StaticFile(url=context['url'],
-                                    date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
+                                    date=datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
                                     filename=context['filename'],
                                     author=request.user,
                                     randomkey=context['key'],
