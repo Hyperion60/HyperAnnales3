@@ -84,6 +84,9 @@ class CategoryFile(models.Model):
     def school(self):
         return self.subject.location.school
 
+    def __str__(self):
+        return self.title
+
 
 class ExtensionFile(models.Model):
     extension = models.CharField(max_length=5, unique=True) # Name
