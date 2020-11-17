@@ -29,7 +29,7 @@ class SemesterFile(models.Model):
 
 class YearFile(models.Model):
     year = models.IntegerField(unique=True)
-    active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
+    active_semester = models.ForeignKey(SemesterFile, models.CASCADE, default=1)
 
     def __str__(self):
         return str(self.year)
@@ -40,9 +40,9 @@ class YearFile(models.Model):
 
 class SubjectFile(models.Model):
     subject = models.CharField(max_length=100, unique=False)
-    semester = models.ForeignKey(SemesterFile, models.CASCADE, default=None)
-    year = models.ForeignKey(YearFile, models.CASCADE, default=None)
-    location = models.ForeignKey(School, models.CASCADE, default=None)
+    semester = models.ForeignKey(SemesterFile, models.CASCADE, default=1)
+    year = models.ForeignKey(YearFile, models.CASCADE, default=1)
+    location = models.ForeignKey(School, models.CASCADE, default=1)
     count = models.IntegerField(default=0)
 
     def __str__(self):
@@ -60,10 +60,10 @@ class CategoryFile(models.Model):
         ('QCM', 'blue'),
         ('Aide/Cours', 'green'),
     )
-    category = models.CharField(max_length=10, choices=LIST_CAT, default=None)
+    category = models.CharField(max_length=10, choices=LIST_CAT, default='')
     title = models.CharField(max_length=150, unique=False)
     place = models.IntegerField()
-    subject = models.ForeignKey(SubjectFile, models.CASCADE, default=None)
+    subject = models.ForeignKey(SubjectFile, models.CASCADE, default=0)
 
 
     def semester_obj(self):
@@ -97,20 +97,20 @@ class ExtensionFile(models.Model):
 
 
 class StaticFile(models.Model):
-    url = models.CharField(max_length=1024, default=None)
-    path = models.CharField(max_length=255, default=None)
+    url = models.CharField(max_length=1024, default='')
+    path = models.CharField(max_length=255, default='')
     date = models.DateTimeField()
-    filename = models.CharField(max_length=255, default=None)
+    filename = models.CharField(max_length=255, default='')
     weight = models.IntegerField(default=0)
-    author = models.ForeignKey(Account, models.CASCADE, default=None)
+    author = models.ForeignKey(Account, models.CASCADE, default=1)
     randomkey = models.IntegerField(unique=True)
-    extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=None)
+    extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=1)
     content = models.ForeignKey('StaticContent', models.CASCADE, default=0)
 
 
 class StaticContent(models.Model):
-    category = models.ForeignKey(CategoryFile, models.CASCADE, default=None)
-    name = models.CharField(max_length=255, default=None)
+    category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
+    name = models.CharField(max_length=255, default='')
     place = models.IntegerField(default=0) # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, default=0)
 
