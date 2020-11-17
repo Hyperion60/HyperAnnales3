@@ -167,7 +167,7 @@ def create_file(context, request):
         new_staticFile.save()
     else:
         new_staticFile = StaticFile(path=context['path'],
-                                    date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
+                                    date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                     filename=context['filename'],
                                     weight=round(os.stat(root_path + context['raw_path']).st_size / 1024),
                                     author=request.user,
