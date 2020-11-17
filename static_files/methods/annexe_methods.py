@@ -20,6 +20,18 @@ def update_git():
         print("Error during push")
     return
 
+def update_git_direct():
+    PATH = "/media/static_HA/.git"
+    COMMIT_MESSAGE = "Add file"
+    try:
+        repo = Repo(PATH)
+        repo.git.add(update=True)
+        repo.index.commit(COMMIT_MESSAGE)
+        origin = repo.remote(name='origin')
+        origin.push()
+    except:
+        print("Error during push")
+ 
 
 def school_file_count(school):
     list_subject = SubjectFile.objects.filter(location_school__exact=school.school)

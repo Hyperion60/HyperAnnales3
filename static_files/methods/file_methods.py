@@ -1,5 +1,5 @@
 from static_files.models import *
-from static_files.methods.annexe_methods import create_random_key
+from static_files.methods.annexe_methods import create_random_key, update_git_direct
 from static_files.methods.subject_methods import CreateSubject
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
@@ -38,6 +38,7 @@ def create_instance(request, context):
         # Create instance Static Content
         create_file(context, request)
         print(upload_file_url)
+    update_git_direct()
     return render(request, "static_content/add/add-file.html", context)
 
 
