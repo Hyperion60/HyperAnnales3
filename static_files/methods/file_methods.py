@@ -23,14 +23,18 @@ def create_instance(request, context):
     if request.POST.get('filename', default=None):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
-        context['fileextension'] = (request.FILES['file'].name).split('.')[1]
-        context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
         context['path'] = build_path(context)
         context['raw_path'] = context['path'] + context['name']
-        new_file = request.FILES['file']
-        fs = FileSystemStorage()
-        filename = fs.save(context['raw_path'], new_file)
-        upload_file_url = fs.url(filename)
+        if request.POST['url']:
+            context['url'] = request.POST['url']
+            context['name'] = str(context['filename']) + '-' + str(context['key'])
+        else:
+            context['fileextension'] = (request.FILES['file'].name).split('.')[1]
+            context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
+            new_file = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(context['raw_path'], new_file)
+            upload_file_url = fs.url(filename)
         # Create instance Static Content
         create_file(context, request)
         print(upload_file_url)

@@ -97,10 +97,11 @@ class ExtensionFile(models.Model):
 
 
 class StaticFile(models.Model):
+    url = models.CharField(max_length=1024, default=None)
     path = models.CharField(max_length=255, default=None)
     date = models.DateField()
     filename = models.CharField(max_length=255, default=None)
-    weight = models.IntegerField()
+    weight = models.IntegerField(default=0)
     author = models.ForeignKey(Account, models.CASCADE, default=None)
     randomkey = models.IntegerField(unique=True)
     extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=None)
@@ -140,7 +141,16 @@ def create_subject(request):
         new_subject.save()
 
 def check_extension(context):
-    list_extension = ExtensionFile.objects.filter(extension__exact=context['fileextension'])
+    try:
+        list_extension = ExtensionFile.objects.filter(extension__exact=context['fileextension'])
+    except KeyError:
+        list_extension = None
+    if not len(list_extension):
+        try:
+            if context['url']:
+                list_extension = ExtensionFile.objects.filter(extension__exact="url")
+        except KeyError:
+            list_extension = None
     if not len(list_extension):
         context['error'] = "Extension du fichier non supportée"
     context['extension'] = list_extension[0]
@@ -150,13 +160,22 @@ def check_extension(context):
 def create_file(context, request):
     # Check extension (create if necessary)
     check_extension(context)
-    new_staticFile = StaticFile(path=context['path'],
-                                date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
-                                filename=context['filename'],
-                                weight=round(os.path(root_path + context['raw_path']).st_size / 1024),
-                                author=request.user,
-                                randomkey=context['key'],
-                                extension=ExtensionFile.objects.filter(extension__exact=context['extension']))
+    if (context['extension'].extension == "url"):
+        new_staticFile = StaticFile(url=context['url'],
+                                    date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
+                                    filename=context['filename'],
+                                    author=request.user,
+                                    randomkey=context['key'],
+                                    extension=context['extension'])
+        new_staticFile.save()
+    else:
+        new_staticFile = StaticFile(path=context['path'],
+                                    date=datetime.now().strftime("%d-%m-%Y_%H:%M:%S"),
+                                    filename=context['filename'],
+                                    weight=round(os.stat(root_path + context['raw_path']).st_size / 1024),
+                                    author=request.user,
+                                    randomkey=context['key'],
+                                    extension=context['extension'])
     new_staticFile.save()
 
     new_staticContent = StaticContent(category=context['category'],
