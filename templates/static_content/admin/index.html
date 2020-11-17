@@ -23,22 +23,22 @@
             {% for file in contribution %}
             <li>
                 <div class="collapsible-header">
-                    <p>{{ file.year }} > {{ file.semester }} > {{ file.name }}</p>
+                    <p>{{ file.year }} > {{ file.semester }} > {{ file.subject }} > {{ file.category }} > {{ file.name }}</p>
                 </div>
                 <div class="collapsible-body">
                     <table>
                         <tbody>
                             <tr>
                                 <td>Vues</td>
-                                <td>WIP</td>
+                                <td>{{{ file.file.views }}</td>
                             </tr>
                             <tr>
                                 <td>Date</td>
-                                <td>{{ file.date }}</td>
+                                <td>{{ file.file.date }}</td>
                             </tr>
                             <tr>
                                 <td>Type</td>
-                                <td>{{ file.extension.type }}</td>
+                                <td>{{ file.file.extension.type }}</td>
                             </tr>
                         </tbody>
                     </table>
