@@ -105,14 +105,14 @@ class StaticFile(models.Model):
     author = models.ForeignKey(Account, models.CASCADE, default=1)
     randomkey = models.IntegerField(unique=True)
     extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=1)
-    content = models.ForeignKey('StaticContent', models.CASCADE, default=0)
+    content = models.ForeignKey('StaticContent', models.CASCADE, blank=True, null=True)
 
 
 class StaticContent(models.Model):
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
     name = models.CharField(max_length=255, default='')
     place = models.IntegerField(default=0) # Place into categoryFile
-    file = models.ForeignKey(StaticFile, models.CASCADE, default=0)
+    file = models.ForeignKey(StaticFile, models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
