@@ -20,12 +20,16 @@ def create_instance(request, context):
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
+    url = 1
+    try:
+        context['url'] = request.POST['url']
+    except MultiValueDictKeyError:
+        url = 0
     if request.POST.get('filename', default=None):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
         context['path'] = build_path(context)
-        if request.POST['url']:
-            context['url'] = request.POST['url']
+        if url:
             context['name'] = str(context['filename']) + '-' + str(context['key'])
         else:
             context['fileextension'] = (request.FILES['file'].name).split('.')[1]
