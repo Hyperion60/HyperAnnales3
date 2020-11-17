@@ -106,7 +106,8 @@ class StaticFile(models.Model):
     randomkey = models.IntegerField(unique=True)
     extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=1)
     content = models.ForeignKey('StaticContent', models.CASCADE, blank=True, null=True)
-
+    views = models.IntegerField(default=0)
+    
 
 class StaticContent(models.Model):
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
