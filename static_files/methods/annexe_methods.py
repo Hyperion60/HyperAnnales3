@@ -1,6 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from git import Repo
 from static_files.models import *
+from random import randint
 
 sched = BlockingScheduler()
 
@@ -37,6 +38,6 @@ def school_file_count__year(school, year):
 
 def create_random_key():
     n = 0
-    while not n and len(StaticFile.objects.filter(randomkey__exact=n)):
+    while n == 0 and len(StaticFile.objects.filter(randomkey__exact=n)):
         n = randint(1, 999999)
     return n
