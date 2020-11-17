@@ -141,10 +141,7 @@ def create_subject(request):
         new_subject.save()
 
 def check_extension(context):
-    try:
-        list_extension = ExtensionFile.objects.filter(extension__exact=context['fileextension'])
-    except KeyError:
-        list_extension = None
+    list_extension = ExtensionFile.objects.filter(extension__exact=context['fileextension'])
     if not len(list_extension):
         try:
             if context['url']:
