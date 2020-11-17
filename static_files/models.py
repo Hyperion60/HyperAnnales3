@@ -99,7 +99,7 @@ class ExtensionFile(models.Model):
 class StaticFile(models.Model):
     url = models.CharField(max_length=1024, default=None)
     path = models.CharField(max_length=255, default=None)
-    date = models.DateField()
+    date = models.DateTimeField()
     filename = models.CharField(max_length=255, default=None)
     weight = models.IntegerField(default=0)
     author = models.ForeignKey(Account, models.CASCADE, default=None)
