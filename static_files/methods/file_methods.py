@@ -38,7 +38,9 @@ def create_instance(request, context):
         # Create instance Static Content
         create_file(context, request)
         print(upload_file_url)
-    update_git_direct()
+    if not context['url']:
+        commit = "File(" + context['fileextension'] + "): " + context['raw_path']
+        update_git_direct(context['raw_path'], commit)
     return render(request, "static_content/add/add-file.html", context)
 
 

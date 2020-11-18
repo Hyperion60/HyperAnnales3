@@ -20,13 +20,16 @@ def update_git():
         print("Error during push")
     return
 
-def update_git_direct():
+def update_git_direct(file_path, commit=None):
     PATH = "/media/static_HA/.git"
     COMMIT_MESSAGE = "Add file"
     try:
         repo = Repo(PATH)
-        repo.git.add(update=True)
-        repo.index.commit(COMMIT_MESSAGE)
+        repo.git.add(file_path)
+        if not commit:
+            repo.index.commit(COMMIT_MESSAGE)
+        else:
+            repo.index.commit(commit)
         origin = repo.remote(name='origin')
         origin.push()
     except:
