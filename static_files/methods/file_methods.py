@@ -21,7 +21,7 @@ def create_instance(request, context):
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
     context['url'] = request.POST['url']
-    if request.POST.get('filename', default=None):
+    if request.POST.get('filename', default=None) or request.POST.get('url', default=None):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
         context['path'] = build_path(context)
