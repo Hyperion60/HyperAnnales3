@@ -91,6 +91,9 @@ class CategoryFile(models.Model):
 class ExtensionFile(models.Model):
     extension = models.CharField(max_length=5, unique=True) # Name
     type = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.type
 
     def template(self, static_file):
         return template_choice(self, token, static_file)
@@ -110,6 +113,9 @@ class StaticFile(models.Model):
     extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=1)
     content = models.ForeignKey('StaticContent', models.CASCADE, blank=True, null=True)
     views = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
     
 
 class StaticContent(models.Model):
