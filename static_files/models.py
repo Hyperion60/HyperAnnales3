@@ -163,6 +163,7 @@ def create_file(context, request):
         new_staticFile = StaticFile(url=context['url'],
                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                     filename=context['filename'],
+                                    name=context['filename'],
                                     author=request.user,
                                     randomkey=context['key'],
                                     extension=context['extension'])
