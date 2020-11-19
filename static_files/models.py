@@ -159,8 +159,6 @@ def check_extension(context):
 
 
 def create_file(context, request):
-    # Check extension (create if necessary)
-    check_extension(context)
     if (context['extension'].extension == "url"):
         new_staticFile = StaticFile(url=context['url'],
                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -170,6 +168,8 @@ def create_file(context, request):
                                     extension=context['extension'])
         new_staticFile.save()
     else:
+        # Check extension (create if necessary)
+        check_extension(context)
         new_staticFile = StaticFile(path=context['path'],
                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                     filename=context['filename'],
