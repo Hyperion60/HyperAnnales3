@@ -110,25 +110,29 @@
                     <input type="text" id="id_filename" name="filename">
                 </div>
             </li>
-            <li class="light-blue lighten-3">
-                <p>Ajout d'un fichier par upload</p>
-                <div class="input-field">
-                    <input type="file" accept=".pdf,.md,.txt,.zip" id="id_file" name="file">
-                </div>
-                <div class="input-field">
-                    <label class="active" for="id_extension">Extension du fichier : </label>
-                    <select name="extension" id="id_extension">
-                    {% for extension in extensions %}
-                        <option value="{{ extension.pk }}">{{ extension.type }}</option>
-                    {% endfor %}
-                    </select>
+            <li>
+                <div class="light-blue lighten-3">
+                    <p>Ajout d'un fichier par upload</p>
+                    <div class="input-field">
+                        <input type="file" accept=".pdf,.md,.txt,.zip" id="id_file" name="file">
+                    </div>
+                    <div class="input-field">
+                        <label class="active" for="id_extension">Extension du fichier : </label>
+                        <select name="extension" id="id_extension">
+                        {% for extension in extensions %}
+                            <option value="{{ extension.pk }}">{{ extension.type }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </li>
-            <li class="teal lighten-3">
-                <p>Ajout d'une ressource via lien URL</p>
-                <div class="input-field">
-                    <label class="active" for="id_url">Lien URL : </label>
-                    <input type="text" id="id_url" name="url">
+            <li>
+                <div class="teal lighten-3">
+                    <p>Ajout d'une ressource via lien URL</p>
+                    <div class="input-field">
+                        <label class="active" for="id_url">Lien URL : </label>
+                        <input type="text" id="id_url" name="url">
+                    </div>
                 </div>
             </li>
         </ul>
