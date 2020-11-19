@@ -103,13 +103,15 @@
         {% endif %}
         {% if step == 4 %}
         <ul class="collection">
-            <li class="brown lighten-3">
+            <li>
+                <p>Titre du nouveau fichier/ressource</p>
                 <div class="input-field">
                     <label class="active" for="id_filename">Titre : </label>
                     <input type="text" id="id_filename" name="filename">
                 </div>
             </li>
             <li class="light-blue lighten-3">
+                <p>Ajout d'un fichier par upload</p>
                 <div class="input-field">
                     <input type="file" accept=".pdf,.md,.txt,.zip" id="id_file" name="file">
                 </div>
@@ -123,6 +125,7 @@
                 </div>
             </li>
             <li class="teal lighten-3">
+                <p>Ajout d'une ressource via lien URL</p>
                 <div class="input-field">
                     <label class="active" for="id_url">Lien URL : </label>
                     <input type="text" id="id_url" name="url">
