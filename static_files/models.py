@@ -115,7 +115,7 @@ class StaticFile(models.Model):
     views = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name
+        return self.filename
     
 
 class StaticContent(models.Model):
@@ -169,11 +169,9 @@ def create_file(context, request):
         new_staticFile = StaticFile(url=context['url'],
                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                     filename=context['filename'],
-                                    name=context['filename'],
                                     author=request.user,
                                     randomkey=context['key'],
                                     extension=context['extension'])
-        new_staticFile.save()
     else:
         # Check extension (create if necessary)
         check_extension(context)
