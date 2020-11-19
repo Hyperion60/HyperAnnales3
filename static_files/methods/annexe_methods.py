@@ -20,7 +20,7 @@ def update_git():
         print("Error during push")
     return
 
-def update_git_direct(file_path, commit=None):
+def update_git_direct(file_path, commit=None, log={}):
     PATH = "/media/static_HA/.git"
     COMMIT_MESSAGE = "Add file"
     try:
@@ -32,7 +32,9 @@ def update_git_direct(file_path, commit=None):
             repo.index.commit(commit)
         origin = repo.remote(name='origin')
         origin.push()
+        log['message'] += "\nAjout du fichier dans le repertoire de sauvegarde realise avec succes"
     except:
+        log['error'] += "Echec de l'ajout du fichier dans le repertoire de sauvegarde"
         print("Error during push")
  
 
