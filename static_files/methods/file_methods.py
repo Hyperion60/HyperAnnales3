@@ -27,6 +27,7 @@ def create_instance(request, context):
         context['path'] = build_path(context)
         if context['url'] != '':
             context['name'] = str(context['filename']) + '-' + str(context['key'])
+            context['extension'] = ExtensionFile.objects.get(extension__exact="url")
         else:
             context['fileextension'] = (request.FILES['file'].name).split('.')[1]
             context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
