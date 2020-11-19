@@ -37,8 +37,8 @@ def create_instance(request, context):
             upload_file_url = fs.url(filename)
         # Create instance Static Content
         create_file(context, request)
-        print(upload_file_url)
         context['message'] = "Fichier ajoute avec succes"
+        print(context)
         if not context['url']:
             commit = "File(" + context['fileextension'] + "): " + context['raw_path']
             update_git_direct(context['raw_path'], commit, context)
