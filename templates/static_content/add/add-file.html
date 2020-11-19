@@ -102,24 +102,33 @@
         </div>
         {% endif %}
         {% if step == 4 %}
-        <div class="input-field">
-            <label class="active" for="id_file">Nouveau fichier : </label>
-            <input type="file" accept=".pdf,.md,.txt,.zip" id="id_file" name="file">
-            <label class="active" for="id_filename">Titre : </label>
-            <input type="text" id="id_filename" name="filename">
-        </div>
-        <div class="input-field">
-            <label class="active" for="id_extension">Extension du fichier : </label>
-            <select name="extension" id="id_extension">
-            {% for extension in extensions %}
-                <option value="{{ extension.pk }}">{{ extension.type }}</option>
-            {% endfor %}
-            </select>
-       </div>
-       <div class="input-field">
-            <label class="active" for="id_url">Lien URL : </label>
-            <input type="text" id="id_url" name="url">
-        </div>
+        <ul class="collection">
+            <li class="brown lighten-3">
+                <div class="input-field">
+                    <label class="active" for="id_filename">Titre : </label>
+                    <input type="text" id="id_filename" name="filename">
+                </div>
+            </li>
+            <li class="light-blue lighten-3">
+                <div class="input-field">
+                    <input type="file" accept=".pdf,.md,.txt,.zip" id="id_file" name="file">
+                </div>
+                <div class="input-field">
+                    <label class="active" for="id_extension">Extension du fichier : </label>
+                    <select name="extension" id="id_extension">
+                    {% for extension in extensions %}
+                        <option value="{{ extension.pk }}">{{ extension.type }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </li>
+            <li class="teal lighten-3">
+                <div class="input-field">
+                    <label class="active" for="id_url">Lien URL : </label>
+                    <input type="text" id="id_url" name="url">
+                </div>
+            </li>
+        </ul>
         {% endif %}
         </div>
 
