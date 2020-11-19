@@ -42,7 +42,7 @@ def create_instance(request, context):
         if not context['url']:
             commit = "File(" + context['fileextension'] + "): " + context['raw_path']
             update_git_direct(context['raw_path'], commit, context)
-        return render(request, "static_content/admin/message-template.html", context) 
+        return render(request, "static_content/admin/message_template.html", context) 
 
     return render(request, "static_content/add/add-file.html", context)
 
