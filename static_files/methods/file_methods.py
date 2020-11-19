@@ -21,7 +21,6 @@ def create_instance(request, context):
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
     context['url'] = request.POST['url']
-    print(request.POST)
     if request.POST.get('filename', default=None) or request.POST.get('url', default=None):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
@@ -117,9 +116,10 @@ def semester_select(request, context):
 # Dispatch
 def init_view(request):
     context = {}
+    print(request.POST)
     if request.POST:
         if request.POST.get('filename', default=None) or\
-           request.POST.get('link', default=None):
+           request.POST.get('url', default=None):
             return create_instance(request, context)
         elif request.POST.get('category', default=None):
             return file_select(request, context)
