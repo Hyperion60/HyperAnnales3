@@ -1,0 +1,54 @@
+{% extends "base-red.html" %}
+{% block content %}
+{% if error is not None %}
+<div class="container">
+    <div class="center card-panel red accent-3">
+        {{ error }}
+    </div>
+</div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s12">
+            <input maxlength="150" id="id_title" type="text" name="title" required autofocus/>
+            <label class="active" for="id_title">Nom de la matière</label>
+        </div>
+        <div class="input-field col s12">
+            <select name="year" id="id_year">
+                {% for item in year %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Année :</label>
+        </div>
+        <div class="input-field col s12">
+            <select name="semester" id="id_semester">
+                {% for item in semester %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Semestre :</label>
+        </div>
+        <div class="input-field col s12">
+            <select name="subject" id="id_subject">
+                {% for item in subject %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Matière :</label>
+        </div>
+        <div class="input-field col s12">
+            <select name="category" id="id_category">
+                {% for item in category %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Category :</label>
+        </div>
+    </div>
+    <div class="center">
+        <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Créer">
+    </div>
+</form>
+{% endblock %}

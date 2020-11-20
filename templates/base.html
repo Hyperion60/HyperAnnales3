@@ -65,13 +65,19 @@
     </nav>
     <ul class="sidenav hide-on-med-and-up" id="mobile-links">
         <li><a href="/">Accueil</a></li>
-        <li><a href="#">Documents Administratifs</a></li>
-        {% if request.user.is_authenticated %}
-        {% if request.user.is_contributor %}
-        <li class="waves-effect yellow lighten-3">
-            <a href="/static_content/admin/" style="color: black">Zone Contribution</a>
+        {% for semester, subjects in semesters.items %}
+        <li>
+            <div class="collapsible-header">{{ semester }}</div>
+            <div class="collapsible-body"><span>
+                <ul>
+                    {% for subject in subjects %}
+                    <li><a href="#"></a>{{ subject }}</li>
+                    {% endfor %}
+                </ul></span>
+            </div>
         </li>
-        {% endif %}
+        {% endfor %}
+        {% if request.user.is_authenticated %}
         <li class="waves-effect red lighten-3">
             <a href="{% url 'logout' %}" style="color: black">Déconnexion</a>
         </li>
@@ -92,18 +98,21 @@
                     <li>
                         <a href="/" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Accueil</div></a>
                     </li>
+                    {% for semester, subjects in semesters.items %}
+                    {% if subjects is not None %}
                     <li>
-                        <a href="#" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Documents Administratifs</div></a>
-                    </li>
-                    <li>
-                        <a href="https://materializecss.com/color.html" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Tables couleurs</div></a>
-                    </li>
-                    {% if request.user.is_authenticated %}
-                    {% if request.user.is_contributor %}
-                    <li>
-                        <a href="/static_content/admin/" style="color: black"><div class="collapsible-header waves-effect yellow lighten-3">Zone Contribution</div></a>
+                        <div class="collapsible-header">Semestre {{ semester }}</div>
+                        <div class="collapsible-body"><span>
+                            <ul class="collapsible cyan lighten-3 hide-on-small-only">
+                                {% for subject in subjects %}
+                                <li><a href="#">{{ subject }}</a></li>
+                                {% endfor %}
+                            </ul></span>
+                        </div>
                     </li>
                     {% endif %}
+                    {% endfor %}
+                    {% if request.user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}" style="color: black"><div class="collapsible-header waves-effect red lighten-3">Déconnexion</div></a>
                     </li>
@@ -117,8 +126,8 @@
                     {% endif %}
                 </ul>
             </div>
-            <div class="col m9">
-                <div class="col m12" style="background-color: #E0E0E0;">
+            <div class="col s12 m9">
+                <div class="col s12" style="background-color: #E0E0E0;">
                     {% block content %}{% endblock %}
                 </div>
             </div>

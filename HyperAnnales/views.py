@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.db.backends.postgresql import base
+from django.db import connections
+from django.views.decorators.cache import cache_page
 from accounts.models import *
 import django
 
@@ -9,8 +10,23 @@ def index(request):
 
 
 def __postgres_version():
-    tuple_version = base.psycopg2_version()
-    return str(tuple_version[0]) + "." + str(tuple_version[1]) + "." + str(tuple_version[2])
+    brut = str(connections['user_ref'].cursor().connection.server_version)
+    str_version = ""
+    is_point = True
+    is_OK = True
+    for letter in brut:
+        if letter == '0':
+            if is_point:
+                str_version += '.'
+                is_point = False
+            else:
+                str_version += letter
+                is_point = True
+            is_OK = False
+        if is_OK:
+            str_version += letter
+        is_OK = True
+    return str_version
 
 
 def __staff_members():
@@ -23,6 +39,7 @@ def __staff_members():
     return output
 
 
+@cache_page(24 * 60 * 60)
 def about(request):
     context = {}
     context['HA_version'] = "beta"

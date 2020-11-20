@@ -1,0 +1,21 @@
+{% extends "base-red.html" %}
+{% block content %}
+{% if error is not None %}
+<div class="container">
+    <div class="center card-panel red accent-3">
+        {{ error }}
+    </div>
+</div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s12">
+            <input  id="id_semester" type="number" name="semester" required autofocus/>
+            <label class="active" for="id_semester">Numéro du semestre</label>
+        </div>
+    <div class="center">
+        <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Créer">
+    </div>
+</form>
+{% endblock %}

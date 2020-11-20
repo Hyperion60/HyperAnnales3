@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <nav>
+        <div class="nav-wrapper grey">
+            <div class="col s12">
+                <a href="/{{ year }}" class="breadcrumb">{{ year }}</a>
+                <a href="/{{ year }}/{{ semester }}/" class="breadcrumb">{{ semester }}</a>
+                <a href="/{{ year }}/{{ semester }}/{{ category }}/" class="breadcrumb">{{ category }}</a>
+                <a href="#" class="breadcrumb">{{ title }}</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="row">
+    <div class="pdfobject-container s12">
+        <object data="/static_content/protected/{{ token }}" type="application/pdf" width="100%" height="100%" style="overflow: auto; width: 100%; height: 64vh;"></object>
+    </div>
+</div>
+{% endblock %}

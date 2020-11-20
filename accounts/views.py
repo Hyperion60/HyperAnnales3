@@ -9,14 +9,13 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from HyperAnnales.settings import EMAIL_HOST_USER
-from accounts.forms import AccountAuthenticationForm
 from accounts.models import *
 from accounts.tokens import account_activation_token
 
 
 def __test_email(email):
     host = email.split('@')
-    return host[1] == "epita.fr"
+    return host[1] == "epita.fr" or host[1] == "esiee-amiens.eu"
 
 
 def __send_verification_email(request, user, email):
@@ -93,7 +92,7 @@ def registration_view(request):
                     error = True
 
             if not __test_email(email):
-                context['error'] = "L'email n'est pas valide, entrez une adresse epita"
+                context['error'] = "L'email n'est pas valide, entrez une adresse epita ou esiee"
                 error = True
 
             if not error:
@@ -144,15 +143,18 @@ def login_view(request):
 
         print(username)
         usermail = Account.object.filter(email__exact=username)
-        print(usermail)
         if len(usermail):
-            print("here")
             username = usermail[0].username
             user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect("index")
-
-        context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
+            if user:
+                login(request, user)
+                return redirect("index")
+            if not usermail[0].is_active:
+                context['error'] = "Compte non validé. Utilisez le lien reçu par email. Si le problème persiste contacter un administrateur."
+            else:
+                context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
+        else:
+            context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
     return render(request, "accounts/login.html", context)
 
 
@@ -186,7 +188,7 @@ def change_password(request, uidb64, token):
             context['error'] = "Le lien n'est pas valide"
         if user is not None and account_activation_token.check_token(user, token):
             user.set_password(password1)
-            user.save(using='default')
+            user.save()
             context['message'] = "Votre mot de passe a bien été modifié."
             return render(request, 'accounts/message_template.html', context)
     context['uidb64'] = uidb64

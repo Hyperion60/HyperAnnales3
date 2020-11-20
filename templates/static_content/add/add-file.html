@@ -1,0 +1,148 @@
+{% extends "base-red.html" %}
+{% block content %}
+{% if step != 4 %}
+<form method="post">
+{% else %}
+<form method="post" enctype="multipart/form-data">
+{% endif %}
+	{% csrf_token %}
+	<div class="row">
+		{% if not step %}
+		<div class="input-field">
+			<label class="active" for="id_year">Annee :</label>
+			<select name="year" id="id_year">
+				{% for year in years %}
+				<option value="{{ year.pk }}">{{ year.year }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% else %}
+		<div class="input-field">
+            <input type="hidden" name="year" value="{{ year.pk }}">
+			<label class="active" for="id_year">Annee :</label>
+			<select name="year" id="id_year" disabled>
+				<option value="{{ year.pk }}">{{ year.year }}</option>
+			</select>
+		</div>
+		{% endif %}
+		{% if step == 1 %}
+		<div class="input-field">
+			<label class="active" for="id_semester">Semestre :</label>
+			<select name="semester" id="id_semester">
+				{% for semester in semesters %}
+				<option value="{{ semester.pk }}">{{ semester.semester }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% endif %}
+		{% if step > 1 %}
+		<div class="input-field">
+            <input type="hidden" name="semester" value="{{ semester.pk }}">
+			<label class="active" for="id_semester">Semestre :</label>
+			<select name="semester" id="id_semester" disabled>
+				<option value="{{ semester.pk }}">{{ semester.semester }}</option>
+			</select>
+		</div>
+		{% endif %}
+		{% if step == 2 %}
+		<div class="input-field">
+			<label class="active" for="id_subject">Matiere :</label>
+			<select name="subject" id="id_subject">
+                {% if user.is_staff %}
+                <option value="0">None</option>
+                {% endif %}
+				{% for subject in subjects %}
+				<option value="{{ subject.pk }}">{{ subject.subject }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% endif %}
+		{% if user.is_staff and step == 2 %}
+			<label class="active" for="id_new_subject">Nouvelle Matiere :</label>
+			<input type="text" id="id_new_subject" name="new_subject">
+		{% endif %}
+        {% if step > 2 %}
+        <div class="input-field">
+            <input type="hidden" name="subject" value="{{ subject.pk }}">
+            <label class="active" for="id_subject">Matiere : </label>
+            <select name="subject" id="id_subject" disabled>
+                <option value="{{ subject.pk }}">{{ subject.subject }}</option>
+            </select>
+        </div>
+        {% endif %}
+        {% if step == 3 %}
+        <div class="input-field">
+            <label class="active" for="id_category">Category</label>
+            <select name="category" id="id_category">
+            {% if user.is_staff %}
+                <option value="0">None</option>
+            {% endif %}
+            {% for cat in categories %}
+                <option value="{{ cat.pk }}">{{ cat.title }}</option>
+            {% endfor %}
+            </select>
+	    </div>
+        {% endif %}
+        {% if user.is_staff and step == 3 %}
+        <label class="active" for="id_new_category">Nouvelle Categorie :</label>
+        <input type="text" id="id_new_category" name="new_category">
+        <select name="list_category" id="id_list_category">
+        {% for cat in type %}
+            <option value="{{ cat }}">{{ cat }}</option>
+        {% endfor %}
+        </select>
+        {% endif %}
+        {% if step > 3 %}
+        <div class="input-field">
+            <input type="hidden" name="category" value="{{ category.pk }}">
+            <label class="active" for="id_category">Categorie : </label>
+            <select name="category" id="id_category" disabled>
+                <option value="{{ category.pk }}">{{ category.title }}</option>
+            </select>
+        </div>
+        {% endif %}
+        {% if step == 4 %}
+        <div class="section">
+            <h5>Titre du nouveau fichier/ressource</h5>
+            <div class="input-field">
+                <label class="active" for="id_filename">Titre :</label>
+                <input type="text" id="id_filename" name="filename">
+            </div>
+        </div>
+        <div class="row light-blue lighten-3">
+            <div class="col push-s1 s10">
+                <h6>Ajout d'un fichier par upload :</h6>
+                <div class="input-field file-field">
+                    <div class="btn red">
+                        <span>Upload file</span>
+                        <input type="file" accept=".pdf,.md,.txt,.zip,.py" id="id_file" name="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Upload file"/>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label class="active" for="id_extension">Extension du fichier :</label>
+                    <select name="extension" id="id_extension">
+                    {% for extension in extensions %}
+                        <option value="{{ extension.pk }}">{{ extension.type }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <h5>OU</h5>
+        <div class="row teal lighten-3">
+            <div class="col push-s1 s10">
+            <h6>Ajout d'une ressource via lien URL :</h6>
+            <div class="input-field">
+                <label class="active" for="id_url">Lien URL :</label>
+                <input type="text" id="id_url" name="url">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+	<button type="submit" value="next">Next</button>
+</form>
+{% endblock %}
