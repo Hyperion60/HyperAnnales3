@@ -1,6 +1,8 @@
 {% extends "base-red.html" %}
 {% block content %}
-<p style="font-size: xx-large">{{ message }}</p>
+{% autoescape on %}
+    <p style="font-size: xx-large">{{ message | linebreaksbr }}</p>
+{% endautoescape %}
 <div class="row">
     <div class="container">
         <a class="waves-effect waves-light btn green lighten-2" href="/static_content/admin/">Retour</a>
