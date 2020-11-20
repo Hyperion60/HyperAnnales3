@@ -39,7 +39,6 @@ def create_instance(request, context):
         # Create instance Static Content
         create_file(context, request)
         context['message'] = "Fichier ajouté avec succès"
-        print(context)
         if not context['url']:
             commit = "File(" + context['fileextension'] + "): " + context['raw_path']
             update_git_direct(context['raw_path'], commit, context)
@@ -80,7 +79,6 @@ def file_select(request, context):
 def category_select(request, context):
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
-    print(request.POST)
     if not int(request.POST['subject']):
         context = CreateSubject(context, request.POST['new_subject'], semester_obj.pk, year_obj.pk, School.objects.filter(school__exact=request.user.school)[0])
         subject_obj = context['new_subject_obj']
@@ -117,7 +115,6 @@ def semester_select(request, context):
 # Dispatch
 def init_view(request):
     context = {}
-    print(request.POST)
     if request.POST:
         if request.POST.get('filename', default=None) or\
            request.POST.get('url', default=None):
