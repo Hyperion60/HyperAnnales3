@@ -160,6 +160,7 @@ def check_extension(context):
             context['extension'] = None
         else:
             context['extension'] = list_extension[0]
+            context['error'] = None
 
 
 def create_file(context, request):
