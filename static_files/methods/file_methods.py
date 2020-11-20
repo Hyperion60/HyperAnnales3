@@ -38,7 +38,7 @@ def create_instance(request, context):
             upload_file_url = fs.url(filename)
         # Create instance Static Content
         create_file(context, request)
-        context['message'] = "Fichier ajoute avec succes"
+        context['message'] = "Fichier ajouté avec succès"
         print(context)
         if not context['url']:
             commit = "File(" + context['fileextension'] + "): " + context['raw_path']
