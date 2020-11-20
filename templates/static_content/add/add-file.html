@@ -102,42 +102,46 @@
         </div>
         {% endif %}
         {% if step == 4 %}
-        <ul class="collection">
-            <li>
-                <p>Titre du nouveau fichier/ressource</p>
-                <div class="input-field">
-                    <label class="active" for="id_filename">Titre : </label>
-                    <input type="text" id="id_filename" name="filename">
-                </div>
-            </li>
-            <li>
-                <div class="light-blue lighten-3">
-                    <p>Ajout d'un fichier par upload</p>
-                    <div class="input-field">
-                        <input type="file" accept=".pdf,.md,.txt,.zip" id="id_file" name="file">
-                    </div>
-                    <div class="input-field">
-                        <label class="active" for="id_extension">Extension du fichier : </label>
-                        <select name="extension" id="id_extension">
-                        {% for extension in extensions %}
-                            <option value="{{ extension.pk }}">{{ extension.type }}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="teal lighten-3">
-                    <p>Ajout d'une ressource via lien URL</p>
-                    <div class="input-field">
-                        <label class="active" for="id_url">Lien URL : </label>
-                        <input type="text" id="id_url" name="url">
-                    </div>
-                </div>
-            </li>
-        </ul>
-        {% endif %}
+        <div class="section">
+            <h5>Titre du nouveau fichier/ressource</h5>
+            <div class="input-field">
+                <label class="active" for="id_filename">Titre :</label>
+                <input type="text" id="id_filename" name="filename">
+            </div>
         </div>
+        <div class="row light-blue lighten-3">
+            <div class="col push-s1 s10">
+                <h6>Ajout d'un fichier par upload :</h6>
+                <div class="input-field file-field">
+                    <div class="btn red">
+                        <span>Upload file</span>
+                        <input type="file" accept=".pdf,.md,.txt,.zip,.py" id="id_file" name="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Upload file"/>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label class="active" for="id_extension">Extension du fichier :</label>
+                    <select name="extension" id="id_extension">
+                    {% for extension in extensions %}
+                        <option value="{{ extension.pk }}">{{ extension.type }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <h5>OU</h5>
+        <div class="row teal lighten-3">
+            <div class="col push-s1 s10">
+            <h6>Ajout d'une ressource via lien URL :</h6>
+            <div class="input-field">
+                <label class="active" for="id_url">Lien URL :</label>
+                <input type="text" id="id_url" name="url">
+            </div>
+        </div>
+        {% endif %}
+    </div>
 
 	<button type="submit" value="next">Next</button>
 </form>
