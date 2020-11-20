@@ -151,20 +151,22 @@ def create_subject(request):
         new_subject.save()
 
 def check_extension(context):
-    list_extension = ExtensionFile.objects.filter(extension__exact=context['fileextension'])
-    if not len(list_extension):
-        try:
-            if context['url']:
-                list_extension = ExtensionFile.objects.filter(extension__exact="url")
-        except KeyError:
-            list_extension = None
-    if not len(list_extension):
-        context['error'] = "Extension du fichier non supportée"
-    context['extension'] = list_extension[0]
-
+    if context['url']:
+        context['extension'] = ExtensionFile.objects.get(extension__exact="url")
+    else:
+        list_extension = ExtensionFile.objects.filter(extension__exact=context['fileextension'])
+        if not len(list_extension):
+            context['error'] += "\nExtension non supportée"
+            context['extension'] = None
+        else:
+            context['extension'] = list_extension[0]
 
 
 def create_file(context, request):
+    # Check extension (create if necessary)
+    check_extension(context)
+    if context['error']:
+        return
     if (context['extension'].extension == "url"):
         new_staticFile = StaticFile(url=context['url'],
                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -173,8 +175,6 @@ def create_file(context, request):
                                     randomkey=context['key'],
                                     extension=context['extension'])
     else:
-        # Check extension (create if necessary)
-        check_extension(context)
         new_staticFile = StaticFile(path=context['path'],
                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                     filename=context['filename'],
