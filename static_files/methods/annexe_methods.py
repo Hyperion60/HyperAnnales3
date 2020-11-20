@@ -32,10 +32,9 @@ def update_git_direct(file_path, commit=None, log={}):
             repo.index.commit(commit)
         origin = repo.remote(name='origin')
         origin.push()
-        log['message'] += "\nAjout du fichier dans le repertoire de sauvegarde realise avec succes"
+        log['message'] += "\nAjout du fichier dans le répertoire de sauvegarde réalisé avec succès"
     except:
-        log['error'] += "Echec de l'ajout du fichier dans le repertoire de sauvegarde"
-        print("Error during push")
+        log['error'] += "Echec de l'ajout du fichier dans le répertoire de sauvegarde"
  
 
 def school_file_count(school):
