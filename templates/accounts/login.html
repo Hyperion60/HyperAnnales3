@@ -8,7 +8,7 @@
             </div>
         </div>
     {% endif %}
-    <form class="site-form" action="/login/?next={{ request.path }}" method="post">
+    <form class="site-form" action="/login/?next={{ redirect_to }}" method="post">
         {% csrf_token %}
         <div class="row">
             <div class="input-field col s12">

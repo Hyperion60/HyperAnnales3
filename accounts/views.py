@@ -160,6 +160,8 @@ def login_view(request):
                 context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
         else:
             context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
+    else:
+         context['redirect_to'] = request.GET.get('next')
     return render(request, "accounts/login.html", context)
 
 

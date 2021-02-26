@@ -86,7 +86,7 @@
         </li>
         {% else %}
         <li class="waves-effect cyan lighten-3">
-            <a href="{% url 'login' %}" style="color: black">Se connecter</a>
+            <a href="{% url 'login' %}?next={{ request.path }}" style="color: black">Se connecter</a>
         </li>
         <li class="waves-effect green lighten-3">
             <a href="{% url 'register' %}" style="color: black">S'enregistrer</a>
@@ -124,7 +124,7 @@
                     </li>
                     {% else %}
                     <li>
-                        <a href="{% url 'login' %}" style="color: black"><div class="collapsible-header waves-effect cyan lighten-3">Se connecter</div></a>
+                        <a href="{% url 'login' %}?next={{ request.path }}" style="color: black"><div class="collapsible-header waves-effect cyan lighten-3">Se connecter</div></a>
                     </li>
                     <li>
                         <a href="{% url 'register' %}" style="color: black"><div class="collapsible-header waves-effect green lighten-3">S'enregistrer</div></a>
