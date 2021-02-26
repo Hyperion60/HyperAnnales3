@@ -41,6 +41,18 @@
                 font-size: 1.8vw;
             }
         }
+        .subjects {
+            padding: 1rem;
+            background-color: #cacaca;
+            border-color: #919191;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-left-style: solid;
+            border-left-width: 1px;
+        }
+        .collapsible-body {
+            background-color: gray;
+        }
     </style>
 </head>
 <body style="background-color: #E0E0E0;">
@@ -68,12 +80,12 @@
         {% load cache %}
         {% cache 86400 list_semester_mobile_nav school year %}
         {% for semester, subjects in semesters.items %}
-        <li>
-            <div class="collapsible-header">{{ semester }}</div>
-            <div class="collapsible-body"><span>
+        <li class="bold">
+            <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
+            <div class="collapsible-body" style="display: block;">
                 <ul>
                     {% for subject in subjects %}
-                    <li><a href="#"></a>{{ subject }}</li>
+                    <li class="subjects"><a href="#"><div class="collapsible-header waves-effect">{{ subject }}</div></a></li>
                     {% endfor %}
                 </ul></span>
             </div>
