@@ -24,5 +24,5 @@ def year(request, school, year):
     context['infos'] = None
     school_obj = School.objects.get(school__exact=school)
     year_obj = YearFile.objects.get(year__exact=year)
-    sidenav(school_obj, year_obj)
+    sidenav(context, school_obj, year_obj)
     return render(request, 'navigation/year.html', context)
