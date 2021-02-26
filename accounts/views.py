@@ -137,8 +137,11 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        redirect_to = request.GET.get('next', '')
         if user:
             login(request, user)
+            if redirect_to:
+                return redirect(redirect_to)
             return redirect("index")
 
         print(username)
@@ -148,6 +151,8 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
+                if redirect_to:
+                    return redirect(redirect_to)
                 return redirect("index")
             if not usermail[0].is_active:
                 context['error'] = "Compte non validé. Utilisez le lien reçu par email. Si le problème persiste contacter un administrateur."
