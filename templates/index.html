@@ -17,12 +17,11 @@
     <p style="font-size: x-large;">Ce site permet aux épithéens d'accéder aux TP et à leur correction, ainsi qu'aux différentes épreuves antérieures (QCM, Midterms, Partiels,...)</p>
     <div class="card amber darken-2">
         <div class="card-content">
-            <span class="card-title">Choisissez votre promotion :</span>
+            <span class="card-title">Choisissez votre école :</span>
             <ul>
-                <a href="#" class="waves-effect waves-light btn">2022</a>
-                <a href="#" class="waves-effect waves-light btn">2023</a>
-                <a href="#" class="waves-effect waves-light btn">2024</a>
-                <a onclick="M.toast({html: 'Votai Test.'})" class="waves-effect waves-light btn">Test</a>
+                {% for school in schools %}
+                <a href="{{ school.school }}" class="waves-effect waves-light btn">{{ school.school }}<span class="badge blue lighten-5">{{ school.count }}</span></a>
+                {% endfor %}
             </ul>
         </div>
     </div>
