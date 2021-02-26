@@ -82,7 +82,7 @@
         {% for semester, subjects in semesters.items %}
         <li class="bold">
             <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
-            <div class="collapsible-body" style="display: block;">
+            <div class="collapsible-body">
                 <ul>
                     {% for subject in subjects %}
                     <li class="subjects"><a href="#"><div class="collapsible-header waves-effect">{{ subject }}</div></a></li>
@@ -117,14 +117,14 @@
                     {% cache 86400 list_semester_desktop_nav school year %}
                     {% for semester, subjects in semesters.items %}
                     {% if subjects is not None %}
-                    <li>
-                        <div class="collapsible-header">Semestre {{ semester }}</div>
-                        <div class="collapsible-body"><span>
-                            <ul class="collapsible cyan lighten-3 hide-on-small-only">
+                    <li class="bold">
+                        <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
+                        <div class="collapsible-body">
+                            <ul>
                                 {% for subject in subjects %}
-                                <li><a href="#">{{ subject }}</a></li>
+                                <li class="subjects"><a href="#">{{ subject }}</a></li>
                                 {% endfor %}
-                            </ul></span>
+                            </ul>
                         </div>
                     </li>
                     {% endif %}
