@@ -1,0 +1,38 @@
+{% extends "base-red.html" %}
+{% block content %}
+
+{% load cache %}
+{% cache 86400 year_list school %}
+{% if voyelle %}
+<p style="font-size: x-large;">Accueil de l'{{ school }}</p>
+{% else %}
+<p style="font-size: x-large;">Accueil de {{ school }}</p>
+{% endif %}
+
+<div class="card blue lighten-4">
+    <div class="card-content">
+        <span class="card-title">Choisissez la promotion</span>
+        {% for year, nb in years.items %}
+        <a class="waves-effect waves-light btn" href="/{{ school }}/{{ year }}/">{{ year }}<span class="badge lime lighten-5">{{ nb }}</span></a>
+        {% endfor %}
+    </div>
+</div>
+
+{% if user.is_staff %}
+<button class="btn blue" style="float: right;" onclick="location.href = '/set/add/infos/{{ school }}/';">Ajouter une information</button>
+{% endif %}
+
+{% if infos %}
+{% for title, info in infos %}
+<div class="card green lighten-4">
+    <div class="card-content">
+        <span class="card-title">{{ title }}</span>
+        {% autoescape on %}
+        <p>{{ info }}</p>
+        {% endautoescape %}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endcache %}
+{% endblock %}
