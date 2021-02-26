@@ -45,4 +45,5 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('about', views.about, name="about"),
     path('<str:school>/', navigation.school),
+    path('<str:school>/<int:year>/', navigation.year),
 ]
