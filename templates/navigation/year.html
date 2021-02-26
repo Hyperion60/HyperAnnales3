@@ -14,6 +14,12 @@
     </div>
 </div>
 {% endfor %}
+{% else %}
+<div class="card grey lighten-4">
+    <div class="card-content">
+    <p>Pas d'information pour le moment.</p>
+    </div>
+</div>
 {% endif %}
 {% endcache %}
 {% if user.is_staff %}
