@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% load cache %}
+{% cache 600 infos school year %}
+{% if infos %}
+{% for title, info in infos %}
+<div class="card green lighten-4">
+    <div class="card-content">
+        <span class="card-title">{{ title }}</span>
+        {% autoescape on %}
+        <p>{{ info }}</p>
+        {% endautoescape %}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endcache %}
+{% if user.is_staff %}
+<button class="btn blue" style="float: right;" onclick="location.href = '/set/add/infos/{{ school }}/';">Ajouter une information</button>
+{% endif %}
+{% endblock %}
