@@ -65,6 +65,8 @@
     </nav>
     <ul class="sidenav hide-on-med-and-up" id="mobile-links">
         <li><a href="/">Accueil</a></li>
+        {% load cache %}
+        {% cache 86400 list_semester_mobile_nav school year %}
         {% for semester, subjects in semesters.items %}
         <li>
             <div class="collapsible-header">{{ semester }}</div>
@@ -77,6 +79,7 @@
             </div>
         </li>
         {% endfor %}
+        {% endcache %}
         {% if request.user.is_authenticated %}
         <li class="waves-effect red lighten-3">
             <a href="{% url 'logout' %}" style="color: black">Déconnexion</a>
@@ -98,6 +101,8 @@
                     <li>
                         <a href="/" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Accueil</div></a>
                     </li>
+                    {% load cache %}
+                    {% cache 86400 list_semester_desktop_nav school year %}
                     {% for semester, subjects in semesters.items %}
                     {% if subjects is not None %}
                     <li>
@@ -112,6 +117,7 @@
                     </li>
                     {% endif %}
                     {% endfor %}
+                    {% endcache %}
                     {% if request.user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}" style="color: black"><div class="collapsible-header waves-effect red lighten-3">Déconnexion</div></a>
