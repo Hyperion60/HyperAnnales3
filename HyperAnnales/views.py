@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.db import connections
-from django.views.decorators.cache import cache_page
 from accounts.models import *
+from static_files.models import School
 import django
 
 
 def index(request):
-    return render(request, 'index.html')
+    context = {}
+    context['schools'] = School.objects.all()
+    return render(request, 'index.html', context)
 
 
 def __postgres_version():
@@ -39,7 +41,6 @@ def __staff_members():
     return output
 
 
-@cache_page(24 * 60 * 60)
 def about(request):
     context = {}
     context['HA_version'] = "beta"

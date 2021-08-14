@@ -13,12 +13,11 @@ STATIC_PATH = "/home/static_HA/epita/"
 
 class School(models.Model):
     school = models.CharField(max_length=30, unique=True)
+    count = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.school)
 
-    def count(self):
-        return school_file_count(self)
 
 class SemesterFile(models.Model):
     semester = models.IntegerField(unique=True)

@@ -41,6 +41,23 @@
                 font-size: 1.8vw;
             }
         }
+        .subjects {
+            padding: 1rem;
+            background-color: #cacaca;
+            border-color: #919191;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-left-style: solid;
+            border-left-width: 1px;
+            color: black;
+        }
+        .collapsible-body {
+            background-color: gray;
+            padding-right: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-top: 0.5rem;
+            padding-left: 2rem;
+        }
     </style>
 </head>
 <body style="background-color: #E0E0E0;">
@@ -65,25 +82,28 @@
     </nav>
     <ul class="sidenav hide-on-med-and-up" id="mobile-links">
         <li><a href="/">Accueil</a></li>
+        {% load cache %}
+        {% cache 86400 list_semester_mobile_nav school year %}
         {% for semester, subjects in semesters.items %}
-        <li>
-            <div class="collapsible-header">{{ semester }}</div>
-            <div class="collapsible-body"><span>
+        <li class="bold">
+            <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
+            <div class="collapsible-body">
                 <ul>
                     {% for subject in subjects %}
-                    <li><a href="#"></a>{{ subject }}</li>
+                    <li class="subjects"><a href="#"><div class="collapsible-header waves-effect">{{ subject }}</div></a></li>
                     {% endfor %}
                 </ul></span>
             </div>
         </li>
         {% endfor %}
+        {% endcache %}
         {% if request.user.is_authenticated %}
         <li class="waves-effect red lighten-3">
             <a href="{% url 'logout' %}" style="color: black">Déconnexion</a>
         </li>
         {% else %}
         <li class="waves-effect cyan lighten-3">
-            <a href="{% url 'login' %}" style="color: black">Se connecter</a>
+            <a href="{% url 'login' %}?next={{ request.path }}" style="color: black">Se connecter</a>
         </li>
         <li class="waves-effect green lighten-3">
             <a href="{% url 'register' %}" style="color: black">S'enregistrer</a>
@@ -98,27 +118,30 @@
                     <li>
                         <a href="/" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Accueil</div></a>
                     </li>
+                    {% load cache %}
+                    {% cache 86400 list_semester_desktop_nav school year %}
                     {% for semester, subjects in semesters.items %}
                     {% if subjects is not None %}
-                    <li>
-                        <div class="collapsible-header">Semestre {{ semester }}</div>
-                        <div class="collapsible-body"><span>
-                            <ul class="collapsible cyan lighten-3 hide-on-small-only">
+                    <li class="bold">
+                        <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
+                        <div class="collapsible-body">
+                            <ul>
                                 {% for subject in subjects %}
-                                <li><a href="#">{{ subject }}</a></li>
+                                <li class="subjects"><a href="#">{{ subject }}</a></li>
                                 {% endfor %}
-                            </ul></span>
+                            </ul>
                         </div>
                     </li>
                     {% endif %}
                     {% endfor %}
+                    {% endcache %}
                     {% if request.user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}" style="color: black"><div class="collapsible-header waves-effect red lighten-3">Déconnexion</div></a>
                     </li>
                     {% else %}
                     <li>
-                        <a href="{% url 'login' %}" style="color: black"><div class="collapsible-header waves-effect cyan lighten-3">Se connecter</div></a>
+                        <a href="{% url 'login' %}?next={{ request.path }}" style="color: black"><div class="collapsible-header waves-effect cyan lighten-3">Se connecter</div></a>
                     </li>
                     <li>
                         <a href="{% url 'register' %}" style="color: black"><div class="collapsible-header waves-effect green lighten-3">S'enregistrer</div></a>
