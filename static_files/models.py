@@ -64,7 +64,6 @@ class CategoryFile(models.Model):
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=0)
 
-
     def semester_obj(self):
         return self.subject.semester
 
@@ -148,6 +147,7 @@ def create_subject(request):
     if not len(subject_s):
         new_subject = SubjectFile(subject=subject)
         new_subject.save()
+
 
 def check_extension(context):
     if context['url']:
