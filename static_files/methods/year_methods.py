@@ -51,7 +51,6 @@ list_glsr_s6 = ['PRPA : Programmation Parallèle',
                 'SOCRA : Software craftmanship']
 
 
-
 def create_base_subject(year, semester):
     context = {}
     # Prepa
@@ -79,10 +78,11 @@ def create_base_subject(year, semester):
             if not len(SubjectFile.objects.filter(year=year.year).filter(semester=semester.semester).filter(subject=subject)):
                 CreateSubject(context, subject, semester.pk, year.pk, School.objects.filter(school="EPITA")[0])
 
+
 # year(int), semester(pk)
-def create_year(year, semester, school):
+def create_year(year, semester):
     semester_obj = SemesterFile.objects.get(pk=semester)
-    new_year = YearFile(year=year, active_semester=semester_obj, school=school)
+    new_year = YearFile(year=year, active_semester=semester_obj)
     create_base_subject(new_year, semester_obj)
     new_year.save()
 
