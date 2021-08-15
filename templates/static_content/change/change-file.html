@@ -15,7 +15,9 @@
             <input type="text" id="id_content_name" name="content_name" value="{{ file.name }}">
 
             <label class="active" id="id_place">Place du fichier :</label>
-            <input type="range" id="id_place" min="0" max="{{ file.place.max }}">
+            <p class="range-field">
+                <input type="range" id="id_place" min="0" max="{{ max }}">
+            </p>
             {% if user.is_staff %}
             <label class="active" id="id_category_title">Titre de la catégorie :</label>
             <input type="text" id="id_category_title" name="category_title" value="{{ file.category.title }}">

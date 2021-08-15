@@ -52,6 +52,7 @@ def UpdateFileView(request, rndkey):
     context = {}
     try:
         context['file'] = StaticContent.objects.get(file__randomkey__exact=rndkey)
+        context['max'] = len(StaticContent.objects.filter(category__exact=context['file'].category))
     except StaticContent.DoesNotExist:
         context['error'] = "La clé renseignée n'existe pas."
     if request.POST:
