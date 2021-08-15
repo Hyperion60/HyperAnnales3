@@ -13,7 +13,6 @@ def build_path(context):
     return path
     
 
-
 def create_instance(request, context):
     context['school'] = School.objects.get(school=request.user.school)
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
@@ -54,7 +53,6 @@ def __create_category(request, context):
     if not len(new_cat):
         new_cat = CategoryFile(subject=context['subject'],\
                                title=request.POST['new_category'],\
-                               category=request.POST['list_category'],\
                                place=place)
         new_cat.save()
         context['category'] = new_cat
@@ -116,14 +114,14 @@ def semester_select(request, context):
 def init_view(request):
     context = {}
     if request.POST:
-        if request.POST.get('filename', default=None) or\
+        if request.POST.get('filename', default=None) or \
            request.POST.get('url', default=None):
             return create_instance(request, context)
         elif request.POST.get('category', default=None):
             return file_select(request, context)
         elif request.POST.get('subject', default=None):
             return category_select(request, context)
-        elif request.POST.get('semester',default=None):
+        elif request.POST.get('semester', default=None):
             return subject_select(request, context)
         elif request.POST.get('year', default=None):
             return semester_select(request, context)
