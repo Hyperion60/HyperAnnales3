@@ -86,11 +86,6 @@
         {% if user.is_staff and step == 3 %}
         <label class="active" for="id_new_category">Nouvelle Categorie (titre + type) :</label>
         <input type="text" id="id_new_category" name="new_category">
-        <select name="list_category" id="id_list_category">
-        {% for cat in type %}
-            <option value="{{ cat }}">{{ cat }}</option>
-        {% endfor %}
-        </select>
         {% endif %}
         {% if step > 3 %}
         <div class="input-field">
