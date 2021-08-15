@@ -53,6 +53,8 @@ def UpdateFileView(request, rndkey):
     try:
         context['file'] = StaticContent.objects.get(file__randomkey__exact=rndkey)
         context['max'] = len(StaticContent.objects.filter(category__exact=context['file'].category))
+        context['extensions'] = ExtensionFile.objects.exclude(extension__exact=context['file'].file.extension.extension)
+        context['categories'] = CategoryFile.objects.exclude(id=context['file'].category.id).filter(subject__exact=context['file'].category.subject)
     except StaticContent.DoesNotExist:
         context['error'] = "La clé renseignée n'existe pas."
     if request.POST:
@@ -65,10 +67,10 @@ def UpdateFileView(request, rndkey):
         category_title = context['file'].category.title
 
         # Set value
-        if len(request.POST['name']):
-            name = request.POST['name']
-        if 0 < int(request.POST['place']) < len(StaticContent.objects.filter(category=context['file'].category)):
-            place = int(request.POST['place'])
+        if len(request.POST['content_name']):
+            name = request.POST['content_name']
+        if 0 < int(request.POST['content_place']) < len(StaticContent.objects.filter(category=context['file'].category)):
+            place = int(request.POST['content_place'])
         try:
             extension = ExtensionFile.objects.get(extension=request.POST['extension'])
         except ExtensionFile.DoesNotExist:
