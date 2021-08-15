@@ -16,6 +16,7 @@ urlpatterns = [
     path('add/subject/', subject_views.CreateSubjectView),
     path('add/year/', year_views.CreateYearView),
     path('change/year/<int:year>/', year_views.SetSemesterYearView),
+    path('change/<int:rndkey>/', file_views.UpdateFileView),
     path('test/<int:year>', base_template.test_template),
     path('protected/<str:token>/', file_views.SendFile),
     path('<int:year>/<int:id>/', file_views.CreateFileView),

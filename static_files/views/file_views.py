@@ -48,10 +48,10 @@ def SendFile(request, token):
 
 
 @login_required(login_url="/login/")
-def UpdateFileView(request, randomkey):
+def UpdateFileView(request, rndkey):
     context = {}
     try:
-        context['file'] = StaticContent.objects.get(file__randomkey__exact=randomkey)
+        context['file'] = StaticContent.objects.get(file__randomkey__exact=rndkey)
     except StaticContent.DoesNotExist:
         context['error'] = "La clé renseignée n'existe pas."
     if request.POST:
