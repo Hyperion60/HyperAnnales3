@@ -7,6 +7,8 @@ from datetime import datetime
 from random import randint
 from shutil import copyfile
 # Create your models here.
+from static_files.methods.annexe_methods import school_file_count__year
+from static_files.methods.extension_methods import template_choice, open_file
 
 STATIC_PATH = "/home/static_HA/epita/"
 
@@ -52,14 +54,6 @@ class SubjectFile(models.Model):
 
 
 class CategoryFile(models.Model):
-    LIST_CAT = (
-        ('TD', 'blue'),
-        ('Documents', 'green'),
-        ('Controles', 'red'),
-        ('QCM', 'blue'),
-        ('Aide/Cours', 'green'),
-    )
-    category = models.CharField(max_length=10, choices=LIST_CAT, default='')
     title = models.CharField(max_length=150, unique=False)
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=0)
@@ -96,8 +90,8 @@ class ExtensionFile(models.Model):
     def template(self, static_file):
         return template_choice(self, token, static_file)
 
-    def token(static_file):
-        return open_file(static_file.pk)
+    def token(self):
+        return open_file(self.pk)
 
 
 class StaticFile(models.Model):
@@ -117,7 +111,16 @@ class StaticFile(models.Model):
     
 
 class StaticContent(models.Model):
+    LIST_CLASS = (
+        ('TD', 'blue'),
+        ('Documents', 'green'),
+        ('Controles', 'red'),
+        ('QCM', 'blue'),
+        ('Aide/Cours', 'green'),
+    )
+
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
+    classe = models.CharField(max_length=10, choices=LIST_CLASS, default='')
     name = models.CharField(max_length=255, default='')
     place = models.IntegerField(default=0) # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, blank=True, null=True)
