@@ -30,6 +30,15 @@
             </select>
         </div>
         <div class="input-field col s12">
+            <label class="active" id="id_classe">Classe du fichier :</label>
+            <select name="content_classe" id="id_classe">
+                <option value="{{ file.classe }}" selected>{{ file.classe }}</option>
+                {% for classe in file.LIST_CLASS %}
+                <option value="{{ classe }}">{{ classe }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-field col s12">
             <label class="active" id="id_category">Catégorie du fichier :</label>
             <select name="content_category" id="id_category">
                 <option value="{{ file.category.pk }}" selected>{{ file.category.title }}</option>
