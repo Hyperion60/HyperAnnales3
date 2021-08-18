@@ -60,7 +60,7 @@ def GetSubjectView(request, school, year, semester, subject):
             }
             context['contents']['files'].append(file)
         content = {}
-        for key, corp in zip(context['contents']['category'], context['contents']['files'])
+        for key, corp in zip(context['contents']['category'], context['contents']['files']):
             content[key] = (corp['obj'], corp['link'], corp['obj'].classe[1])
         context['contents'] = content
     except CategoryFile.DoesNotExist:
