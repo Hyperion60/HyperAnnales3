@@ -44,14 +44,17 @@ def subject(request, school, year, semester, subject):
                                                  subject__exact=subject)[0]
         for category in CategoryFile.objects.filter(subject=subject_obj):
             context['contents']['category'].append(category)
-            file = {
-                'obj': StaticContent.objects.filter(category=category),
-                'link': None
-            }
-            context['contents']['files'].append(file)
+            files = []
+            for staticcontent in StaticContent.objects.filter(category=category):
+                files.append({
+                    'obj': staticcontent,
+                    'link': None
+                })
+            context['contents']['files'].append(files)
         content = {}
         for key, corp in zip(context['contents']['category'], context['contents']['files']):
-            content[key] = (corp['obj'], corp['link'], corp['obj'].classe[1])
+            for file in corp:
+                content[key] = (file['obj'], file['link'], file['obj'].classe[1])
         context['contents'] = content
     except CategoryFile.DoesNotExist:
         context['contents'] = None
