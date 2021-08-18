@@ -78,13 +78,20 @@ def UpdateFileView(request, rndkey):
             context['error'] += "Cette extension n'existe pas."
         if request.POST['content_classe'] in StaticContent.LIST_CLASS:
             classe = request.POST['content_classe']
-        try:
-            if CategoryFile.objects.get(pk=request.POST['content_category']) in CategoryFile.objects.filter(subject=context['file'].category.subject):
-                category = CategoryFile.objects.get(pk=request.POST['content_category'])
-        except CategoryFile.DoesNotExist:
-            if context['error']:
-                context['error'] += "\n"
-            context['error'] += "Catégorie non permise pour ce fichier."
+        if request.user.is_staff and request.POST['new_category_title']:
+            new_category = CategoryFile(title=str(request.POST['new_category_title']),
+                                        place=len(CategoryFile.objects.filter(subject=context['file'].category.subject)),
+                                        subject=context['file'].category.subject)
+            new_category.save()
+            category = new_category
+        else:
+            try:
+                if CategoryFile.objects.get(pk=request.POST['content_category']) in CategoryFile.objects.filter(subject=context['file'].category.subject):
+                    category = CategoryFile.objects.get(pk=request.POST['content_category'])
+            except CategoryFile.DoesNotExist:
+                if context['error']:
+                    context['error'] += "\n"
+                context['error'] += "Catégorie non permise pour ce fichier."
         context['file'].name = name
         context['file'].place = place
         context['file'].file.extension = extension
