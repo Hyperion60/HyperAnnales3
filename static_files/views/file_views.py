@@ -73,14 +73,18 @@ def UpdateFileView(request, rndkey):
         try:
             extension = ExtensionFile.objects.get(pk=request.POST['content_extension'])
         except ExtensionFile.DoesNotExist:
-            pass
+            if context['error']:
+                context['error'] += "\n"
+            context['error'] += "Cette extension n'existe pas."
         if request.POST['content_classe'] in StaticContent.LIST_CLASS:
             classe = request.POST['content_classe']
         try:
             if CategoryFile.objects.get(pk=request.POST['content_category']) in CategoryFile.objects.filter(subject=context['file'].category.subject):
-                category = request.POST['content_category']
+                category = CategoryFile.objects.get(pk=request.POST['content_category'])
         except CategoryFile.DoesNotExist:
-            pass
+            if context['error']:
+                context['error'] += "\n"
+            context['error'] += "Catégorie non permise pour ce fichier."
         context['file'].name = name
         context['file'].place = place
         context['file'].file.extension = extension
