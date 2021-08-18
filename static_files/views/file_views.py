@@ -77,7 +77,7 @@ def UpdateFileView(request, rndkey):
                 context['error'] += "\n"
             context['error'] += "Cette extension n'existe pas."
         if request.POST['content_classe'] in StaticContent.LIST_CLASS:
-            classe = request.POST['content_classe']
+            classe = request.POST['content_classe'][0]
         if request.user.is_staff and request.POST['new_category_title']:
             new_category = CategoryFile(title=str(request.POST['new_category_title']),
                                         place=len(CategoryFile.objects.filter(subject=context['file'].category.subject)),
