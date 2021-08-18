@@ -54,7 +54,8 @@ def subject(request, school, year, semester, subject):
         content = {}
         for key, corp in zip(context['contents']['category'], context['contents']['files']):
             for file in corp:
-                content[key] = (file['obj'], file['link'], file['obj'].classe[1])
+                content[key] = (file['obj'], file['link'], file['obj'].classe)
+                print(file['obj'].classe)
         context['contents'] = content
     except CategoryFile.DoesNotExist:
         context['contents'] = None
