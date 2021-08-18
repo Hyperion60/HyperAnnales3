@@ -8,7 +8,9 @@ def sidenav(context, school, year):
     counts = {}
     list_semester = SemesterFile.objects.filter(semester__lte=year.active_semester.semester).order_by('semester')
     for semester in list_semester:
-        semesters[semester.semester] = SubjectFile.objects.filter(location__exact=school, year__exact=year, semester__exact=semester).order_by('subject')
+        semesters[semester.semester] = SubjectFile.objects.filter(location__exact=school,
+                                                                  year__exact=year,
+                                                                  semester__exact=semester).order_by('subject')
     for semester in semesters:
         c = 0
         for subject in semesters[semester]:
