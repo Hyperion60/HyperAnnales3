@@ -26,3 +26,29 @@ def year(request, school, year):
     year_obj = YearFile.objects.get(year__exact=year)
     sidenav(context, school_obj, year_obj)
     return render(request, 'navigation/year.html', context)
+
+
+def subject(request, school, year, semester, subject):
+    context = {}
+    context['school'] = school
+    context['year'] = year
+    context['semester'] = semester
+    context['subject'] = subject
+    context['contents'] = {}
+    try:
+        context['contents']['category'] = []
+        context['contents']['files'] = []
+        for category in CategoryFile.objects.filter(subject__exact=subject):
+            context['contents']['category'].append(category)
+            file = {
+                'obj': StaticContent.objects.filter(category=category),
+                'link': None
+            }
+            context['contents']['files'].append(file)
+        content = {}
+        for key, corp in zip(context['contents']['category'], context['contents']['files']):
+            content[key] = (corp['obj'], corp['link'], corp['obj'].classe[1])
+        context['contents'] = content
+    except CategoryFile.DoesNotExist:
+        context['contents'] = None
+    return render(request, "templates/navigation/subject.html", context)

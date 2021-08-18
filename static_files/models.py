@@ -6,7 +6,6 @@ import os
 from datetime import datetime
 from random import randint
 from shutil import copyfile
-# Create your models here.
 from static_files.methods.annexe_methods import school_file_count__year
 from static_files.methods.extension_methods import template_choice, open_file
 
