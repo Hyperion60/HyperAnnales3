@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from static_files.models import School
+from static_files.models import School, CategoryFile, StaticContent
 from static_files.form.subject_forms import SetSubject
 from static_files.methods.subject_methods import CreateSubject
 
@@ -39,3 +39,30 @@ def CreateSubjectView(request):
     if not error:
         context['error'] = None
     return render(request, "static_content/add/add-subject.html", context)
+
+
+@login_required(login_url="/login/")
+def GetSubjectView(request, school, year, semester, subject):
+    context = {}
+    context['school'] = school
+    context['year'] = year
+    context['semester'] = semester
+    context['subject'] = subject
+    context['contents'] = {}
+    try:
+        context['contents']['category'] = []
+        context['contents']['files'] = []
+        for category in CategoryFile.objects.filter(subject__exact=subject):
+            context['contents']['category'].append(category)
+            file = {
+                'obj': StaticContent.objects.filter(category=category),
+                'link': None
+            }
+            context['contents']['files'].append(file)
+        content = {}
+        for key, corp in zip(context['contents']['category'], context['contents']['files'])
+            content[key] = (corp['obj'], corp['link'], corp['obj'].classe[1])
+        context['contents'] = content
+    except CategoryFile.DoesNotExist:
+        context['contents'] = None
+    return render(request, "templates/navigation/subject.html", context)

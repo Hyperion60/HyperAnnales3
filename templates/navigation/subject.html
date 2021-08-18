@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<nav>
+    <div class="nav-wrapper grey">
+        <div class="col s12">
+            <a class="breadcrumb" href="/{{ school }}/">{{ school }}</a>
+            <a class="breadcrumb" href="/{{ school }}/{{ year }}/">{{ year }}</a>
+            <a class="breadcrumb">{{ semester }}</a>
+            <a class="breadcrumb"><b>{{ subject }}</b></a>
+        </div>
+    </div>
+</nav>
+
+{% if contents is not None %}
+{% for category, files in contents %}
+    <div class="card cyan lighten-4">
+        <div class="card-content">
+            <span class="card-title">{{ category.title }}</span>
+            {% for obj, link, color in files %}
+               <a class="waves-effect waves-light {{ color }} btn" href="{{ link }}">{{ obj.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+{% else %}
+    <div class="card grey lighten-4">
+        <div class="card-content">
+            <p>Pas de ressources disponibles pour le moment.</p>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
