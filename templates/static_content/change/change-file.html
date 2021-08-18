@@ -34,7 +34,7 @@
             <select name="content_classe" id="id_classe">
                 <option value="{{ file.classe }}" selected>{{ file.classe }}</option>
                 {% for classe in file.LIST_CLASS %}
-                <option value="{{ classe }}">{{ classe }}</option>
+                <option value="{{ classe[0] }}">{{ classe[0] }}</option>
                 {% endfor %}
             </select>
         </div>
