@@ -86,15 +86,19 @@
         {% cache 86400 list_semester_mobile_nav school year %}
         {% for semester, subjects in semesters.items %}
         {% if subjects is not None %}
-        <li class="bold">
-            <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
-            <div class="collapsible-body">
-                <ul>
-                    {% for subject in subjects %}
-                    <li class="subjects"><a href="#" style="color: black;">{{ subject }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            {% for subject in subjects %}
+                            <li class="subjects"><a href="#" style="color: black;">{{ subject }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </li>
         {% endif %}
         {% endfor %}
