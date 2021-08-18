@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from static_files.models import *
+from static_files.models import YearFile, School, SubjectFile, CategoryFile, StaticContent
 from static_files.views.base_template import sidenav
 
 
@@ -38,7 +38,11 @@ def subject(request, school, year, semester, subject):
     try:
         context['contents']['category'] = []
         context['contents']['files'] = []
-        for category in CategoryFile.objects.filter(subject__exact=subject):
+        subject_obj = SubjectFile.objects.filter(location__school__exact=school,
+                                                 year__year__exact=year,
+                                                 semester__semester__exact=semester,
+                                                 subject__exact=subject)[0]
+        for category in CategoryFile.objects.filter(subject=subject_obj):
             context['contents']['category'].append(category)
             file = {
                 'obj': StaticContent.objects.filter(category=category),
