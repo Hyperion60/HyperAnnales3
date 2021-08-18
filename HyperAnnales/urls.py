@@ -46,4 +46,5 @@ urlpatterns = [
     path('about', views.about, name="about"),
     path('<str:school>/', navigation.school),
     path('<str:school>/<int:year>/', navigation.year),
+    path('<str:school>/<int:year>/<int:semester>/<str:subject>/', navigation.subject),
 ]
