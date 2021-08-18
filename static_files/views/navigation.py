@@ -59,4 +59,4 @@ def subject(request, school, year, semester, subject):
         context['contents'] = content
     except CategoryFile.DoesNotExist:
         context['contents'] = None
-    return render(request, "templates/navigation/subject.html", context)
+    return render(request, "navigation/subject.html", context)
