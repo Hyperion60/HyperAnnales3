@@ -47,7 +47,7 @@ def SetSemesterYearView(request, year):
         except KeyError:
             context['error'] = "Champ introuvable"
             error = True
-        list_school = School.objects.filter(school=user.school)
+        list_school = School.objects.filter(school=request.user.school)
         if len(list_school):
             school = list_school[0]
         else:
