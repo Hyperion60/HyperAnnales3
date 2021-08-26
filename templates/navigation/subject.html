@@ -15,7 +15,7 @@
 {% for category, files in contents.items %}
     <div class="card cyan lighten-4">
         <div class="card-content">
-            <span class="card-title">{{ category.title }}</span>
+            <span class="card-title"><b>{{ category.title }}</b></span>
             {% for obj, link, color in files.items %}
                <a class="waves-effect waves-light {{ color }} btn" href="{{ link }}">{{ obj.name }}</a>
             {% endfor %}
