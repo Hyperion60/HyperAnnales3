@@ -94,8 +94,11 @@ def get_year(year, school):
     return None
 
 
-# year(year, semester(pk), school)
-def set_year(year, semester):
+# year(year, semester, school)
+def set_year(year, semester, school):
+    if not year or not semester or not school:
+        return 1
     year_obj = YearFile.objects.filter(year__exact=year, school__exact=school)
-    year_obj.active_semester = SemesterFile.objects.get(pk=semester)
+    year_obj.active_semester = SemesterFile.objects.get(semester__exact=semester)
     year_obj.save()
+    return 0
