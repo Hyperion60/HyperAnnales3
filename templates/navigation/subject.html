@@ -18,8 +18,8 @@
             <span class="card-title"><b>{{ category.title }}</b></span>
             <a>{{ files }}</a>
             <a>{{ category }}</a>
-            {% for obj, link in files.items %}
-               <a class="waves-effect waves-light {{ obj.classe }} btn" href="{{ link }}">{{ obj.name }}</a>
+            {% for file in files %}
+               <a class="waves-effect waves-light {{ file.2 }} btn" href="{{ file.1 }}">{{ file.0.name }}</a>
             {% endfor %}
         </div>
     </div>
