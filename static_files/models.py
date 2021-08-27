@@ -80,9 +80,9 @@ class CategoryFile(models.Model):
 
 
 class ExtensionFile(models.Model):
-    extension = models.CharField(max_length=5, unique=True) # Name
+    extension = models.CharField(max_length=5, unique=True)  # Name
     type = models.CharField(max_length=50)
-    
+
     def __str__(self):
         return self.type
 
@@ -107,7 +107,7 @@ class StaticFile(models.Model):
 
     def __str__(self):
         return self.filename
-    
+
 
 class StaticContent(models.Model):
     LIST_CLASS = (
@@ -119,9 +119,9 @@ class StaticContent(models.Model):
     )
 
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
-    classe = models.CharField(max_length=10, choices=LIST_CLASS, default='')
-    name = models.CharField(max_length=255, default='')
-    place = models.IntegerField(default=0) # Place into categoryFile
+    classe = models.CharField(max_length=10, choices=LIST_CLASS, default=('TD', 'blue'))
+    name = models.CharField(max_length=255, default='Default Name')
+    place = models.IntegerField(default=0)  # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, blank=True, null=True)
 
     def __str__(self):
@@ -198,4 +198,3 @@ def create_file(context, request):
     new_staticContent.save()
     new_staticFile.content = new_staticContent
     new_staticFile.save()
-
