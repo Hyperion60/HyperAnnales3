@@ -48,14 +48,12 @@ def subject(request, school, year, semester, subject):
             for staticcontent in StaticContent.objects.filter(category=category):
                 files.append({
                     'obj': staticcontent,
-                    'link': None
+                    'link': "#"
                 })
             context['contents']['files'].append(files)
         content = {}
         for key, corp in zip(context['contents']['category'], context['contents']['files']):
             for file in corp:
-                test1 = file['obj']
-                test2 = test1.key()
                 content[key] = (file['obj'], file['link'], file['obj'].classe[1])
         context['contents'] = content
     except CategoryFile.DoesNotExist:

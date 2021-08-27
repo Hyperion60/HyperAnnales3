@@ -18,7 +18,7 @@
             <span class="card-title"><b>{{ category.title }}</b></span>
         {{ files }}
             {% for file in files %}
-               <a class="waves-effect waves-light {{ file.2 }} btn" href="{{ file.1 }}">{{ file.0 }}</a>
+               <a class="waves-effect waves-light {{ file.2 }} btn" href="{{ file.1 }}">{{ file.0.name }}</a>
             {% endfor %}
         </div>
     </div>
