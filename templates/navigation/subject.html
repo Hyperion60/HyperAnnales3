@@ -16,8 +16,10 @@
     <div class="card cyan lighten-4">
         <div class="card-content">
             <span class="card-title"><b>{{ category.title }}</b></span>
-            {% for obj, link, color in files.items %}
-               <a class="waves-effect waves-light {{ color }} btn" href="{{ link }}">{{ obj.name }}</a>
+            <a>{{ files }}</a>
+            <a>{{ category }}</a>
+            {% for obj, link in files.items %}
+               <a class="waves-effect waves-light {{ obj.classe }} btn" href="{{ link }}">{{ obj.name }}</a>
             {% endfor %}
         </div>
     </div>
