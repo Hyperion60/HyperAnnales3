@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from static_files.methods.annexe_methods import get_color
+from static_files.views.annexe_functions import get_color
 from static_files.models import YearFile, School, SubjectFile, CategoryFile, StaticContent
 from static_files.views.base_template import sidenav
 
