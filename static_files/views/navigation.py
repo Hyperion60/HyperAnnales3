@@ -59,4 +59,7 @@ def subject(request, school, year, semester, subject):
         context['contents'] = content
     except CategoryFile.DoesNotExist:
         context['contents'] = None
+    school_obj = School.objects.get(school__exact=school)
+    year_obj = YearFile.objects.get(year__exact=year)
+    sidenav(context, school_obj, year_obj)
     return render(request, "navigation/subject.html", context)
