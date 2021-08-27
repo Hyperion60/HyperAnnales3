@@ -1,7 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from git import Repo
-from static_files.models import *
-from static_files.models import StaticContent
+from static_files.models import StaticContent, SubjectFile, StaticFile
 from random import randint
 
 sched = BlockingScheduler()
@@ -20,6 +19,7 @@ def update_git():
     except:
         print("Error during push")
     return
+
 
 def update_git_direct(file_path, commit=None, log={}):
     PATH = "/media/static_HA/.git"
@@ -40,7 +40,7 @@ def update_git_direct(file_path, commit=None, log={}):
 
 def school_file_count(school):
     list_subject = SubjectFile.objects.filter(location_school__exact=school.school)
-    file_sum = 0;
+    file_sum = 0
     for subj in list_subject:
         file_sum += subj.count
     return file_sum
@@ -49,7 +49,7 @@ def school_file_count(school):
 def school_file_count__year(school, year):
     list_subject = SubjectFile.objects.filter(location_school__exact=school.school,\
                                               year_year__exact=year.year)
-    file_sum = 0;
+    file_sum = 0
     for subj in list_subject:
         file_sum += subj.count
     return file_sum
