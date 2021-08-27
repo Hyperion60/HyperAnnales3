@@ -1,6 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from git import Repo
 from static_files.models import *
+from static_files.models import StaticContent
 from random import randint
 
 sched = BlockingScheduler()
