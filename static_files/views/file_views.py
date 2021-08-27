@@ -98,6 +98,10 @@ def UpdateFileView(request, rndkey):
         context['file'].classe = classe
         context['file'].category = category
         context['file'].save()
+        # Checkpoint
+        retry = StaticContent.objects.get(file__randomkey__exact=rndkey)
+        if context['file'].name != retry.name or context['file'].classe != retry.classe:
+            print(gangang)
         context['message'] = "Le fichier a bien été modifié."
         return render(request, "static_content/admin/message_template.html", context)
     return render(request, "static_content/change/change-file.html", context)
