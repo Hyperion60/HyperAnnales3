@@ -84,7 +84,7 @@ def UpdateFileView(request, rndkey):
             return False
 
         if test_classe(StaticContent.LIST_CLASS, request.POST['content_classe']):
-            classe = request.POST['content_classe'][0]
+            classe = request.POST['content_classe']
         if request.user.is_staff and request.POST['new_category_title']:
             new_category = CategoryFile(title=str(request.POST['new_category_title']),
                                         place=len(CategoryFile.objects.filter(subject=context['file'].category.subject)),
