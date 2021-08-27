@@ -79,7 +79,8 @@ def UpdateFileView(request, rndkey):
         print(StaticContent.LIST_CLASS)
         print(request.POST['content_classe'])
         print(type(request.POST['content_classe']))
-        print(str(request.POST['content_classe']) in StaticContent.LIST_CLASS)
+        print(type(StaticContent.LIST_CLASS))
+        print(str(request.POST['content_classe']) in list(StaticContent.LIST_CLASS))
         if str(request.POST['content_classe']) in StaticContent.LIST_CLASS:
             classe = request.POST['content_classe'][0]
         if request.user.is_staff and request.POST['new_category_title']:
