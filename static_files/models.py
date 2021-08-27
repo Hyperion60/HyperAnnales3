@@ -129,6 +129,7 @@ class StaticContent(models.Model):
 
     def color(self):
         if self.classe:
+            test = str(self.classe)[1:-1].split(',')
             return str(self.classe)[1:-1].split(',')[1][2:-1]
         return None
 
