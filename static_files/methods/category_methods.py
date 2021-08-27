@@ -1,4 +1,4 @@
-from static_files.models import CategoryFile, YearFile, SemesterFile, SubjectFile, School
+from static_files.models import CategoryFile, SubjectFile
 
 
 # context(dict), subject(obj), title(str), category(str)
