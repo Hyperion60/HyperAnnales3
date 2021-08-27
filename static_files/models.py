@@ -119,7 +119,7 @@ class StaticContent(models.Model):
     )
 
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
-    classe = models.CharField(max_length=10, choices=LIST_CLASS, default=('TD', 'blue'))
+    classe = models.CharField(max_length=30, choices=LIST_CLASS, default=('TD', 'blue'))
     name = models.CharField(max_length=255, default='Default Name')
     place = models.IntegerField(default=0)  # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, blank=True, null=True)
@@ -130,6 +130,11 @@ class StaticContent(models.Model):
     def color(self):
         if self.classe:
             return self.classe[1]
+        return None
+
+    def key(self):
+        if self.file:
+            return self.file.randomkey
         return None
 
     def subject(self):
