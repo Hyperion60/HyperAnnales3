@@ -127,15 +127,15 @@ class StaticContent(models.Model):
     def __str__(self):
         return self.name
 
-    def color(self):
-        if self.classe:
-            test = str(self.classe)[1:-1].split(',')
-            return str(self.classe)[1:-1].split(',')[1][2:-1]
+    def color(self, classe):
+        if classe:
+            test = str(classe)[1:-1].split(',')
+            return str(classe)[1:-1].split(',')[1][2:-1]
         return None
 
-    def classe(self):
-        if self.classe:
-            return str(self.classe)[1:-1].split(',')[0][1:-1]
+    def classe(self, classe):
+        if classe:
+            return str(classe)[1:-1].split(',')[0][1:-1]
         return None
 
     def key(self):
