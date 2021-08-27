@@ -77,8 +77,6 @@ def UpdateFileView(request, rndkey):
                 context['error'] += "\n"
             context['error'] += "Cette extension n'existe pas."
         if request.POST['content_classe'] in StaticContent.LIST_CLASS:
-            if not len(classe):
-                print(gngng)
             classe = request.POST['content_classe'][0]
         if request.user.is_staff and request.POST['new_category_title']:
             new_category = CategoryFile(title=str(request.POST['new_category_title']),
@@ -104,6 +102,7 @@ def UpdateFileView(request, rndkey):
         retry = StaticContent.objects.get(file__randomkey__exact=rndkey)
         if context['file'].name != retry.name or context['file'].classe != retry.classe:
             print(gangang)
+        print(retry.classe)
         context['message'] = "Le fichier a bien été modifié."
         return render(request, "static_content/admin/message_template.html", context)
     return render(request, "static_content/change/change-file.html", context)
