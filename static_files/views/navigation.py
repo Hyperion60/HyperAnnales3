@@ -55,7 +55,7 @@ def subject(request, school, year, semester, subject):
         for key, corp in zip(context['contents']['category'], context['contents']['files']):
             for file in corp:
                 test1 = file['obj']
-                test2 = test1.name
+                test2 = test1.color()
                 content[key] = (file['obj'], file['link'], file['obj'].classe)
                 print(gnagan)
         context['contents'] = content

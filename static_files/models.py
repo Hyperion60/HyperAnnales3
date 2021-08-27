@@ -127,6 +127,9 @@ class StaticContent(models.Model):
     def __str__(self):
         return self.name
 
+    def color(self):
+        return self.classe[1]
+
     def subject(self):
         return self.category.subject
 
