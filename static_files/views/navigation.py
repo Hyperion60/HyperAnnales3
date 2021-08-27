@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from static_files.methods.annexe_methods import get_color
 from static_files.models import YearFile, School, SubjectFile, CategoryFile, StaticContent
 from static_files.views.base_template import sidenav
 
@@ -55,7 +57,7 @@ def subject(request, school, year, semester, subject):
         for key, corp in zip(context['contents']['category'], context['contents']['files']):
             content[key] = []
             for file in corp:
-                content[key].append((file['obj'], file['link'], file['obj'].color(file['obj'].classe)))
+                content[key].append((file['obj'], file['link'], get_color(file['obj'])))
         context['contents'] = content
     except CategoryFile.DoesNotExist:
         context['contents'] = None
