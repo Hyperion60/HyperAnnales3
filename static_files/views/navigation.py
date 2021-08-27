@@ -56,8 +56,7 @@ def subject(request, school, year, semester, subject):
             for file in corp:
                 test1 = file['obj']
                 test2 = test1.key()
-                content[key] = (file['obj'], file['link'], file['obj'].classe)
-                print(gnagan)
+                content[key] = (file['obj'], file['link'], file['obj'].classe[1])
         context['contents'] = content
     except CategoryFile.DoesNotExist:
         context['contents'] = None
