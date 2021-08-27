@@ -129,7 +129,12 @@ class StaticContent(models.Model):
 
     def color(self):
         if self.classe:
-            return self.classe[1]
+            return self.classe[1:-1].split(',')[1][2:-1]
+        return None
+
+    def classe(self):
+        if self.classe:
+            return self.classe[1:-1].split(',')[0][1:-1]
         return None
 
     def key(self):
