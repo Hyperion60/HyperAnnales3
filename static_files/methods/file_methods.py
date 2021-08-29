@@ -5,6 +5,13 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
 
+COLOR_FILE = [
+    ('Fichier local', 'green'),
+    ('Lien URL', 'blue'),
+    ('Fichier distant', 'red'),
+]
+
+
 def build_path(context):
     path = str(context['school'].school) + "/"
     path += str(context['year'].year) + "/"
