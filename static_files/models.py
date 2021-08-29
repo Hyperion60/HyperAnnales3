@@ -51,8 +51,8 @@ class SubjectFile(models.Model):
 
 
 class CategoryColor(models.Model):
-    color = models.CharField(max_length=15, unique=True)
-    type = models.CharField(max_length=45, unique=True)
+    color = models.CharField(max_length=15, unique=False, default="blue")
+    type = models.CharField(max_length=45, unique=True, default="default_type")
 
 
 class CategoryFile(models.Model):
