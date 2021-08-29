@@ -3,7 +3,7 @@ set -e
 
 sleep 5
 
-python manage.py makemigrations
+cd HyperAnnales && python manage.py makemigrations
 python manage.py makemigrations static_files
 python manage.py migrate --database=user_ref
 
