@@ -50,10 +50,16 @@ class SubjectFile(models.Model):
         return self.location
 
 
+class CategoryClass(models.Model):
+    color = models.CharField(max_length=15, unique=True)
+    type = models.CharField(max_length=45, unique=True)
+
+
 class CategoryFile(models.Model):
     title = models.CharField(max_length=150, unique=False)
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=0)
+    classe = models.ForeignKey(CategoryClass, models.CASCADE, default=1)
 
     def semester_obj(self):
         return self.subject.semester
@@ -84,7 +90,7 @@ class ExtensionFile(models.Model):
     def __str__(self):
         return self.type
 
-    def template(self, static_file):
+    def template(self, token, static_file):
         return template_choice(self, token, static_file)
 
     def token(self):
@@ -107,17 +113,14 @@ class StaticFile(models.Model):
         return self.filename
 
 
-class StaticContent(models.Model):
-    LIST_CLASS = (
-        ('TD', 'blue'),
-        ('Documents', 'green'),
-        ('Controles', 'red'),
-        ('QCM', 'blue'),
-        ('Aide/Cours', 'green'),
-    )
+class ContentColor(models.Model):
+    color = models.CharField(max_length=20, default="blue")
+    type = models.CharField(max_length=45, default="default_type")
 
+
+class StaticContent(models.Model):
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
-    classe = models.CharField(max_length=30, choices=LIST_CLASS, default=('TD', 'blue'))
+    classe = models.ForeignKey(ContentColor, models.CASCADE, null=False, default=1)
     name = models.CharField(max_length=255, default='Default Name')
     place = models.IntegerField(default=0)  # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, blank=True, null=True)
@@ -129,6 +132,9 @@ class StaticContent(models.Model):
         if self.file:
             return self.file.randomkey
         return None
+
+    def color(self):
+        return self.classe.color
 
     def subject(self):
         return self.category.subject
@@ -172,7 +178,7 @@ def create_file(context, request):
     check_extension(context)
     if context['error']:
         return
-    if (context['extension'].extension == "url"):
+    if context['extension'].extension == "url":
         new_staticFile = StaticFile(url=context['url'],
                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                     filename=context['filename'],
