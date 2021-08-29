@@ -5,11 +5,12 @@ Sources files from the last version of HA 3.0
 
 ### Cores
 - Affichages fichiers
+  - Ré-ajouter les classes pour la categorie
   - Jetons d'authentifications
   - Template d'affichage du fichier (polymorphe)
   - Méthodes d'affichage en fonction de l'extension
   - Template d'affichage de la liste de la matière
-  - Méthode d'affichage de la liste
+- Méthode d'affichage de la liste
 - Etudier l'optimisation par cache
   - Temps de cache
   - Méthode de révocation
@@ -36,3 +37,5 @@ Sources files from the last version of HA 3.0
 ## Liste des améliorations du code
 
 - Transformer le `context['error']` en liste pour faciliter la gestion des erreurs multiples.
+- Ajouter une classe pour la couleur du bouton
+- Vérifier la sureté des URL
