@@ -120,7 +120,7 @@ class ContentColor(models.Model):
 
 class StaticContent(models.Model):
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
-    classe = models.ForeignKey(ContentColor, models.CASCADE, null=False, default=1)
+    classe = models.ForeignKey(ContentColor, models.CASCADE, null=False, default=None)
     name = models.CharField(max_length=255, default='Default Name')
     place = models.IntegerField(default=0)  # Place into categoryFile
     file = models.ForeignKey(StaticFile, models.CASCADE, blank=True, null=True)

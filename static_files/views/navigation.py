@@ -62,13 +62,10 @@ def subject(request, school, year, semester, subject):
                     ContentColor.objects.get(pk=1)
                 except ContentColor.DoesNotExist:
                     ContentColor().save()
-                try:
-                    color = file['obj'].color()
-                except:
+                if file['obj'].classe is None:
                     file['obj'].classe = ContentColor.objects.get(pk=1)
                     file['obj'].save()
-                    color = file['obj'].color()
-                content[key].append((file['obj'], file['link'], color))
+                content[key].append((file['obj'], file['link'], file['obj'].color()))
         context['contents'] = content
     except CategoryFile.DoesNotExist:
         context['contents'] = None
