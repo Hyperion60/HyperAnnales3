@@ -50,7 +50,7 @@ class SubjectFile(models.Model):
         return self.location
 
 
-class CategoryClass(models.Model):
+class CategoryColor(models.Model):
     color = models.CharField(max_length=15, unique=True)
     type = models.CharField(max_length=45, unique=True)
 
@@ -59,7 +59,7 @@ class CategoryFile(models.Model):
     title = models.CharField(max_length=150, unique=False)
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=0)
-    classe = models.ForeignKey(CategoryClass, models.CASCADE, default=1)
+    classe = models.ForeignKey(CategoryColor, models.CASCADE, default=None)
 
     def semester_obj(self):
         return self.subject.semester
