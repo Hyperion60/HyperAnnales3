@@ -5,10 +5,10 @@ class StaticFilesConfig(AppConfig):
     name = 'static_files'
 
     def ready(self):
-        from .models import School, YearFile, SemesterFile, ContentColor, CategoryColor
-        from methods.year_methods import create_year
-        from methods.category_methods import COLOR_CATEGORY
-        from methods.file_methods import COLOR_FILE
+        from static_files.models import School, YearFile, SemesterFile, ContentColor, CategoryColor
+        from static_files.methods.year_methods import create_year
+        from static_files.methods.category_methods import COLOR_CATEGORY
+        from static_files.methods.file_methods import COLOR_FILE
         try:
             School.objects.get(school__exact="EPITA")
         except School.DoesNotExist:

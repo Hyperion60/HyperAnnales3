@@ -2,8 +2,9 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from git import Repo
 from static_files.models import *
 from random import randint
+from pytz import utc
 
-sched = BlockingScheduler()
+sched = BlockingScheduler(timezone=utc)
 
 
 @sched.scheduled_job('interval', minutes=3)
