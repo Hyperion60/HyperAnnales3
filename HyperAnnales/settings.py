@@ -198,3 +198,5 @@ MEDIA_ROOT = "/media/static_HA/"
 SENDFILE_BACKEND = "django_sendfile.backends.simple"
 
 KEY_TOKEN = os.getenv("PRIVATE_TOKEN")
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
