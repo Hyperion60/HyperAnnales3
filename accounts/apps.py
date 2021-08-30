@@ -11,7 +11,7 @@ class AccountsConfig(AppConfig):
         from accounts.models import Account
 
         load_dotenv(dotenv_path=env_path)
-        if not len(Account.objects.filter(is_superuser=True)):
+        if not len(Account.object.filter(is_superuser=True)):
             Account(username=os.getenv("USER_LOGIN"),
                     password=os.getenv("USER_PASS"),
                     email=os.getenv("USER_EMAIL"),
