@@ -4,6 +4,8 @@ Sources files from the last version of HA 3.0
 ## Liste des fonctionnalités
 
 ### Cores
+- DEFAULT_AUTO_FIELD (Django 3.2) [FIXED]
+- Ajout d'un fichier
 - Affichages fichiers
   - Ré-ajouter les classes pour la categorie
   - Jetons d'authentifications
