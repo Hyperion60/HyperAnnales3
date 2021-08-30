@@ -12,9 +12,9 @@ class AccountsConfig(AppConfig):
 
         load_dotenv(dotenv_path=env_path)
         if not len(Account.object.filter(is_superuser=True)):
-            Account(username=os.getenv("USER_LOGIN"),
-                    password=os.getenv("USER_PASS"),
-                    email=os.getenv("USER_EMAIL"),
+            Account(username=os.getenv("DJANGO_LOGIN"),
+                    password=os.getenv("DJANGO_PASS"),
+                    email=os.getenv("DJANGO_EMAIL"),
                     is_active=True,
                     is_superuser=True,
                     is_contributor=True,
