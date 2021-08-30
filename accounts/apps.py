@@ -12,11 +12,12 @@ class AccountsConfig(AppConfig):
 
         load_dotenv(dotenv_path=env_path)
         if not len(Account.object.filter(is_superuser=True)):
-            Account(username=os.getenv("DJANGO_LOGIN"),
-                    password=os.getenv("DJANGO_PASS"),
-                    email=os.getenv("DJANGO_EMAIL"),
-                    is_active=True,
-                    is_superuser=True,
-                    is_contributor=True,
-                    is_staff=True,
-                    is_admin=True).save()
+            root = Account(username=os.getenv("DJANGO_LOGIN"),
+                           email=os.getenv("DJANGO_EMAIL"),
+                           is_active=True,
+                           is_superuser=True,
+                           is_contributor=True,
+                           is_staff=True,
+                           is_admin=True)
+            root.set_password(os.getenv("DJANGO_PASS"))
+            root.save()
