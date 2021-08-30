@@ -29,7 +29,7 @@ class StaticFilesConfig(AppConfig):
             try:
                 YearFile.objects.get(year__exact=year)
             except YearFile.DoesNotExist:
-                create_year(year, SemesterFile.objects.get(semester__exact=active_semester))
+                create_year(year, active_semester)
             active_semester -= 2
 
         for (type, color) in COLOR_FILE:
