@@ -87,7 +87,7 @@
         {% if user.is_staff %}
         <div class="row light-blue lighten-3">
             <div class="col push-1 s10">
-                <h6>Selection d'une catégorie déjà existante :</h6>
+            <h6><b>Selection d'une catégorie déjà existante :</b></h6>
         {% endif %}
                 <div class="input-field">
                     <label class="active" for="id_category">Category</label>
@@ -106,7 +106,7 @@
         <h5>OU</h5>
         <div class="row teal lighten-3">
             <div class="col push-s0 s10">
-            <h6>Ajout d'une nouvelle catégorie :</h6>
+                <h6><b>Ajout d'une nouvelle catégorie :</b></h6>
             <div class="input-field">
                 <label class="active" for="id_new_category_title">Titre :</label>
                 <input type="text" id="id_new_category_title" name="new_category_title">
@@ -119,20 +119,15 @@
             </div>
             <div class="input-field">
                 <label class="active" id="id_new_category_type">Type de ressources des fichiers de la catégorie :</label>
-                <select id="id_new_category_type" name="new_category_type">
-                    <option value="0">None</option>
-                    {% for type in types %}
-                    <option value="{{ type.pk }}">{{ type.type }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <h6>Nouveau type de catégorie :</h6>
-            <div class="input-field">
-                <label class="active" id="id_new_type_type">Type de catégorie :</label>
-                <input type="text" id="id_new_type_type" name="new_type_type">
+                <input type="text" id="id_new_category_type" name="new_category_type">
             </div>
             <div class="row orange lighten-4">
                 <div class="col push-s1 s10">
+                    <h6><b>Nouveau type de catégorie :</b></h6>
+                    <div class="input-field">
+                        <label class="active" id="id_new_type_type">Type de catégorie :</label>
+                        <input type="text" id="id_new_type_type" name="new_type_type">
+                    </div>
                     <div class="input-field">
                         <label class="active" id="id_new_type_color">Couleur de catégorie :</label>
                         <select id="id_new_type_color" name="new_type_color">
