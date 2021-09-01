@@ -38,6 +38,8 @@ Sources files from the last version of HA 3.0
 
 ## Liste des améliorations du code
 
-- Transformer le `context['error']` en liste pour faciliter la gestion des erreurs multiples.
+- Transformer le `context['errors']` en liste pour faciliter la gestion des erreurs multiples.
 - Ajouter une classe pour la couleur du bouton
 - Vérifier la sureté des URL
+- Verifier les droits dans les fonctions post formulaire
+- Gestion des erreurs dans les formulaires multi-étapes
