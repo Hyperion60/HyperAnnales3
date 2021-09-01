@@ -97,10 +97,14 @@
             <div class="input-field">
                 <label class="active" for="id_new_category_title">Titre :</label>
                 <input type="text" id="id_new_category_title" name="new_category_title">
+            </div>
+            <div class="input-field">
                 <label class="active" id="id_new_category_place">Place de la catégorie dans la page :</label>
                 <p class="range-field">
                     <input type="range" id="id_new_category_place" name="new_category_place" min="1" max="{{ max }}">
                 </p>
+            </div>
+            <div class="input-field">
                 <label class="active" id="id_new_category_type">Type de ressources des fichiers de la catégorie :</label>
                 <select id="id_new_category_type" name="new_category_type">
                     {% for type in colors %}
