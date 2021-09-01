@@ -74,11 +74,19 @@ def __create_category(request, context):
             context['errors'].append("Nouvelle catégorie : Une catégorie existe déjà avec ce titre.")
             return None
 
-    try:
-        color = CategoryColor.objects.get(pk=context['new_category_type'])
-    except CategoryColor.DoesNotExist:
-        context['errors'].append("Nouvelle catégorie : Le type sélectionné est invalide.")
-        return None
+    if not context['new_category_type']:
+        try:
+            color = CategoryColor(color=context['new_type_color'], type=context['new_type_type'])
+            color.save()
+        except ValueError:
+            context['errors'].append("Nouveau type de catégorie: Champs invalides ou manquants.")
+            return None
+    else:
+        try:
+            color = CategoryColor.objects.get(pk=context['new_category_type'])
+        except CategoryColor.DoesNotExist:
+            context['errors'].append("Nouvelle catégorie : Le type sélectionné est invalide.")
+            return None
 
     new_cat = CategoryFile(subject=context['subject'], title=title, place=place, classe=color)
     new_cat.save()
@@ -93,6 +101,13 @@ def file_select(request, context):
         context['category'] = __create_category(request, context)
     else:
         context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
+    if not context['category']:
+        context['step'] = 3
+        context['categories'] = CategoryFile.objects.filter(subject=context['subject']).order_by('title')
+        if request.user.is_staff:
+            context['max'] = len(context['categories']) + 1
+            context['colors'] = CategoryColor.objects.all().order_by('type')
+        return render(request, "static_content/add/add-file.html", context)
     context['extensions'] = ExtensionFile.objects.all().order_by('type')
     context['step'] = 4
     return render(request, "static_content/add/add-file.html", context)

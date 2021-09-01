@@ -1,5 +1,18 @@
 {% extends "base-red.html" %}
 {% block content %}
+{% if errors %}
+<div class="row">
+    <div class="card red lighten-4">
+        <div class="card-content">
+            <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% if step != 4 %}
 <form method="post">
 {% else %}
@@ -92,7 +105,7 @@
         </div>
         <h5>OU</h5>
         <div class="row teal lighten-3">
-            <div class="col push-s1 s10">
+            <div class="col push-s0 s10">
             <h6>Ajout d'une nouvelle catégorie :</h6>
             <div class="input-field">
                 <label class="active" for="id_new_category_title">Titre :</label>
@@ -107,10 +120,28 @@
             <div class="input-field">
                 <label class="active" id="id_new_category_type">Type de ressources des fichiers de la catégorie :</label>
                 <select id="id_new_category_type" name="new_category_type">
-                    {% for type in colors %}
+                    <option value="0">None</option>
+                    {% for type in types %}
                     <option value="{{ type.pk }}">{{ type.type }}</option>
                     {% endfor %}
                 </select>
+            </div>
+            <h6>Nouveau type de catégorie :</h6>
+            <div class="input-field">
+                <label class="active" id="id_new_type_type">Type de catégorie :</label>
+                <input type="text" id="id_new_type_type" name="new_type_type">
+            </div>
+            <div class="row orange lighten-4">
+                <div class="col push-s1 s10">
+                    <div class="input-field">
+                        <label class="active" id="id_new_type_color">Couleur de catégorie :</label>
+                        <select id="id_new_type_color" name="new_type_color">
+                            {% for color in colors %}
+                            <option value="{{ color }}">{{ color }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
         {% endif %}
@@ -124,7 +155,7 @@
             </div>
         </div>
         <div class="row light-blue lighten-3">
-            <div class="col push-s1 s10">
+            <div class="col push-s0 s10">
                 <h6>Ajout d'un fichier par upload :</h6>
                 <div class="input-field file-field">
                     <div class="btn red">
