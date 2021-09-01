@@ -94,7 +94,9 @@ def category_select(request, context):
     context['step'] = 3
     context['subject'] = subject_obj
     context['categories'] = CategoryFile.objects.filter(subject=subject_obj).order_by('title')
-    context['type'] = ['TD', 'Documents', 'Controles', 'QCM', 'Aide/Cours']
+    if request.user.is_staff:
+        context['max'] = len(context['categories'])
+        context['colors'] = CategoryColor.objects.all().order_by('type')
     return render(request, "static_content/add/add-file.html", context)
 
 

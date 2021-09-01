@@ -71,17 +71,45 @@
         </div>
         {% endif %}
         {% if step == 3 %}
-        <div class="input-field">
-            <label class="active" for="id_category">Category</label>
-            <select name="category" id="id_category">
-            {% if user.is_staff %}
-                <option value="0">None</option>
-            {% endif %}
-            {% for cat in categories %}
-                <option value="{{ cat.pk }}">{{ cat.title }}</option>
-            {% endfor %}
-            </select>
-	    </div>
+        {% if user.is_staff %}
+        <div class="row light-blue lighten-3">
+            <div class="col push-1 s10">
+                <h6>Selection d'une catégorie déjà existante :</h6>
+        {% endif %}
+                <div class="input-field">
+                    <label class="active" for="id_category">Category</label>
+                    <select name="category" id="id_category">
+                    {% if user.is_staff %}
+                        <option value="0">None</option>
+                    {% endif %}
+                    {% for cat in categories %}
+                        <option value="{{ cat.pk }}">{{ cat.title }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+        {% if user.is_staff %}
+            </div>
+        </div>
+        <h5>OU</h5>
+        <div class="row teal lighten-3">
+            <div class="col push-s1 s10">
+            <h6>Ajout d'une nouvelle catégorie :</h6>
+            <div class="input-field">
+                <label class="active" for="id_new_category_title">Titre :</label>
+                <input type="text" id="id_new_category_title" name="new_category_title">
+                <label class="active" id="id_new_category_place">Place de la catégorie dans la page :</label>
+                <p class="range-field">
+                    <input type="range" id="id_new_category_place" name="new_category_place" min="1" max="{{ max }}">
+                </p>
+                <label class="active" id="id_new_category_type">Type de ressources des fichiers de la catégorie :</label>
+                <select id="id_new_category_type" name="new_category_type">
+                    {% for type in colors %}
+                    <option value="{{ type.pk }}">{{ type.type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {% endif %}
         {% endif %}
         {% if user.is_staff and step == 3 %}
         <label class="active" for="id_new_category">Nouvelle Categorie (titre + type) :</label>
