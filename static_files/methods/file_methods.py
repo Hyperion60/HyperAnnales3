@@ -54,7 +54,7 @@ def create_instance(request, context):
 
 
 def __create_category(request, context):
-    place = context['new_category_place']
+    place = request.POST['new_category_place']
     if place <= 0:
         context['errors'].append("Nouvelle catégorie : Place invalide, la place doit être un entier strictement positif")
         return None
@@ -66,7 +66,7 @@ def __create_category(request, context):
     if place > len(list_category):
         place = len(list_category)
 
-    title = context['new_category_title']
+    title = request.POST['new_category_title']
     if len(title) > 150:
         context['errors'].append("Nouvelle catégorie : Le titre de la catégorie ne doit pas dépasser 150 charactères")
     for category in list_category:
@@ -76,14 +76,14 @@ def __create_category(request, context):
 
     if not context['new_category_type']:
         try:
-            color = CategoryColor(color=context['new_type_color'], type=context['new_type_type'])
+            color = CategoryColor(color=request.POST['new_type_color'], type=request.POST['new_type_type'])
             color.save()
         except ValueError:
             context['errors'].append("Nouveau type de catégorie: Champs invalides ou manquants.")
             return None
     else:
         try:
-            color = CategoryColor.objects.get(pk=context['new_category_type'])
+            color = CategoryColor.objects.get(pk=request.POST['new_category_type'])
         except CategoryColor.DoesNotExist:
             context['errors'].append("Nouvelle catégorie : Le type sélectionné est invalide.")
             return None
