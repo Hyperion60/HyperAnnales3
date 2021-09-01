@@ -55,9 +55,3 @@ def school_file_count__year(school, year):
         file_sum += subj.count
     return file_sum
 
-
-def create_random_key():
-    n = 0
-    while n == 0 and len(StaticFile.objects.filter(randomkey__exact=n)):
-        n = randint(1, 999999)
-    return n

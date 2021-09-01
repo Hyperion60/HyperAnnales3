@@ -1,6 +1,7 @@
 from static_files.models import *
-from static_files.methods.annexe_methods import create_random_key, update_git_direct
+from static_files.methods.annexe_methods import update_git_direct
 from static_files.methods.subject_methods import CreateSubject
+from static_files.views.annexe_functions import create_random_key
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
