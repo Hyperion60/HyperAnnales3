@@ -74,7 +74,7 @@ def __create_category(request, context):
             context['errors'].append("Nouvelle catégorie : Une catégorie existe déjà avec ce titre.")
             return None
 
-    if not request.POST['new_category_type']:
+    if not int(request.POST['new_category_type']):
         try:
             color = CategoryColor(color=request.POST['new_type_color'], type=request.POST['new_type_type'])
             color.save()
