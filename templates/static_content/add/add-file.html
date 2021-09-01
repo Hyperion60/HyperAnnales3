@@ -111,19 +111,6 @@
         </div>
         {% endif %}
         {% endif %}
-        {% if user.is_staff and step == 3 %}
-        <label class="active" for="id_new_category">Nouvelle Categorie (titre + type) :</label>
-        <input type="text" id="id_new_category" name="new_category">
-        {% endif %}
-        {% if step > 3 %}
-        <div class="input-field">
-            <input type="hidden" name="category" value="{{ category.pk }}">
-            <label class="active" for="id_category">Categorie : </label>
-            <select name="category" id="id_category" disabled>
-                <option value="{{ category.pk }}">{{ category.title }}</option>
-            </select>
-        </div>
-        {% endif %}
         {% if step == 4 %}
         <div class="section">
             <h5>Titre du nouveau fichier/ressource</h5>

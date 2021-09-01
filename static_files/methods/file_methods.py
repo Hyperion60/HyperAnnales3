@@ -54,17 +54,34 @@ def create_instance(request, context):
 
 
 def __create_category(request, context):
-    place = len(CategoryFile.objects.filter(subject=context['subject']))
-    new_cat = CategoryFile.objects.filter(subject=context['subject'],\
-                                          title=request.POST['new_category'])
-    if not len(new_cat):
-        new_cat = CategoryFile(subject=context['subject'],\
-                               title=request.POST['new_category'],\
-                               place=place)
-        new_cat.save()
-        context['category'] = new_cat
-    else:
-        context['category'] = new_cat[0]
+    place = context['new_category_place']
+    if place <= 0:
+        context['errors'].append("Nouvelle catégorie : Place invalide, la place doit être un entier strictement positif")
+        return None
+    list_category = CategoryFile.objects.filter(subject=context['subject'])
+    for category in list_category.order_by('place'):
+        if category.place >= place:
+            category.place += 1
+            category.save()
+    if place > len(list_category):
+        place = len(list_category)
+
+    title = context['new_category_title']
+    if len(title) > 150:
+        context['errors'].append("Nouvelle catégorie : Le titre de la catégorie ne doit pas dépasser 150 charactères")
+    for category in list_category:
+        if title == category.title:
+            context['errors'].append("Nouvelle catégorie : Une catégorie existe déjà avec ce titre.")
+            return None
+
+    try:
+        color = CategoryColor.objects.get(pk=context['new_category_type'])
+    except CategoryColor.DoesNotExist:
+        context['errors'].append("Nouvelle catégorie : Le type sélectionné est invalide.")
+        return None
+
+    new_cat = CategoryFile(subject=context['subject'], title=title, place=place, classe=color)
+    new_cat.save()
     return new_cat
 
 
@@ -72,7 +89,7 @@ def file_select(request, context):
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
-    if not int(request.POST['category']):
+    if not int(request.POST['category']) and request.user.is_staff:
         context['category'] = __create_category(request, context)
     else:
         context['category'] = CategoryFile.objects.get(pk=request.POST['category'])
@@ -95,7 +112,7 @@ def category_select(request, context):
     context['subject'] = subject_obj
     context['categories'] = CategoryFile.objects.filter(subject=subject_obj).order_by('title')
     if request.user.is_staff:
-        context['max'] = len(context['categories'])
+        context['max'] = len(context['categories']) + 1
         context['colors'] = CategoryColor.objects.all().order_by('type')
     return render(request, "static_content/add/add-file.html", context)
 
@@ -121,7 +138,7 @@ def semester_select(request, context):
 
 # Dispatch
 def init_view(request):
-    context = {}
+    context = {'errors': []}
     if request.POST:
         if request.POST.get('filename', default=None) or \
            request.POST.get('url', default=None):
