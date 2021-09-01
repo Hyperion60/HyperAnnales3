@@ -35,7 +35,7 @@ def create_instance(request, context):
             context['name'] = str(context['filename']) + '-' + str(context['key'])
             context['extension'] = ExtensionFile.objects.get(extension__exact="url")
         else:
-            context['fileextension'] = (request.FILES['file'].name).split('.')[1]
+            context['fileextension'] = request.FILES['file'].name.split('.')[1]
             context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
             context['raw_path'] = context['path'] + context['name']
             new_file = request.FILES['file']
@@ -54,7 +54,7 @@ def create_instance(request, context):
 
 
 def __create_category(request, context):
-    place = request.POST['new_category_place']
+    place = int(request.POST['new_category_place'])
     if place <= 0:
         context['errors'].append("Nouvelle catégorie : Place invalide, la place doit être un entier strictement positif")
         return None
