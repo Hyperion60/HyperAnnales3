@@ -143,6 +143,15 @@
         </div>
         {% endif %}
         {% endif %}
+        {% if step > 3 %}
+        <div class="input-field">
+            <input type="hidden" name="category" value="{{ category.pk }}">
+            <label class="active" for="id_category">Catégorie : </label>
+            <select name="subject" id="id_category" disabled>
+                <option value="{{ category.pk }}">{{ category.title }}</option>
+            </select>
+        </div>
+        {% endif %}
         {% if step == 4 %}
         <div class="section">
             <h5>Titre du nouveau fichier/ressource</h5>
