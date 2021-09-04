@@ -62,19 +62,32 @@ def UpdateFileView(request, rndkey):
         classe = context['file'].classe
         category = context['file'].category
 
-        # Set value
+        # Name
         if len(request.POST['content_name']):
             name = request.POST['content_name']
-        if 0 < int(request.POST['content_place']) < len(StaticContent.objects.filter(category=context['file'].category)):
+
+        # Place
+        list_file = StaticContent.objects.filter(category=context['file'].category)
+        if 0 < int(request.POST['content_place']) < len(list_file):
+            for file in list_file:
+                if file.place >= int(request.POST['content_place']):
+                    file.place += 1
+                    file.save()
             place = int(request.POST['content_place'])
+
+        # Extension
         try:
             extension = ExtensionFile.objects.get(pk=request.POST['content_extension'])
         except ExtensionFile.DoesNotExist:
             context['errors'].append("Cette extension n'existe pas.")
+
+        # Classe
         try:
             color = ContentColor.objects.get(pk=request.POST['content_color'])
         except ContentColor.DoesNotExist:
             context['errors'].append("Classe de fichier invalide.")
+
+        # Category
         if request.user.is_staff and request.POST['new_category_title']:
             new_category = CategoryFile(title=str(request.POST['new_category_title']),
                                         place=len(CategoryFile.objects.filter(subject=context['file'].category.subject)),
@@ -89,6 +102,8 @@ def UpdateFileView(request, rndkey):
                 if context['error']:
                     context['error'] += "\n"
                 context['error'] += "Catégorie non permise pour ce fichier."
+
+        # Save
         context['file'].name = name
         context['file'].place = place
         context['file'].file.extension = extension
