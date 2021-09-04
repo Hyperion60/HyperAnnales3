@@ -135,8 +135,9 @@ def file_select(request, context):
 def category_select(request, context):
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
-    if not int(request.POST['subject']):
-        context = CreateSubject(context, request.POST['new_subject'], semester_obj.pk, year_obj.pk, School.objects.filter(school__exact=request.user.school)[0])
+    if request.user.is_superuser and not int(request.POST['subject']):
+        context = CreateSubject(context, request.POST['new_subject'], semester_obj.pk, year_obj.pk,
+                                School.objects.filter(school__exact=request.user.school)[0])
         subject_obj = context['new_subject_obj']
     else:
         subject_obj = SubjectFile.objects.get(pk=request.POST['subject'])
@@ -158,7 +159,8 @@ def subject_select(request, context):
     school_obj = School.objects.filter(school__exact=request.user.school)[0]
     context['year'] = year_obj
     context['semester'] = semester_obj
-    context['subjects'] = SubjectFile.objects.filter(year=year_obj, semester=semester_obj,  location=school_obj).order_by('subject')
+    context['subjects'] = SubjectFile.objects.filter(year=year_obj, semester=semester_obj,
+                                                     location=school_obj).order_by('subject')
     return render(request, "static_content/add/add-file.html", context)
 
 
@@ -166,7 +168,8 @@ def semester_select(request, context):
     context['step'] = 1
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     context['year'] = year_obj
-    context['semesters'] = SemesterFile.objects.filter(semester__lte=year_obj.active_semester.semester).order_by('semester')
+    context['semesters'] = SemesterFile.objects.filter(semester__lte=year_obj.active_semester.semester).order_by(
+        'semester')
     return render(request, "static_content/add/add-file.html", context)
 
 
@@ -175,7 +178,7 @@ def init_view(request):
     context = {'errors': []}
     if request.POST:
         if request.POST.get('filename', default=None) or \
-           request.POST.get('url', default=None):
+                request.POST.get('url', default=None):
             return create_instance(request, context)
         elif request.POST.get('category', default=None):
             return file_select(request, context)
