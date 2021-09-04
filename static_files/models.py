@@ -208,3 +208,5 @@ def create_file(context, request):
     new_staticContent.save()
     new_staticFile.content = new_staticContent
     new_staticFile.save()
+    new_staticContent.category.subject.location.count += 1
+    new_staticContent.category.subject.location.save()
