@@ -198,6 +198,7 @@ def create_file(context, request):
     new_staticFile.save()
 
     new_staticContent = StaticContent(category=context['category'],
+                                      classe=context['color'],
                                       name=context['filename'],
                                       place=len(StaticContent.objects.filter(category=context['category'])),
                                       file=new_staticFile)
