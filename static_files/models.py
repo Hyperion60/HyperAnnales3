@@ -168,13 +168,13 @@ def check_extension(context):
         try:
             context['extension'] = ExtensionFile.objects.get(extension__exact="url")
         except ExtensionFile.DoesNotExist:
-            context['error'].append("Extension du fichier non supportée (instance extension non trouvée)")
+            context['errors'].append("Extension du fichier non supportée (instance extension non trouvée)")
             return False
     else:
         try:
             context['extension'] = ExtensionFile.objects.get(extension__exact=context['fileextension'])
         except ExtensionFile.DoesNotExist:
-            context['error'].append("Extension du fichier non supportée (instance extension non trouvée)")
+            context['errors'].append("Extension du fichier non supportée (instance extension non trouvée)")
             return False
         return True
 
