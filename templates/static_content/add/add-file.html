@@ -172,17 +172,6 @@
                         <input class="file-path validate" type="text" placeholder="Upload file"/>
                     </div>
                 </div>
-                <div class="input-field">
-                    <label class="active" for="id_extension">Extension du fichier :</label>
-                    <select name="extension" id="id_extension">
-                    {% if user.is_superuser %}
-                        <option value="0">None</option>
-                    {% endif %}
-                    {% for extension in extensions %}
-                        <option value="{{ extension.pk }}">{{ extension.type }}</option>
-                    {% endfor %}
-                    </select>
-                </div>
                 {% if user.is_superuser %}
                 <div class="col push-s1 s10 orange lighten-4">
                     <h5>OU</h5>

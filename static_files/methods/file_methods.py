@@ -31,7 +31,7 @@ def create_instance(request, context):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
         context['path'] = build_path(context)
-        if request.user.is_superuser and not request.POST['extension']:
+        if request.user.is_superuser and request.POST['new_extension_type'] and request.POST['new_extension_extension']:
             context['extension'] = ExtensionFile(extension=request.POST['new_extension_extension'],
                                                  type=request.POST['new_extension_type']).save()
         if request.user.is_superuser and not request.POST['color']:
@@ -51,10 +51,6 @@ def create_instance(request, context):
 
         else:
             context['fileextension'] = request.FILES['file'].name.split('.')[1]
-            if request.POST['extension'] != ExtensionFile.objects.get(extension__exact=context['fileextension']):
-                context['errors'].append("L'extension sélectionnée de correspond pas à l'extension du fichier soummis.")
-            else:
-                context['extension'] = request.POST['extension']
             context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
             context['raw_path'] = context['path'] + context['name']
             if not len(context['errors']):
