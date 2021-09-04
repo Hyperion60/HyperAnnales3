@@ -5,7 +5,7 @@ class StaticFilesConfig(AppConfig):
     name = 'static_files'
 
     def ready(self):
-        from static_files.models import School, YearFile, SemesterFile, ContentColor, CategoryColor
+        from static_files.models import School, YearFile, SemesterFile, ContentColor, CategoryColor, StaticContent
         from static_files.methods.year_methods import create_year
         from static_files.methods.category_methods import COLOR_CATEGORY
         from static_files.methods.file_methods import COLOR_FILE
@@ -43,3 +43,7 @@ class StaticFilesConfig(AppConfig):
                 CategoryColor.objects.get(type__exact=type)
             except CategoryColor.DoesNotExist:
                 CategoryColor(type=type, color=color)
+
+        for location in School.objects.all():
+            location.count = len(StaticContent.objects.filter(category__subject__location=location))
+            location.save()
