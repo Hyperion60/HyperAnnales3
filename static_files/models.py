@@ -162,21 +162,23 @@ def create_subject(request):
 
 def check_extension(context):
     if context['url']:
-        context['extension'] = ExtensionFile.objects.get(extension__exact="url")
+        try:
+            context['extension'] = ExtensionFile.objects.get(extension__exact="url")
+        except ExtensionFile.DoesNotExist:
+            context['error'].append("Extension du fichier non supportée (instance extension non trouvée)")
+            return False
     else:
-        list_extension = ExtensionFile.objects.filter(extension__exact=context['fileextension'])
-        if not len(list_extension):
-            context['error'] += "\nExtension non supportée"
-            context['extension'] = None
-        else:
-            context['extension'] = list_extension[0]
-            context['error'] = None
+        try:
+            context['extension'] = ExtensionFile.objects.get(extension__exact=context['fileextension'])
+        except ExtensionFile.DoesNotExist:
+            context['error'].append("Extension du fichier non supportée (instance extension non trouvée)")
+            return False
+        return True
 
 
 def create_file(context, request):
-    # Check extension (create if necessary)
-    check_extension(context)
-    if context['error']:
+    # Check extension
+    if not check_extension(context):
         return
     if context['extension'].extension == "url":
         new_staticFile = StaticFile(url=context['url'],
