@@ -5,7 +5,6 @@ from static_files.views.annexe_functions import create_random_key
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
-
 COLOR_FILE = [
     ('Fichier local', 'green'),
     ('Lien URL', 'blue'),
@@ -19,7 +18,7 @@ def build_path(context):
     path += str(context['semester'].semester) + "/"
     path += str(context['subject'].subject) + "/"
     return path
-    
+
 
 def create_instance(request, context):
     context['school'] = School.objects.get(school=request.user.school)
