@@ -182,6 +182,7 @@ def check_extension(context):
 def create_file(context, request):
     # Check extension
     if not check_extension(context):
+        print(fail)
         return
     if context['extension'].extension == "url":
         new_staticFile = StaticFile(url=context['url'],
