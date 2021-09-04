@@ -128,6 +128,7 @@ def file_select(request, context):
             context['colors'] = CategoryColor.objects.all().order_by('type')
         return render(request, "static_content/add/add-file.html", context)
     context['extensions'] = ExtensionFile.objects.all().order_by('type')
+    context['colors'] = ContentColor.objects.all().order_by('type')
     context['step'] = 4
     return render(request, "static_content/add/add-file.html", context)
 
