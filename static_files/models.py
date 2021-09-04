@@ -117,6 +117,9 @@ class ContentColor(models.Model):
     color = models.CharField(max_length=20, default="blue")
     type = models.CharField(max_length=45, default="default_type")
 
+    def __str__(self):
+        return self.type
+
 
 class StaticContent(models.Model):
     category = models.ForeignKey(CategoryFile, models.CASCADE, default=0)
