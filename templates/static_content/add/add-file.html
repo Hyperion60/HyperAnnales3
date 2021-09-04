@@ -199,6 +199,33 @@
                     </div>
                 </div>
                 {% endif %}
+                <div class="input-field">
+                    <label class="active" for="id_color">Classe du fichier :</label>
+                    <select name="color" id="id_color">
+                        {% if user.is_superuser %}
+                        <option value="0">None</option>
+                        {% endif %}
+                        {% for color in colors %}
+                        <option value="{{ color.pk }}">{{ color.type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% if user.is_superuser %}
+                <div class="col push-s1 s10 orange lighten-4">
+                    <h5>OU</h5>
+                    <div>
+                        <h6><b>Nouvelle classe :</b></h6>
+                        <div class="input-field">
+                            <label class="active" id="id_new_color_type">Type de fichier :</label>
+                            <input type="text" id="id_new_color_type" name="new_color_type">
+                        </div>
+                        <div class="input-field">
+                            <label class="active" id="id_new_color_color">Couleur :</label>
+                            <input type="text" id="id_new_color_color" name="new_color_color">
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
         <h5>OU</h5>
