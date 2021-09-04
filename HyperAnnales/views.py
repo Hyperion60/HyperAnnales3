@@ -6,8 +6,7 @@ import django
 
 
 def index(request):
-    context = {}
-    context['schools'] = School.objects.all().order_by('school')
+    context = {'schools': School.objects.all().order_by('school')}
     return render(request, 'index.html', context)
 
 
