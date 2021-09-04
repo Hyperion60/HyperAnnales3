@@ -68,11 +68,14 @@ def UpdateFileView(request, rndkey):
 
         # Place
         list_file = StaticContent.objects.filter(category=context['file'].category)
-        if 0 < int(request.POST['content_place']) < len(list_file):
+        place = int(request.POST['content_place'])
+        if 0 < place < len(list_file) + 1:
             for file in list_file.exclude(pk=context['file'].pk):
-                if file.place >= int(request.POST['content_place']):
-                    print(file)
-                    file.place += 1
+                if place >= file.place > context['file'].place:
+                    if place > context['file'].place:
+                        file.place -= 1
+                    else:
+                        file.place += 1
                     file.save()
             place = int(request.POST['content_place'])
 
