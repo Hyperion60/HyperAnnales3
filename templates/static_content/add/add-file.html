@@ -166,28 +166,12 @@
                 <div class="input-field file-field">
                     <div class="btn red">
                         <span>Upload file</span>
-                        <input type="file" accept=".pdf,.md,.txt,.zip,.py" id="id_file" name="file">
+                        <input type="file" accept=".pdf,.md,.txt,.zip,.py,.c" id="id_file" name="file">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text" placeholder="Upload file"/>
                     </div>
                 </div>
-                {% if user.is_superuser %}
-                <div class="col push-s1 s10 orange lighten-4">
-                    <h5>OU</h5>
-                    <div>
-                        <h6><b>Nouvelle extension :</b></h6>
-                        <div class="input-field">
-                            <label class="active" id="id_new_extension_type">Type de fichier :</label>
-                            <input type="text" id="id_new_extension_type" name="new_extension_type">
-                        </div>
-                        <div class="input-field">
-                            <label class="active" id="id_new_extension_extension">Extension :</label>
-                            <input type="text" id="id_new_extension_extension" name="new_extension_extension">
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
                 <div class="input-field">
                     <label class="active" for="id_color">Classe du fichier :</label>
                     <select name="color" id="id_color">
@@ -211,6 +195,18 @@
                         <div class="input-field">
                             <label class="active" id="id_new_color_color">Couleur :</label>
                             <input type="text" id="id_new_color_color" name="new_color_color">
+                        </div>
+                    </div>
+                    <h5>OU</h5>
+                    <div>
+                        <h6><b>Nouvelle extension :</b></h6>
+                        <div class="input-field">
+                            <label class="active" id="id_new_extension_type">Type de fichier :</label>
+                            <input type="text" id="id_new_extension_type" name="new_extension_type">
+                        </div>
+                        <div class="input-field">
+                            <label class="active" id="id_new_extension_extension">Extension :</label>
+                            <input type="text" id="id_new_extension_extension" name="new_extension_extension">
                         </div>
                     </div>
                 </div>
