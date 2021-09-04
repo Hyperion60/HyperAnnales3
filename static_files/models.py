@@ -176,13 +176,12 @@ def check_extension(context):
         except ExtensionFile.DoesNotExist:
             context['errors'].append("Extension du fichier non supportée (instance extension non trouvée)")
             return False
-        return True
+    return True
 
 
 def create_file(context, request):
     # Check extension
     if not check_extension(context):
-        print(fail)
         return
     if context['extension'].extension == "url":
         new_staticFile = StaticFile(url=context['url'],
