@@ -43,7 +43,7 @@ def __staff_members():
 def about(request):
     context = {}
     context['HA_version'] = "beta"
-    context['date'] = "21-05-2020"
+    context['date'] = "04-09-2021"
     context['django_version'] = django.get_version()
     context['angular_version'] = "9"
     context['postgresql_version'] = __postgres_version()
