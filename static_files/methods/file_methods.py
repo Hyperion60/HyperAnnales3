@@ -39,16 +39,19 @@ def create_instance(request, context):
             context['extension'] = ExtensionFile.objects.get(extension__exact="url")
         else:
             context['fileextension'] = request.FILES['file'].name.split('.')[1]
+            if context['extension'] != ExtensionFile.objects.get(extension__exact=context['fileextension']):
+                context['errors'].append("L'extension sélectionnée de correspond pas à l'extension du fichier soummis.")
             context['name'] = str(context['filename']) + '-' + str(context['key']) + '.' + str(context['fileextension'])
             context['raw_path'] = context['path'] + context['name']
-            new_file = request.FILES['file']
-            fs = FileSystemStorage()
-            filename = fs.save(context['raw_path'], new_file)
-            upload_file_url = fs.url(filename)
-        # Create instance Static Content
+            if not len(context['errors']):
+                new_file = request.FILES['file']
+                fs = FileSystemStorage()
+                filename = fs.save(context['raw_path'], new_file)
+                # upload_file_url = fs.url(filename)
+                # Create instance Static Content
         create_file(context, request)
-        if not context['error']:
-            context['message'] = "Fichier ajoute avec succes"
+        if not len(context['errors']):
+            context['message'] = "Fichier ajouté avec succès"
             if not context['url']:
                 commit = "File({}): {}\nAuteur: {}".format(context['fileextension'], context['raw_path'], request.user)
                 update_git_direct(context['raw_path'], commit, context)
@@ -59,7 +62,8 @@ def create_instance(request, context):
 def __create_category(request, context):
     place = int(request.POST['new_category_place'])
     if place <= 0:
-        context['errors'].append("Nouvelle catégorie : Place invalide, la place doit être un entier strictement positif")
+        context['errors'].append(
+            "Nouvelle catégorie : Place invalide, la place doit être un entier strictement positif")
         return None
     list_category = CategoryFile.objects.filter(subject=context['subject'])
     for category in list_category.order_by('place'):
