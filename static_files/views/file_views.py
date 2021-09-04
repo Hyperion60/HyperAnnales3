@@ -71,12 +71,14 @@ def UpdateFileView(request, rndkey):
         place = int(request.POST['content_place'])
         if 0 < place < len(list_file) + 1:
             for file in list_file.exclude(pk=context['file'].pk):
-                if place >= file.place > context['file'].place:
-                    if place > context['file'].place:
+                if place > context['file'].place:
+                    if place >= file.place > context['file'].place:
                         file.place -= 1
-                    else:
+                        file.save()
+                else:
+                    if context['file'].place > file.place >= place:
                         file.place += 1
-                    file.save()
+                        file.save()
             place = int(request.POST['content_place'])
 
         # Extension
