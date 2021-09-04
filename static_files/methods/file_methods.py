@@ -31,9 +31,14 @@ def create_instance(request, context):
         context['filename'] = request.POST['filename']
         context['key'] = create_random_key()
         context['path'] = build_path(context)
-        if request.user.is_superuser and request.POST['extension']:
-            ExtensionFile(extension=request.POST['new_extension_extension'],
-                          type=request.POST['new_extension_type']).save()
+        if request.user.is_superuser and not request.POST['extension']:
+            context['extension'] = ExtensionFile(extension=request.POST['new_extension_extension'],
+                                                 type=request.POST['new_extension_type']).save()
+        if request.user.is_superuser and not request.POST['color']:
+            context['color'] = ContentColor(type=request.POST['new_color_type'],
+                                            color=request.POST['new_color_color']).save()
+        if request.POST['color']:
+            context['color'] = ContentColor.objects.get(pk=request.POST['color'])
         if context['url'] != '':
             context['name'] = str(context['filename']) + '-' + str(context['key'])
             context['extension'] = ExtensionFile.objects.get(extension__exact="url")
