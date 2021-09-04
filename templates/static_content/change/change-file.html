@@ -30,11 +30,11 @@
             </select>
         </div>
         <div class="input-field col s12">
-            <label class="active" id="id_classe">Classe du fichier :</label>
-            <select name="content_classe" id="id_classe">
-                <option value="{{ file.classe }}" selected>{{ file.classe }}</option>
-                {% for classe in file.LIST_CLASS %}
-                <option value="{{ classe }}">{{ classe }}</option>
+            <label class="active" id="id_color">Classe du fichier :</label>
+            <select name="content_color" id="id_color">
+                <option value="{{ file.classe.pk }}" selected>{{ file.classe.type }}</option>
+                {% for color in colors %}
+                <option value="{{ color.pk }}">{{ color.type }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -43,13 +43,13 @@
             <select name="content_category" id="id_category">
                 <option value="{{ file.category.pk }}" selected>{{ file.category.title }}</option>
                 {% for category in categories %}
-                    <option value="{{ category.pk }}">{{ category.title }}</option>
+                <option value="{{ category.pk }}">{{ category.title }}</option>
                 {% endfor %}
             </select>
         </div>
         {% if user.is_staff %}
+        <h6>Nouvelle catégorie :</h6>
         <div class="input-field col s12">
-            <p>Nouvelle catégorie :</p>
             <label class="active" id="id_new_category_title">Titre de la catégorie :</label>
             <input type="text" id="id_new_category_title" name="new_category_title">
         </div>
