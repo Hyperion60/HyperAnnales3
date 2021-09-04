@@ -41,7 +41,14 @@ def create_instance(request, context):
             context['color'] = ContentColor.objects.get(pk=request.POST['color'])
         if context['url'] != '':
             context['name'] = str(context['filename']) + '-' + str(context['key'])
-            context['extension'] = ExtensionFile.objects.get(extension__exact="url")
+            try:
+                context['extension'] = ExtensionFile.objects.get(extension__exact="url")
+            except ExtensionFile.DoesNotExist:
+                if request.user.is_superuser:
+                    context['extension'] = ExtensionFile(extension="url", type="Lien URL").save()
+                else:
+                    context['errors'].append("Les liens URL ne sont pas encore supportés.")
+
         else:
             context['fileextension'] = request.FILES['file'].name.split('.')[1]
             if context['extension'] != ExtensionFile.objects.get(extension__exact=context['fileextension']):
