@@ -47,7 +47,7 @@ def subject(request, school, year, semester, subject):
         for category in CategoryFile.objects.filter(subject=subject_obj):
             context['contents']['category'].append(category)
             files = []
-            for staticcontent in StaticContent.objects.filter(category=category):
+            for staticcontent in StaticContent.objects.filter(category=category).order_by('place'):
                 files.append({
                     'obj': staticcontent,
                     'link': "#"
