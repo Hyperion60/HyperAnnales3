@@ -89,11 +89,11 @@
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
                 <li class="bold">
-                    <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semester {{ semester }}</a>
+                    <a class="collapsible-header waves-effect waves-teal cyan lighten-3" style="color: black;">Semestre {{ semester }}</a>
                     <div class="collapsible-body">
                         <ul>
                             {% for subject in subjects %}
-                            <li class="subjects"><a href="#" style="color: black;">{{ subject }}</a></li>
+                            <li class="subjects"><a href="/{{ school }}/{{ year }}/{{ semester }}/{{ subject }}/" style="color: black;">{{ subject }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>

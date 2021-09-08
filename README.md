@@ -35,6 +35,7 @@ Sources files from the last version of HA 3.0
 ### Inutiles
 
 ## Liste des bugs détectés
+- Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
 
 ## Liste des améliorations du code
 
