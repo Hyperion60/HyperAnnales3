@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from static_files.models import School
+from static_files.models import School, CategoryFile, CategoryColor
 from static_files.form.category_forms import CreateCategoryForm
 from static_files.methods.category_methods import CreateCategory
 
@@ -44,3 +44,40 @@ def CreateCategoryView(request):
         context['error'] = None
     return render(request, "static_content/add/add-category.html", context)
 
+
+@login_required(login_url="/login/")
+def ChangeCategory(request, pk):
+    context = {'errors': []}
+    context['next'] = request.GET.get('next', '')
+    if not request.user.is_staff:
+        context['errors'].append("Accès refusé: Droits insuffisants")
+        return render(request, "static_content/admin/message_template.html", context)
+    category = None
+    context['next'] = request.GET.get('next', '')
+    try:
+        category = CategoryFile.objects.get(pk=pk)
+    except CategoryFile.DoesNotExist:
+        context['errors'].append("Category : La clé primaire n'existe pas")
+
+    context['category'] = category
+    if request.POST:
+        context['next'] = request.GET.get('next', '')
+        try:
+            context['title'] = request.POST['title']
+            context['place'] = int(request.POST['place'])
+            context['classe'] = CategoryColor.objects.get(pk=request.POST['color'])
+        except ValueError:
+            context['errors'].append("Informations manquantes")
+        except CategoryColor.DoesNotExist:
+            context['errors'].append("Clé primaire de classe inexistante")
+
+        if not len(context['errors']):
+            context['category'].title = context['title']
+            context['category'].place = context['place']
+            context['category'].classe = context['classe']
+            context['category'].save()
+            context['message'] = "Modifications effectuées"
+            return render(request, "static_content/admin/message_template.html", context)
+
+    context['colors'] = CategoryColor.objects.all().exclude(pk=context['category'].classe.pk)
+    return render(request, "static_content/change/change-category.html", context)
