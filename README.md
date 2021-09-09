@@ -5,9 +5,14 @@ Sources files from the last version of HA 3.0
 
 ### Cores
 - DEFAULT_AUTO_FIELD (Django 3.2) [FIXED]
-- Ajout d'un fichier
+- Modification des catégories [FIXED]
+- Bulletin d'information
+  - Ajout d'un bulletin
+  - Modification d'un bulletin
+  - Suppression d'un bulletin
+- Ajout d'un fichier [FIXED]
 - Affichages fichiers
-  - Ré-ajouter les classes pour la categorie
+  - Ré-ajouter les classes pour la categorie [FIXED]
   - Jetons d'authentifications
   - Template d'affichage du fichier (polymorphe)
   - Méthodes d'affichage en fonction de l'extension
@@ -38,6 +43,7 @@ Sources files from the last version of HA 3.0
 ### Inutiles
 
 ## Liste des bugs détectés
+- Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
 
 ## Liste des améliorations du code
 
@@ -46,3 +52,5 @@ Sources files from the last version of HA 3.0
 - Vérifier la sureté des URL
 - Verifier les droits dans les fonctions post formulaire
 - Gestion des erreurs dans les formulaires multi-étapes
+- Verifier les fonctions de déplacement des objets (place)
+- Ajouter `max-length` dans les inputs des formulaires
