@@ -155,6 +155,15 @@ class StaticContent(models.Model):
         return self.category.year()
 
 
+class Information(models.Model):
+    title = models.CharField(max_length=128, default="default_title")
+    school = models.ForeignKey(School, models.CASCADE, null=False)
+    year = models.ForeignKey(YearFile, models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 def create_subject(request):
     subject = request.POST['subject']
     subject_s = SubjectFile.objects.filter(subject__exact=subject)
