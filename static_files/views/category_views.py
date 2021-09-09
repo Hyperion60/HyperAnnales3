@@ -88,7 +88,7 @@ def ChangeCategory(request, pk):
                         if context['category'].place > cat.place >= place:
                             cat.place += 1
                             cat.save()
-                context['category'].place = int(request.POST['content_place'])
+                context['category'].place = int(request.POST['place'])
 
             context['category'].classe = context['classe']
             context['category'].save()
