@@ -5,6 +5,11 @@ Sources files from the last version of HA 3.0
 
 ### Cores
 - DEFAULT_AUTO_FIELD (Django 3.2) [FIXED]
+- Modification des catégories [FIXED]
+- Bulletin d'information
+  - Ajout d'un bulletin
+  - Modification d'un bulletin
+  - Suppression d'un bulletin
 - Ajout d'un fichier
 - Affichages fichiers
   - Ré-ajouter les classes pour la categorie
