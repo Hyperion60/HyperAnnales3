@@ -80,12 +80,12 @@ def ChangeCategory(request, pk):
             place = context['place']
             if 0 < place < len(list_cat) + 1:
                 for cat in list_cat.exclude(pk=context['category'].pk):
-                    if place > context['cat'].place:
+                    if place > context['category'].place:
                         if place >= cat.place > context['category'].place:
                             cat.place -= 1
                             cat.save()
                     else:
-                        if context['cat'].place > cat.place >= place:
+                        if context['category'].place > cat.place >= place:
                             cat.place += 1
                             cat.save()
                 context['category'].place = int(request.POST['content_place'])
