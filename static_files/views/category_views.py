@@ -74,10 +74,27 @@ def ChangeCategory(request, pk):
         if not len(context['errors']):
             context['category'].title = context['title']
             context['category'].place = context['place']
+
+            # Place
+            list_cat = CategoryFile.objects.filter(subject=context['category'].subject)
+            place = context['place']
+            if 0 < place < len(list_cat) + 1:
+                for cat in list_cat.exclude(pk=context['category'].pk):
+                    if place > context['cat'].place:
+                        if place >= cat.place > context['category'].place:
+                            cat.place -= 1
+                            cat.save()
+                    else:
+                        if context['cat'].place > cat.place >= place:
+                            cat.place += 1
+                            cat.save()
+                context['category'].place = int(request.POST['content_place'])
+
             context['category'].classe = context['classe']
             context['category'].save()
             context['message'] = "Modifications effectuées"
             return render(request, "static_content/admin/message_template.html", context)
 
     context['colors'] = CategoryColor.objects.all().exclude(pk=context['category'].classe.pk)
+    context['max'] = len(CategoryFile.objects.filter(subject=context['category'].subject))
     return render(request, "static_content/change/change-category.html", context)
