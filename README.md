@@ -50,3 +50,4 @@ Sources files from the last version of HA 3.0
 - Verifier les droits dans les fonctions post formulaire
 - Gestion des erreurs dans les formulaires multi-étapes
 - Verifier les fonctions de déplacement des objets (place)
+- Ajouter `max-length` dans les inputs des formulaires
