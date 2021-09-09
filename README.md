@@ -10,9 +10,9 @@ Sources files from the last version of HA 3.0
   - Ajout d'un bulletin
   - Modification d'un bulletin
   - Suppression d'un bulletin
-- Ajout d'un fichier
+- Ajout d'un fichier [FIXED]
 - Affichages fichiers
-  - Ré-ajouter les classes pour la categorie
+  - Ré-ajouter les classes pour la categorie [FIXED]
   - Jetons d'authentifications
   - Template d'affichage du fichier (polymorphe)
   - Méthodes d'affichage en fonction de l'extension
