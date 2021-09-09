@@ -3,9 +3,11 @@
 {% autoescape on %}
     <p style="font-size: xx-large">{{ message | linebreaksbr }}</p>
 {% endautoescape %}
+{% if errors %}
 {% autoescape on %}
     <p style="font-size: xx-large; color: darkred;">{{ errors | linebreaksbr }}</p>
 {% endautoescape %}
+{% endif %}
 <div class="row">
     <div class="container">
         {% if next %}
