@@ -155,6 +155,31 @@ class StaticContent(models.Model):
         return self.category.year()
 
 
+class UnsecureFile(models.Model):
+    title = models.CharField(max_length=120, default='default_title')
+    path = models.CharField(max_length=255, default='')
+    url = models.CharField(max_length=1024, default='')
+    filename = models.CharField(max_length=255, default='')
+    author = models.ForeignKey(Account, models.CASCADE, default=1)
+
+    def __str__(self):
+        return self.title
+
+
+class Informations(models.Model):
+    title = models.CharField(max_length=250, default='default_title')
+    body = models.TextField(default='default body')
+    school = models.ForeignKey(School, models.CASCADE, null=False, blank=False)
+    year = models.ForeignKey(YearFile, models.CASCADE, null=True, blank=True)
+    date = models.DateTimeField()
+    date_expiry = models.DateTimeField()
+    author = models.ForeignKey(Account, models.CASCADE, default=1)
+    ressources = models.ManyToManyField(UnsecureFile, models.CASCADE)
+
+    def __str__(self):
+        return "School({}): {} => {}".format(self.year, self.school, self.title)
+
+
 def create_subject(request):
     subject = request.POST['subject']
     subject_s = SubjectFile.objects.filter(subject__exact=subject)
