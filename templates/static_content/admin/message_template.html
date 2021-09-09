@@ -3,9 +3,16 @@
 {% autoescape on %}
     <p style="font-size: xx-large">{{ message | linebreaksbr }}</p>
 {% endautoescape %}
+{% autoescape on %}
+    <p style="font-size: xx-large; color: darkred;">{{ errors | linebreaksbr }}</p>
+{% endautoescape %}
 <div class="row">
     <div class="container">
+        {% if next %}
+        <a class="waves-effect waves-light btn green lighten-2" href="{{ next }}">Retour</a>
+        {% else %}
         <a class="waves-effect waves-light btn green lighten-2" href="/static_content/admin/">Retour</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
