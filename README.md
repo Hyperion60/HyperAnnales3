@@ -31,6 +31,9 @@ Sources files from the last version of HA 3.0
 - Moteur de recherche
   - Filtrage
   - Mots-clés
+- Interpreteur de code
+  - Python
+    - Skulpt
 
 ### Inutiles
 
