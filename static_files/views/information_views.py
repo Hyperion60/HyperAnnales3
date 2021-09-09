@@ -16,5 +16,6 @@ def CreateInformation(request, school, year=None):
                 context['year'] = YearFile.objects.get(year__exact=year)
             except YearFile.DoesNotExist:
                 context['errors'].append("L'année demandée n'existe pas.")
-
+    context['school'] = school
+    context['year'] = year
     return render(request, "static_content/add/add-information.html", context)
