@@ -81,14 +81,17 @@ def ChangeCategory(request, pk):
             if 0 < place < len(list_cat) + 1:
                 if context['category'].place < place:
                     for i in range(context['category'].place + 1, place + 1):
-                        list_cat[i].place -= 1
-                        list_cat[i].save()
+                        cat = CategoryFile.objects.filter(place__exact=i)
+                        if len(cat):
+                            cat[0].place -= 1
+                            cat[0].save()
                 else:
-                    for i in range(context['category'].place - 1, place + 1, -1):
-                        list_cat[i].place += 1
-                        list_cat[i].save()
+                    for i in range(context['category'].place - 1, place - 1, -1):
+                        cat = CategoryFile.objects.filter(place__exact=i)
+                        if len(cat):
+                            cat[0].place += 1
+                            cat[0].save()
                 context['category'].place = int(request.POST['place'])
-
             context['category'].classe = context['classe']
             context['category'].save()
             context['message'] = "Modifications effectuées"
