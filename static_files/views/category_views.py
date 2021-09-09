@@ -76,18 +76,17 @@ def ChangeCategory(request, pk):
             context['category'].place = context['place']
 
             # Place
-            list_cat = CategoryFile.objects.filter(subject=context['category'].subject)
+            list_cat = CategoryFile.objects.filter(subject=context['category'].subject).order_by('place')
             place = context['place']
             if 0 < place < len(list_cat) + 1:
-                for cat in list_cat.exclude(pk=context['category'].pk):
-                    if place > context['category'].place:
-                        if place >= cat.place > context['category'].place:
-                            cat.place -= 1
-                            cat.save()
-                    else:
-                        if context['category'].place > cat.place >= place:
-                            cat.place += 1
-                            cat.save()
+                if context['category'].place < place:
+                    for i in range(context['category'].place + 1, place + 1):
+                        list_cat[i].place -= 1
+                        list_cat[i].save()
+                else:
+                    for i in range(context['category'].place - 1, place + 1, -1):
+                        list_cat[i].place += 1
+                        list_cat[i].save()
                 context['category'].place = int(request.POST['place'])
 
             context['category'].classe = context['classe']
