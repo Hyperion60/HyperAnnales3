@@ -23,6 +23,6 @@
 {% endif %}
 {% endcache %}
 {% if user.is_staff %}
-<button class="btn blue" style="float: right;" onclick="location.href = '/set/add/infos/{{ school }}/';">Ajouter une information</button>
+<button class="btn blue" style="float: right;" onclick="location.href = '/static_content/add/information/{{ school }}/{{ year }}/';">Ajouter une information</button>
 {% endif %}
 {% endblock %}
