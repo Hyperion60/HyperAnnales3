@@ -20,6 +20,11 @@
                 <a class="waves-effect waves-light {{ file.2 }} btn" href="{{ file.1 }}">{{ file.0.name }}</a>
                 {% endfor %}
         </div>
+        {% if user.is_staff %}
+        <div class="card-action">
+            <a href="/static_content/change/category/{{ category.pk }}/?next={{ request.path }}">Modifier</a>
+        </div>
+        {% endif %}
     </div>
 {% endfor %}
 {% else %}
