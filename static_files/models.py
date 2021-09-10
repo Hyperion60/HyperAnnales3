@@ -169,7 +169,7 @@ class UnsecureFile(models.Model):
 class Informations(models.Model):
     title = models.CharField(max_length=250, default='default_title')
     body = models.TextField(default='default body')
-    school = models.ForeignKey(School, models.CASCADE, null=False, blank=False)
+    location = models.ForeignKey(School, models.CASCADE, null=False, blank=False)
     year = models.ForeignKey(YearFile, models.CASCADE, null=True, blank=True)
     date = models.DateTimeField()
     date_expiry = models.DateTimeField()
@@ -177,7 +177,7 @@ class Informations(models.Model):
     ressources = models.ManyToManyField(UnsecureFile, models.CASCADE)
 
     def __str__(self):
-        return "School({}): {} => {}".format(self.year, self.school, self.title)
+        return "School({}): {} => {}".format(self.year, self.location, self.title)
 
 
 def create_subject(request):

@@ -26,7 +26,7 @@ def create_information(request, context):
     if not len(context['errors']):
         new_information = Informations(title=context['title'],
                                        body=context['body'],
-                                       school=school,
+                                       location=school,
                                        year=year,
                                        date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                        date_expiry=date_expiry,
