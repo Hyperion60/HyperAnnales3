@@ -21,7 +21,9 @@
 {% if user.is_staff %}
 <button class="btn blue" style="float: right;" onclick="location.href = '/static_content/add/information/{{ school }}/';">Ajouter une information</button>
 {% endif %}
+{% endcache %}
 
+{% cache 300 bulletins_year school %}
 {% if bulletins %}
 {% for bulletin in bulletins %}
 <div class="card green lighten-4">

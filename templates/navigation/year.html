@@ -2,7 +2,7 @@
 {% block content %}
 
 {% load cache %}
-{% cache 600 infos school year %}
+{% cache 300 bulletins_list school year %}
 {% if bulletins %}
 {% for bulletin in bulletins %}
 <div class="card green lighten-4">
