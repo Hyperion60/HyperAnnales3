@@ -1,22 +1,16 @@
 from django.shortcuts import render
 
-from static_files.models import Information, School, YearFile
+from static_files.methods.information_methods import create_information
 
 
 def CreateInformation(request, school, year=None):
     context = {'errors': []}
     if request.POST:
-        try:
-            context['school'] = School.objects.get(school__exact=school)
-        except School.DoesNotExist:
-            context['errors'].append("L'école demandée n'existe pas.")
-
-        if year:
-            try:
-                context['year'] = YearFile.objects.get(year__exact=year)
-            except YearFile.DoesNotExist:
-                context['errors'].append("L'année demandée n'existe pas.")
-        print(poof)
-    context['school'] = school
-    context['year'] = year
+        if create_information(request, context):
+            context['next'] = "/{}/".format(school)
+            if year:
+                context['next'] = "/{}/{}/".format(school, year)
+            return render(request, "static_content/admin/message_template.html", context)
+        context['body'] = request.POST['body']
+        context['title'] = request.POST['title']
     return render(request, "static_content/add/add-information.html", context)
