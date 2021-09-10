@@ -166,7 +166,7 @@ class UnsecureFile(models.Model):
         return self.title
 
 
-class Information(models.Model):
+class Informations(models.Model):
     title = models.CharField(max_length=250, default='default_title')
     body = models.TextField(default='default body')
     school = models.ForeignKey(School, models.CASCADE, null=False, blank=False)
