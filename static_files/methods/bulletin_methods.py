@@ -24,8 +24,8 @@ def create_information(request, context):
         context['errors'].append("Date d'expiration manquante.")
 
     if not len(context['errors']):
-        new_information = Bulletin(title=context['title'],
-                                   body=context['body'],
+        new_information = Bulletin(title=request.POST['title'],
+                                   body=request.POST['body'],
                                    location=school,
                                    year=year,
                                    date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
