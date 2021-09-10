@@ -13,4 +13,6 @@ def CreateInformation(request, school, year=None):
             return render(request, "static_content/admin/message_template.html", context)
         context['body'] = request.POST['body']
         context['title'] = request.POST['title']
+        context['school'] = school
+        context['year'] = year
     return render(request, "static_content/add/add-information.html", context)
