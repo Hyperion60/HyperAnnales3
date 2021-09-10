@@ -30,7 +30,7 @@
     <div class="card-content">
         <span class="card-title">{{ bulletin.title }}</span>
         {% autoescape on %}
-        <p>{{ bulletin.body }}</p>
+        <p>{{ bulletin.body|linebreaksbr }}</p>
         {% endautoescape %}
     </div>
 </div>
