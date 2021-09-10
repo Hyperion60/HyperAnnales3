@@ -155,18 +155,7 @@ class StaticContent(models.Model):
         return self.category.year()
 
 
-class UnsecureFile(models.Model):
-    title = models.CharField(max_length=120, default='default_title')
-    path = models.CharField(max_length=255, default='')
-    url = models.CharField(max_length=1024, default='')
-    filename = models.CharField(max_length=255, default='')
-    author = models.ForeignKey(Account, models.CASCADE, default=1)
-
-    def __str__(self):
-        return self.title
-
-
-class Informations(models.Model):
+class Bulletin(models.Model):
     title = models.CharField(max_length=250, default='default_title')
     body = models.TextField(default='default body')
     location = models.ForeignKey(School, models.CASCADE, null=False, blank=False)
@@ -174,10 +163,21 @@ class Informations(models.Model):
     date = models.DateTimeField()
     date_expiry = models.DateTimeField()
     author = models.ForeignKey(Account, models.CASCADE, default=1)
-    ressources = models.ManyToManyField(UnsecureFile, models.CASCADE)
 
     def __str__(self):
         return "School({}): {} => {}".format(self.year, self.location, self.title)
+
+
+class UnsecureFile(models.Model):
+    title = models.CharField(max_length=120, default='default_title')
+    path = models.CharField(max_length=255, default='')
+    url = models.CharField(max_length=1024, default='')
+    filename = models.CharField(max_length=255, default='')
+    author = models.ForeignKey(Account, models.CASCADE, default=1)
+    bulletin = models.ForeignKey(Bulletin, models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
 
 
 def create_subject(request):

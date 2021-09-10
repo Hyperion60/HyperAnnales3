@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from static_files.methods.information_methods import create_information
+from static_files.methods.bulletin_methods import create_information
 
 
 def CreateInformation(request, school, year=None):
