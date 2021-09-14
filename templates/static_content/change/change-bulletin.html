@@ -30,6 +30,23 @@ textarea::placeholder {
         </div>
     </div>
     <div class="row">
+        <div class="input-field S12">
+            <select name="year" id="id_year">
+                {% if bulletin.year is None %}
+                <option value="0" selected>None</option>
+                {% for year in years %}
+                <option value="{{ year.pk }}">{{ year.year }}</option>
+                {% endfor %}
+                {% else %}
+                <option value="{{ bulletin.year.pk }}">{{ bulletin.year.year }}</option>
+                {% for year in years %}
+                <option value="{{ year.pk }}">{{ year.year }}</option>
+                {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
         <input type="text" class="datepicker" name="date" autocomplete="off" placeholder="Date d'expiration" value="{{ date }}">
     </div>
 <div class="center">

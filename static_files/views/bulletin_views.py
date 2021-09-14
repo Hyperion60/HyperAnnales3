@@ -55,12 +55,6 @@ def UpdateInformation(request, pk):
         except MultiValueDictKeyError:
             context['errors'].append("Champ 'body' manquant.")
         try:
-            context['school'] = School.objects.get(pk=request.POST['school'])
-        except MultiValueDictKeyError:
-            context['errors'].append("Champ 'school' manquant.")
-        except School.DoesNotExist:
-            context['errors'].append("L'école demandée n'existe pas. Clé primaire introuvable")
-        try:
             if request.POST['year']:
                 context['year'] = YearFile.objects.get(pk=request.POST['year'])
             else:
@@ -84,5 +78,8 @@ def UpdateInformation(request, pk):
         return render(request, "static_content/admin/message_template.html", context)
 
     context['date'] = context['bulletin'].date_expiry.strftime("%d/%m/%Y")
+    context['years'] = YearFile.objects.all()
+    if context['bulletin'].year:
+        context['years'] = context['years'].exclude(pk=context['bulletin'].year.pk)
     return render(request, "static_content/change/change-bulletin.html", context)
 

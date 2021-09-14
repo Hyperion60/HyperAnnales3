@@ -44,7 +44,6 @@ def update_information(request, context):
     try:
         context['bulletin'].title = context['title']
         context['bulletin'].body = context['body']
-        context['bulletin'].location = context['school']
         context['bulletin'].year = context['year']
         context['bulletin'].date_expiry = context['date']
         context['bulletin'].save()
