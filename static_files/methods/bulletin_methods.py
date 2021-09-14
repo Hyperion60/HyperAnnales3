@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render
 
 from static_files.models import Bulletin, UnsecureFile, School, YearFile
@@ -35,3 +36,30 @@ def create_information(request, context):
         context['message'] = "Nouvelle information créée."
         return True
     return False
+
+
+def update_information(request, context):
+    if request.user != context['bulletin'].author:
+        return False
+    try:
+        context['bulletin'].title = context['title']
+        context['bulletin'].body = context['body']
+        context['bulletin'].location = context['school']
+        context['bulletin'].year = context['year']
+        context['bulletin'].date_expiry = context['date']
+        context['bulletin'].save()
+    except:
+        context['errors'].append("Echec de la mise a jour du bulletin")
+        return False
+    return True
+
+
+def delete_information(request, context):
+    if request.user != context['bulletin'].author:
+        return False
+    try:
+        context['bulletin'].delete()
+    except IntegrityError:
+        context['errors'].append("Impossible de supprimer la classe ou ses dépendance, problème d'intégrité.")
+        return False
+    return True
