@@ -11,6 +11,7 @@
     <div class="col s12">
         <ul class="tabs">
             <li class="tab"><a href="#contrib">Contributions</a></li>
+            <li class="tab"><a href="#bulletin">Informations</a></li>
             {% if user.is_staff %}
             <li class="tab"><a href="#handle">Gestion</a></li>
             {% else %}
@@ -52,6 +53,25 @@
                     <div class="collapsible-header waves-effect">Ajouter un nouveau fichier</div>
                 </a>
             </li>
+        </ul>
+    </div>
+    <div id="bulletin" class="col s12">
+        <ul class="collapsible">
+            {% for bulletin in bulletins %}
+            <li>
+                <div class="collapsible-header">
+                    {% if bulletin.year is not None %}
+                    <p>{{ bulletin.location.school }} > {{ bulletin.year.year }} > {{ bulletin.title }}</p>
+                    {% else %}
+                    <p>{{ bulletin.location.school }} > {{ bulletin.title }}</p>
+                    {% endif %}
+                </div>
+                <div class="collapsible-body">
+                    <a class="waves-effect waves-light btn" href="/static_content/change/bulletin/{{ bulletin.pk }}/?next=/static_content/admin/">Modifier</a>
+                    <a class="waves-effect waves-light btn" href="/static_content/del/bulletin/{{ bulletin.pk }}/?next=/static_content/admin/">Supprimer</a>
+                </div>
+            </li>
+            {% endfor %}
         </ul>
     </div>
     <div id="handle" class="col s12">
