@@ -1,0 +1,64 @@
+{% extends "base-red.html" %}
+{% block css %}
+input::placeholder {
+    color: grey;
+}
+textarea::placeholder {
+    color: grey;
+}
+{% endblock %}
+{% block content %}
+{% if errors %}
+<div class="container">
+    <div class="center card-panel red accent-3">
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+<form method="post" action="/static_content/change/bulletin/{{ bulletin.pk }}/?next={{ next }}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field s12">
+            <input type="text" id="id_title" name="title" data-length="250" value="{{ bulletin.title }}" autocomplete="off" placeholder="Titre">
+        </div>
+        <div class="input-field s12">
+            <textarea id="id_body" name="body" class="materialize-textarea" placeholder="Corpus du bulletin">{{ bulletin.body }}</textarea>
+        </div>
+    </div>
+    <div class="row">
+        <input type="text" class="datepicker" name="date" autocomplete="off" placeholder="Date d'expiration" value="{{ date }}">
+    </div>
+<div class="center">
+    <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
+</div>
+</form>
+{% endblock %}
+{% block script %}
+$(document).ready(function(){
+    $('.datepicker').datepicker({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 2, // Creates a dropdown of 15 years to control year
+	    labelMonthSelect: 'Selectionner le mois',
+		labelYearSelect: 'Selectionner une année',
+		months: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+		monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+		weekdays: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+		weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+		weekdaysAbbrev: [ 'D', 'L', 'M', 'M', 'J', 'V', 'S' ],
+        firstDay: 1,
+		today: 'Aujourd\'hui',
+		clear: 'Réinitialiser',
+		close: 'Fermer',
+		format: 'dd/mm/yyyy'
+    });
+});
+
+$(document).ready(function() {
+    $('input#id_title').characterCounter();
+});
+
+{% endblock %}
