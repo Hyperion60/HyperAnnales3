@@ -74,6 +74,7 @@ def UpdateInformation(request, pk):
             return render(request, "static_content/change/change-bulletin.html", context)
 
         if update_information(request, context):
+            context['message'] = "Modification effectuée avec succès."
             return render(request, "static_content/admin/message_template.html", context)
         return render(request, "static_content/admin/message_template.html", context)
 
