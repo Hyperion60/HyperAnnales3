@@ -22,7 +22,7 @@ urlpatterns = [
     path('change/<int:rndkey>/', file_views.UpdateFileView),
     path('change/category/<int:pk>/', category_views.ChangeCategory),
     path('change/bulletin/<int:pk>/', bulletin_views.UpdateInformation),
-    path('del/bulletin/<int:pk>/', bulletin_views.RemoveBulletin),
+    path('del/bulletin/<int:pk>/', bulletin_views.DeleteInformation),
     path('test/<int:year>', base_template.test_template),
     path('protected/<str:token>/', file_views.SendFile),
     path('<int:year>/<int:id>/', file_views.CreateFileView),
