@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
 
-from static_files.methods.bulletin_methods import create_information
-from static_files.models import Bulletin, School, YearFile
+from static_files.methods.bulletin_methods import create_information, update_information
+from static_files.models import Bulletin, YearFile
 
 
 @login_required(login_url="/login/")
@@ -73,7 +73,7 @@ def UpdateInformation(request, pk):
         if len(context['errors']):
             return render(request, "static_content/change/change-bulletin.html", context)
 
-        if create_information(request, context):
+        if update_information(request, context):
             return render(request, "static_content/admin/message_template.html", context)
         return render(request, "static_content/admin/message_template.html", context)
 
