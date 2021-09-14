@@ -39,7 +39,7 @@ def create_information(request, context):
 
 
 def update_information(request, context):
-    if request.user != context['bulletin'].author:
+    if request.user != context['bulletin'].author and not request.user.is_staff:
         return False
     try:
         context['bulletin'].title = context['title']
@@ -54,7 +54,7 @@ def update_information(request, context):
 
 
 def delete_information(request, context):
-    if request.user != context['bulletin'].author:
+    if request.user != context['bulletin'].author and not request.user.is_staff:
         return False
     try:
         context['bulletin'].delete()
