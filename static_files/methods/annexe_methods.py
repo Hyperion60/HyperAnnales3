@@ -22,8 +22,8 @@ def update_git():
     return
 
 
-def update_git_direct(file_path, commit=None, log={}):
-    PATH = "/media/static_HA/.git"
+def update_git_direct(file_path, root, commit=None, log={}):
+    PATH = root + ".git"
     COMMIT_MESSAGE = "Add file"
     try:
         repo = Repo(PATH)
