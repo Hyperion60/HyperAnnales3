@@ -7,9 +7,11 @@ Sources files from the last version of HA 3.0
 - DEFAULT_AUTO_FIELD (Django 3.2) [FIXED]
 - Modification des catégories [FIXED]
 - Bulletin d'information
-  - Ajout d'un bulletin
-  - Modification d'un bulletin
+  - Ajout d'un bulletin [FIXED]
+  - Modification d'un bulletin [FIXED]
   - Suppression d'un bulletin
+  - Ajout d'un media
+  - Suppression d'un media
 - Ajout d'un fichier [FIXED]
 - Affichages fichiers
   - Ré-ajouter les classes pour la categorie [FIXED]
@@ -48,9 +50,13 @@ Sources files from the last version of HA 3.0
 ## Liste des améliorations du code
 
 - Transformer le `context['errors']` en liste pour faciliter la gestion des erreurs multiples.
-- Ajouter une classe pour la couleur du bouton
+- Ajouter une classe pour la couleur du bouton [FAIT]
 - Vérifier la sureté des URL
 - Verifier les droits dans les fonctions post formulaire
 - Gestion des erreurs dans les formulaires multi-étapes
 - Verifier les fonctions de déplacement des objets (place)
 - Ajouter `max-length` dans les inputs des formulaires
+- Remplacer les labels par des `placeholder`
+- Ajouter une fonction pour nettoyer les dépots git en fonction de la base de données
+- Ajouter des templates pour les différents codes d'erreurs (404, 403, 500)
+- Organiser les variables pour les dépots Git (préfixes d'url d'accès...)
