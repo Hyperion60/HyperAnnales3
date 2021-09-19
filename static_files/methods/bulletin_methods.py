@@ -1,8 +1,15 @@
 from django.db import IntegrityError
-from django.shortcuts import render
 
 from static_files.models import Bulletin, UnsecureFile, School, YearFile
 from datetime import datetime
+
+
+def check_information(school, year=None):
+    list_infos = Bulletin.objects.filter(school=school, year=year)
+    date_now = datetime.now()
+    for info in list_infos:
+        if info.date_expiry < date_now:
+            info.delete()
 
 
 def create_information(request, context):
