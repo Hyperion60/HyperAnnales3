@@ -1,8 +1,14 @@
 from django.shortcuts import render
 
-from static_files.views.annexe_functions import get_color
-from static_files.models import YearFile, School, SubjectFile, CategoryFile, StaticContent, ContentColor, CategoryColor, \
-    Bulletin
+from static_files.methods.bulletin_methods import check_information
+from static_files.models import YearFile, \
+                                School, \
+                                SubjectFile, \
+                                CategoryFile, \
+                                StaticContent, \
+                                ContentColor, \
+                                CategoryColor, \
+                                Bulletin
 from static_files.views.base_template import sidenav
 
 
@@ -13,11 +19,12 @@ def school(request, school):
     for year in list_year:
         number = StaticContent.objects.filter(category__subject__year__year__exact=year.year)
         years[year.year] = len(number)
+    check_information(School.objects.get(school=school))
     bulletins_list = Bulletin.objects.filter(year=None,
                                              location__school__exact=school)
     if len(bulletins_list):
         context['bulletins'] = bulletins_list
-    context['voyelle'] = (school[0] in ('aeiouy'))
+    context['voyelle'] = (school[0] in 'aeiouy')
     context['years'] = years
     context['school'] = school
     context['infos'] = None
@@ -25,12 +32,14 @@ def school(request, school):
 
 
 def year(request, school, year):
-    context = {}
-    context['school'] = school
-    context['year'] = year
-    context['infos'] = None
+    context = {
+        'school': school,
+        'year': year,
+        'infos': None
+    }
     school_obj = School.objects.get(school__exact=school)
     year_obj = YearFile.objects.get(year__exact=year)
+    check_information(School.objects.get(school=school), YearFile.objects.get(year=year))
     list_bulletins = Bulletin.objects.filter(location=school_obj, year=year_obj)
     if len(list_bulletins):
         context['bulletins'] = list_bulletins
