@@ -5,8 +5,8 @@ from static_files.methods.annexe_methods import update_git_direct
 from static_files.models import UnsecureFile
 
 
-def save_unsecure_file(request, context):
-    new_file = request.FILES['file']
+def save_unsecure_file(context):
+    new_file = context['file']
     fs = FileSystemStorage()
     fs.save(context['raw_path'], new_file)
     context['message'] = "Fichier ajouté avec succès"
@@ -14,7 +14,7 @@ def save_unsecure_file(request, context):
     update_git_direct(context['raw_path'], BASE_MEDIA_ROOT, commit, context)
 
 
-def add_unsecured_file(request, context, type):
+def add_unsecured_file(context, type):
     type += '/'
     if context['url']:
         url = context['url']
@@ -38,5 +38,5 @@ def add_unsecured_file(request, context, type):
         extension=context['extension'],
     )
     context['filename'] = filename
-    save_unsecure_file(request, context)
+    save_unsecure_file(context)
     new_file.save()
