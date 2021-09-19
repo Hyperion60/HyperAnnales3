@@ -170,11 +170,11 @@ class Bulletin(models.Model):
 
 class UnsecureFile(models.Model):
     title = models.CharField(max_length=120, default='default_title')
-    path = models.CharField(max_length=255, default='')
     url = models.CharField(max_length=1024, default='')
-    filename = models.CharField(max_length=255, default='')
+    filename = models.CharField(max_length=255, unique=True, default='')
     author = models.ForeignKey(Account, models.CASCADE, default=1)
     bulletin = models.ForeignKey(Bulletin, models.CASCADE, null=True, blank=True)
+    extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=1)
 
     def __str__(self):
         return self.title
