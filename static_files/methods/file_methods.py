@@ -1,3 +1,4 @@
+from HyperAnnales.settings import MEDIA_ROOT
 from static_files.models import *
 from static_files.methods.annexe_methods import update_git_direct
 from static_files.methods.subject_methods import CreateSubject
@@ -9,6 +10,13 @@ COLOR_FILE = [
     ('Fichier local', 'green'),
     ('Lien URL', 'blue'),
     ('Fichier distant', 'red'),
+]
+
+
+EXTENSION_FILE = [
+    ('Document PDF', 'pdf'),
+    ('Image PNG', 'png'),
+    ('Image JPEG', 'jpeg'),
 ]
 
 
@@ -64,7 +72,7 @@ def create_instance(request, context):
             context['message'] = "Fichier ajouté avec succès"
             if not context['url']:
                 commit = "File({}): {}\nAuteur: {}".format(context['fileextension'], context['raw_path'], request.user)
-                update_git_direct(context['raw_path'], commit, context)
+                update_git_direct(context['raw_path'], MEDIA_ROOT, commit, context)
             return render(request, "static_content/admin/message_template.html", context)
     return render(request, "static_content/add/add-file.html", context)
 
