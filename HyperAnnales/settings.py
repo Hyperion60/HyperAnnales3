@@ -200,3 +200,8 @@ SENDFILE_BACKEND = "django_sendfile.backends.simple"
 KEY_TOKEN = os.getenv("PRIVATE_TOKEN")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Unsecured media files
+
+BASE_MEDIA_URL = "https://raw.githubusercontent.com/Hyperion60/"
+BASE_MEDIA_ROOT = "/media/media_HA/"
