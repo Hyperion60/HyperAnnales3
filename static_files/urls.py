@@ -6,6 +6,7 @@ from static_files.views import admin_views,\
     year_views,\
     base_template,\
     file_views, \
+    bulletin_file_views, \
     bulletin_views
 
 
@@ -14,6 +15,7 @@ urlpatterns = [
     path('add/category/', category_views.CreateCategoryView),
     path('add/information/<str:school>/<int:year>/', bulletin_views.CreateInformation),
     path('add/information/<str:school>/', bulletin_views.CreateInformation),
+    path('add/information/file/<int:pk>/', bulletin_file_views.add_file_bulletin),
     path('add/file/', file_views.init_addfile_view),
     path('add/semester/', semester_views.CreateSemesterView),
     path('add/subject/', subject_views.CreateSubjectView),

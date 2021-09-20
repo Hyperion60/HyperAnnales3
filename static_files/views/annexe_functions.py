@@ -1,5 +1,5 @@
 from random import randint
-from static_files.models import StaticContent, StaticFile
+from static_files.models import StaticContent, StaticFile, ExtensionFile
 
 
 def get_color(static_content):
@@ -13,3 +13,10 @@ def create_random_key():
     while n == 0 and len(StaticFile.objects.filter(randomkey__exact=n)):
         n = randint(1, 999999)
     return n
+
+
+def create_list_extension():
+    list_extension = ""
+    for extension in ExtensionFile.objects.all():
+        list_extension += ".{}, ".format(extension.extension)
+    return list_extension[:-2]

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
 
-from static_files.models import Bulletin, UnsecureFile, ExtensionFile
+from static_files.models import Bulletin, ExtensionFile
 from static_files.methods.unsecure_file_methods import add_unsecured_file
+from static_files.views.annexe_functions import create_list_extension
 
 
 def add_file_bulletin(request, pk):
@@ -36,7 +37,18 @@ def add_file_bulletin(request, pk):
         if request.POST.get('url', ''):
             context['url'] = request.POST['url']
 
-        if len(context['errors']):
-            return render(request, "static_content/admin/index.html", context)
+        try:
+            context['file'] = request.FILES['file']
+        except MultiValueDictKeyError:
+            context['errors'].append("Fichier manquant ou introuvable.")
 
-        add_unsecured_file(request, context, "bulletin")
+        if len(context['errors']):
+            return render(request, "static_content/add/add-bulletin-file.html", context)
+
+        add_unsecured_file(context, "bulletin")
+        return render(request, "static_content/admin/message_template.html", context)
+
+    context['extensions'] = ExtensionFile.objects.all().order_by('type')
+    context['list_extension'] = create_list_extension()
+
+    return render(request, "static_content/add/add-bulletin-file.html", context)
