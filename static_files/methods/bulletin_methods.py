@@ -4,6 +4,25 @@ from static_files.models import Bulletin, UnsecureFile, School, YearFile
 from datetime import datetime
 
 
+def list_bulletin_admin_view(request):
+    list_bulletin = Bulletin.objects.filter(author=request.user)
+    if not len(list_bulletin):
+        return None
+    contribution = []
+    for bulletin in list_bulletin:
+        contrib = {
+            'year': bulletin.year,
+            'location': bulletin.location,
+            'title': bulletin.title,
+            'pk': bulletin.pk,
+            'files': []
+        }
+        for file in UnsecureFile.objects.filter(bulletin=bulletin):
+            contrib['files'].append(file)
+        contribution.append(contrib)
+    return contribution
+
+
 def check_information(school, year=None):
     list_infos = Bulletin.objects.filter(school=school, year=year)
     date_now = datetime.now()

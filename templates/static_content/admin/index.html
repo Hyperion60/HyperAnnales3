@@ -69,6 +69,12 @@
                 <div class="collapsible-body">
                     <a class="waves-effect waves-light btn" href="/static_content/change/bulletin/{{ bulletin.pk }}/?next=/static_content/admin/">Modifier</a>
                     <a class="waves-effect waves-light btn" href="/static_content/del/bulletin/{{ bulletin.pk }}/?next=/static_content/admin/">Supprimer</a>
+                    <a class="waves-effect waves-light btn" href="/static_content/add/information/file/{{ bulletin.pk }}/?next=/static_content/admin/">Ajouter un fichier/ressource</a>
+                    <ul class="collapsible">
+                        {% for file in bulletin.files %}
+
+                        {% endfor %}
+                    </ul>
                 </div>
             </li>
             {% endfor %}
