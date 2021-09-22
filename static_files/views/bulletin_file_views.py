@@ -28,7 +28,7 @@ def add_file_bulletin(request, pk):
             context['errors'].append("Le champ titre est manquant ou non renseigné.")
 
         try:
-            context['extension'] = ExtensionFile.objects.get(pk=request.POST['extension'])
+            context['extension'] = ExtensionFile.objects.get(extension__exact=request.POST['extension'])
         except MultiValueDictKeyError:
             context['errors'].append("Le champ extension est manquant ou non reseigné.")
         except ExtensionFile.DoesNotExist:
