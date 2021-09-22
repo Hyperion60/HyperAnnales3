@@ -23,8 +23,8 @@ def static_admin(request):
         context['semesters'] = SemesterFile.objects.all().order_by('semester')
         context['subjects'] = SubjectFile.objects.all().order_by('subject')
         context['bulletins'] = Bulletin.objects.all().order_by('title')
-    else:
-        context['bulletins'] = Bulletin.objects.filter(author=request.user)
-    context['contribution'] = list_bulletin_admin_view(request)
+
+    context['bulletins'] = list_bulletin_admin_view(request)
+    context['contribution'] = StaticContent.objects.filter(file__author=request.user).order_by('name')
     return render(request, "static_content/admin/index.html", context)
 
