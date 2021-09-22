@@ -60,3 +60,4 @@ Sources files from the last version of HA 3.0
 - Ajouter une fonction pour nettoyer les dépots git en fonction de la base de données
 - Ajouter des templates pour les différents codes d'erreurs (404, 403, 500)
 - Organiser les variables pour les dépots Git (préfixes d'url d'accès...)
+- Merge test template and definitive template
