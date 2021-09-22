@@ -49,7 +49,7 @@
             </li>
             {% endfor %}
             <li>
-                <a href="/static_content/add/file/" style="color:black;">
+                <a href="{% url 'create-file' %}" style="color:black;">
                     <div class="collapsible-header waves-effect">Ajouter un nouveau fichier</div>
                 </a>
             </li>
@@ -67,14 +67,32 @@
                     {% endif %}
                 </div>
                 <div class="collapsible-body">
-                    <a class="waves-effect waves-light btn" href="/static_content/change/bulletin/{{ bulletin.pk }}/?next=/static_content/admin/">Modifier</a>
-                    <a class="waves-effect waves-light btn" href="/static_content/del/bulletin/{{ bulletin.pk }}/?next=/static_content/admin/">Supprimer</a>
-                    <a class="waves-effect waves-light btn" href="/static_content/add/information/file/{{ bulletin.pk }}/?next=/static_content/admin/">Ajouter un fichier/ressource</a>
-                    <ul class="collapsible">
-                        {% for file in bulletin.files %}
-
-                        {% endfor %}
-                    </ul>
+                    <div class="hide-on-small">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><b>Bulletin</b></td>
+                                    <td style="text-align: right;">
+                                        <a href="{% url 'change-bulletin' bulletin.pk %}?next={% url 'contribution' %}"><i class="material-icons">create</i></a>
+                                        <a href="{% url 'del-bulletin' bulletin.pk %}?next={% url 'contribution' %}"><i class="material-icons">delete</i></a>
+                                        <a href="{% url 'create-bulletin-file' bulletin.pk %}?next={% url 'contribution' %}"><i class="material-icons">note_add</i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Fichiers/ressources</b></td>
+                                </tr>
+                                {% for file in files %}
+                                <tr>
+                                    <td>{{ file.title }}</td>
+                                    <td style="text-align: right;">
+                                        <a href="{{ file.url }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                        <a href="{% url 'change-unsecured-file' file.pk %}?next={% url 'contribution' %}"><i class="material-icons">create</i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </li>
             {% endfor %}
@@ -96,12 +114,12 @@
                             </div>
                            <div class="collapsible-body">
                                <p>Semestre actuel : {{ year.active_semester.semester }}</p>
-                               <a class="waves-effect waves-light btn" href="/static_content/change/year/{{ year.pk }}">Modifier</a>
+                               <a class="waves-effect waves-light btn" href="{% url 'change-year' year.pk %}">Modifier</a>
                            </div>
                         </li>
                         {% endfor %}
                         <li>
-                            <a href="/static_content/add/year/" style="color:black; font-size: 15px">
+                            <a href="{% url 'create-year' %}" style="color:black; font-size: 15px">
                                 <div class="collapsible-header waves-effect">Ajouter une nouvelle année</div>
                             </a>
                         </li>
