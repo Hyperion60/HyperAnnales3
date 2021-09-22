@@ -81,12 +81,12 @@
                                 <tr>
                                     <td><b>Fichiers/ressources</b></td>
                                 </tr>
-                                {% for file in files %}
+                                {% for bulletin_file in files %}
                                 <tr>
-                                    <td>{{ file.title }}</td>
+                                    <td>{{ bulletin_file.title }}</td>
                                     <td style="text-align: right;">
-                                        <a href="{{ file.url }}" target="_blank"><i class="material-icons">open_in_new</i></a>
-                                        <a href="{% url 'change-unsecured-file' file.pk %}?next={% url 'contribution' %}"><i class="material-icons">create</i></a>
+                                        <a href="{{ bulletin_file.url }}" target="_blank"><i class="material-icons">open_in_new</i></a>
+                                        <a href="{% url 'change-unsecured-file' bulletin_file.pk %}?next={% url 'contribution' %}"><i class="material-icons">create</i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
