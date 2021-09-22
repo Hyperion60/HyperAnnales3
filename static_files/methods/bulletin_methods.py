@@ -1,4 +1,5 @@
 from django.db import IntegrityError
+from django.utils import timezone
 
 from static_files.models import Bulletin, UnsecureFile, School, YearFile
 from datetime import datetime
@@ -30,7 +31,7 @@ def check_information(school, year=None):
         list_infos = Bulletin.objects.filter(location=school, year__isnull=True)
     date_now = datetime.now()
     for info in list_infos:
-        if info.date_expiry < date_now:
+        if timezone.make_aware(info.date_expiry, timezone.get_current_timezone()) < date_now:
             info.delete()
 
 
