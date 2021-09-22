@@ -17,6 +17,7 @@ EXTENSION_FILE = [
     ('Document PDF', 'pdf'),
     ('Image PNG', 'png'),
     ('Image JPEG', 'jpeg'),
+    ('Lien URL', 'url'),
 ]
 
 
