@@ -36,6 +36,7 @@ def add_file_bulletin(request, pk):
 
         if request.POST.get('url', ''):
             context['url'] = request.POST['url']
+            context['file'] = None
         else:
             try:
                 context['file'] = request.FILES['file']

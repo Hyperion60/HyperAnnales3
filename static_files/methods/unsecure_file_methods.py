@@ -38,7 +38,8 @@ def add_unsecured_file(request, context, type):
         extension=context['extension'],
     )
     context['filename'] = filename
-    save_unsecure_file(request, context)
+    if context['file']:
+        save_unsecure_file(request, context)
     new_file.save()
 
 
