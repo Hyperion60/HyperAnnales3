@@ -40,3 +40,7 @@ def add_unsecured_file(context, type):
     context['filename'] = filename
     save_unsecure_file(context)
     new_file.save()
+
+
+def update_unsecure_file(context):
+    pass
