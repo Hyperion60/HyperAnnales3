@@ -43,6 +43,8 @@ def add_file_bulletin(request, pk):
                 context['errors'].append("Fichier manquant ou introuvable.")
 
         if len(context['errors']):
+            context['extensions'] = ExtensionFile.objects.all().order_by('type')
+            context['list_extension'] = create_list_extension()
             return render(request, "static_content/add/add-bulletin-file.html", context)
 
         add_unsecured_file(request, context, "bulletin")
