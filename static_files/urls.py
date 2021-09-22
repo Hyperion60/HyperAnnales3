@@ -13,9 +13,9 @@ from static_files.views import admin_views,\
 urlpatterns = [
     path('admin/', admin_views.static_admin, name="contribution"),
     path('add/category/', category_views.CreateCategoryView, name="create-category"),
+    path('add/information/file/<int:pk>/', bulletin_file_views.add_file_bulletin, name="create-bulletin-file"),
     path('add/information/<str:school>/<int:year>/', bulletin_views.CreateInformation, name="create-bulletin-year"),
     path('add/information/<str:school>/', bulletin_views.CreateInformation, name="create-bulletin-school"),
-    path('add/information/file/<int:pk>/', bulletin_file_views.add_file_bulletin, name="create-bulletin-file"),
     path('add/file/', file_views.init_addfile_view, name="create-file"),
     path('add/semester/', semester_views.CreateSemesterView, name="create-semester"),
     path('add/subject/', subject_views.CreateSubjectView, name="create-subject"),
