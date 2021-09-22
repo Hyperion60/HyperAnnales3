@@ -29,9 +29,8 @@ def check_information(school, year=None):
         list_infos = Bulletin.objects.filter(location=school, year=year)
     else:
         list_infos = Bulletin.objects.filter(location=school, year__isnull=True)
-    date_now = datetime.now()
     for info in list_infos:
-        if timezone.make_aware(info.date_expiry, timezone.get_current_timezone()) < date_now:
+        if timezone.make_aware(info.date_expiry, timezone.get_current_timezone()) < timezone.now():
             info.delete()
 
 
