@@ -36,11 +36,11 @@ def add_file_bulletin(request, pk):
 
         if request.POST.get('url', ''):
             context['url'] = request.POST['url']
-
-        try:
-            context['file'] = request.FILES['file']
-        except MultiValueDictKeyError:
-            context['errors'].append("Fichier manquant ou introuvable.")
+        else:
+            try:
+                context['file'] = request.FILES['file']
+            except MultiValueDictKeyError:
+                context['errors'].append("Fichier manquant ou introuvable.")
 
         if len(context['errors']):
             return render(request, "static_content/add/add-bulletin-file.html", context)
