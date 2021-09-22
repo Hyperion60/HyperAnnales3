@@ -25,9 +25,9 @@ def list_bulletin_admin_view(request):
 
 def check_information(school, year=None):
     if year:
-        list_infos = Bulletin.objects.filter(school=school, year=year)
+        list_infos = Bulletin.objects.filter(location=school, year=year)
     else:
-        list_infos = Bulletin.objects.filter(school=school, year__isnull=True)
+        list_infos = Bulletin.objects.filter(location=school, year__isnull=True)
     date_now = datetime.now()
     for info in list_infos:
         if info.date_expiry < date_now:
