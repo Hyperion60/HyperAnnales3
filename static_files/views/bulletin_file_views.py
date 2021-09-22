@@ -45,7 +45,7 @@ def add_file_bulletin(request, pk):
         if len(context['errors']):
             return render(request, "static_content/add/add-bulletin-file.html", context)
 
-        add_unsecured_file(context, "bulletin")
+        add_unsecured_file(request, context, "bulletin")
         return render(request, "static_content/admin/message_template.html", context)
 
     context['extensions'] = ExtensionFile.objects.all().order_by('type')
