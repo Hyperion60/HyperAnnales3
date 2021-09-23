@@ -30,7 +30,7 @@ def check_information(school, year=None):
     else:
         list_infos = Bulletin.objects.filter(location=school, year__isnull=True)
     for info in list_infos:
-        if timezone.make_aware(info.date_expiry, timezone.get_current_timezone()) < timezone.now():
+        if info.date_expiry < timezone.now():
             info.delete()
 
 
