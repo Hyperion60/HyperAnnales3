@@ -21,6 +21,7 @@ def list_bulletin_admin_view(request):
         for file in UnsecureFile.objects.filter(bulletin=bulletin):
             contrib['files'].append(file)
         contribution.append(contrib)
+    print(contribution)
     return contribution
 
 
