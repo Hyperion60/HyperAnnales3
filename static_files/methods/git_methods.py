@@ -2,11 +2,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from git import Repo, InvalidGitRepositoryError, NoSuchPathError
 from HyperAnnales.settings import TIME_ZONE
 
-sched = BlockingScheduler(timezone=TIME_ZONE)
-
-
 # Git push
-@sched.scheduled_job('interval', minutes=3)
 def push_git(root_git, name_git, commit_msg="Add file"):
     path = "{}{}/.git".format(root_git, name_git)
     try:
