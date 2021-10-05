@@ -12,6 +12,13 @@
         <p>{{ bulletin.body|linebreaksbr }}</p>
         {% endautoescape %}
     </div>
+    {% if bulletin.files %}
+    <div class="card-action">
+        {% for file in bulletin.files %}
+        <a href="{{ file.url }}">{{ file.title }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endfor %}
 {% else %}
