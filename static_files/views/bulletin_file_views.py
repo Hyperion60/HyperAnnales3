@@ -102,6 +102,7 @@ def update_bulletin_file(request, pk):
     file = {
         'name': context['file'].title,
         'extension': context['file'].extension,
+        'pk': context['file'].pk,
     }
     if context['file'].extension.extension == "url":
         file['url'] = context['file'].url
