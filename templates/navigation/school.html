@@ -36,7 +36,7 @@
     {% if bulletin.files %}
     <div class="card-action">
         {% for file in bulletin.files %}
-        <a style="color:#384cda; font-weight: bold;" href="{{ file.url }}">{{ file.title }}</a>
+        <a style="color:#384cda; font-weight: bold;" target="_blank" href="{{ file.url }}">{{ file.title }}</a>
         {% endfor %}
     </div>
     {% endif %}
