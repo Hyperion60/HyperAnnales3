@@ -64,8 +64,8 @@ def commit_file(root_git, name_git, path_file, commit_msg):
     return 0
 
 
-def delete_git_file(root_git, name_git, path_file):
-    path_git = "{}{}/.git".format(root_git, name_git)
+def delete_git_file(root_git, path_file):
+    path_git = "{}/.git".format(root_git)
     try:
         repo = Repo(path_git)
         repo.index.remove(path_file, working_tree=True)

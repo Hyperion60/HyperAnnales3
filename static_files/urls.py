@@ -26,6 +26,7 @@ urlpatterns = [
     path('change/category/<int:pk>/', category_views.ChangeCategory, name="change-category"),
     path('change/bulletin/<int:pk>/', bulletin_views.UpdateInformation, name="change-bulletin"),
     path('del/bulletin/<int:pk>/', bulletin_views.DeleteInformation, name="del-bulletin"),
+    path('del/unsecure_file/<int:pk>/', bulletin_file_views.delete_bulletin_file, name="del-unsecured-file"),
     path('test/<int:year>', base_template.test_template),
     path('protected/<str:token>/', file_views.SendFile),
     path('<int:year>/<int:id>/', file_views.CreateFileView),
