@@ -16,7 +16,7 @@ input::placeholder {
     </div>
 </div>
 {% endif %}
-<form method="post" enctype="multipart/form-data" action="/static_content/change/file/{{ file.pk }}/?next={{ next }}">
+<form method="post" enctype="multipart/form-data" action="/static_content/change/unsecure_file/{{ file.pk }}/?next={{ next }}">
     {% csrf_token %}
     <div class="row">
         <div class="input-field s12">
