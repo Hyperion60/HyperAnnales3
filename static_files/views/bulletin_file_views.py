@@ -34,8 +34,8 @@ def add_file_bulletin(request, pk):
         except ExtensionFile.DoesNotExist:
             context['errors'].append("Le champ extension est invalide. Clé introuvable.")
 
-        if request.POST.get('url', ''):
-            context['url'] = request.POST.get('url', None)
+        context['url'] = request.POST.get('url', None)
+        if context['url']:
             context['file'] = None
         else:
             try:
