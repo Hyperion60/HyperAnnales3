@@ -50,7 +50,8 @@ def create_information(request, context):
             context['errors'].append("L'année demandée n'existe pas.")
 
     try:
-        date_expiry = datetime.strptime(request.POST['date'], "%d/%m/%Y")
+        date_expiry = timezone.make_naive(datetime.strptime(request.POST['date'], "%d/%m/%Y"),
+                                          timezone.get_current_timezone())
     except ValueError:
         context['errors'].append("Date d'expiration manquante.")
 
@@ -59,7 +60,7 @@ def create_information(request, context):
                                    body=request.POST['body'],
                                    location=school,
                                    year=year,
-                                   date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                   date=timezone.now(),
                                    date_expiry=date_expiry,
                                    author=request.user)
         new_information.save()
