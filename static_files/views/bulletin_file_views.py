@@ -95,6 +95,7 @@ def update_bulletin_file(request, pk):
             context['errors'].append("L'extension demandée est introuvable. La clé primaire n'existe pas.")
 
         update_unsecure_file(context)
+        context['message'] = "Fichier modifié avec succès."
         return render(request, "static_content/admin/message_template.html", context)
 
     context['extensions'] = ExtensionFile.objects.exclude(pk=context['file'].extension.pk)
