@@ -5,7 +5,9 @@
 {% endautoescape %}
 {% if errors %}
 {% autoescape on %}
-    <p style="font-size: xx-large; color: darkred;">{{ errors | linebreaksbr }}</p>
+    {% for error in errors %}
+        <p style="font-size: xx-large; color: darkred;">{{ error | linebreaksbr }}</p>
+    {% endfor %}
 {% endautoescape %}
 {% endif %}
 <div class="row">
