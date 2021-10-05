@@ -25,6 +25,25 @@ def list_bulletin_admin_view(request):
     return contribution
 
 
+def list_bulletin_navigation(school, year=None):
+    list_bulletins = Bulletin.objects.filter(year__exact=year, location__school__exact=school)
+
+    if not len(list_bulletins):
+        return None
+
+    bulletins = []
+    for bulletin in list_bulletins:
+        new_bulletin = {
+            'title': bulletin.title,
+            'body': bulletin.body,
+            'files': [],
+        }
+        for file in UnsecureFile.objects.filter(bulletin=bulletin):
+            new_bulletin['files'].append(file)
+        bulletins.append(new_bulletin)
+    return bulletins
+
+
 def check_information(school, year=None):
     if year:
         list_infos = Bulletin.objects.filter(location=school, year=year)
