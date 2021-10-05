@@ -100,7 +100,7 @@ def update_bulletin_file(request, pk):
     context['extensions'] = ExtensionFile.objects.exclude(pk=context['file'].extension.pk)
     context['list_extension'] = create_list_extension()
     file = {
-        'name': context['file'].name,
+        'name': context['file'].title,
         'extension': context['file'].extension,
     }
     if context['file'].extension.extension == "url":
