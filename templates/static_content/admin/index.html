@@ -92,6 +92,7 @@ i {
                                     <td style="text-align: right;">
                                         <a href="{{ file.url }}" target="_blank"><i class="material-icons">open_in_new</i></a>
                                         <a href="{% url 'change-unsecured-file' file.pk %}?next={% url 'contribution' %}"><i class="material-icons">create</i></a>
+                                        <a href="{% url 'del-unsecured-file' file.pk %}?next={% url 'contribution' %}"><i class="material-icons">delete</i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
