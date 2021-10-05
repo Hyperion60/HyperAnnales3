@@ -45,6 +45,10 @@ def add_unsecured_file(request, context, type):
     new_file.save()
 
 
+def update_unsecure_file(context):
+    pass
+
+
 def delete_unsecure_file(request, context):
     if request.user != context['file'].author and not request.user.is_staff:
         return False
