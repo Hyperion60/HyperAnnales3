@@ -97,7 +97,7 @@ def update_bulletin_file(request, pk):
         update_unsecure_file(context)
         return render(request, "static_content/admin/message_template.html", context)
 
-    context['extensions'] = ExtensionFile.objects.exclude(pk=context['file'].extension)
+    context['extensions'] = ExtensionFile.objects.exclude(pk=context['file'].extension.pk)
     context['list_extension'] = create_list_extension()
     file = {
         'name': context['file'].name,
