@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 
 from static_files.models import Bulletin, UnsecureFile, ExtensionFile
-from static_files.methods.unsecure_file_methods import add_unsecured_file, update_unsecure_file, delete_unsecure_file
+from static_files.methods.unsecure_file_methods import add_unsecured_file, delete_unsecure_file
 from static_files.views.annexe_functions import create_list_extension
 
 
