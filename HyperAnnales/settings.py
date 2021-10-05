@@ -205,5 +205,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Unsecured media files
 
-BASE_UNSECURE_URL = "https://raw.githubusercontent.com/Hyperion60/"
+BASE_UNSECURE_URL = "https://raw.githubusercontent.com/Hyperion60/media_HA/master/"
 BASE_STATIC_ROOT = "/media/media_HA/"
