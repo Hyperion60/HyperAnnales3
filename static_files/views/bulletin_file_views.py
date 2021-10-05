@@ -109,5 +109,5 @@ def update_bulletin_file(request, pk):
     else:
         file['filename'] = context['file'].filename
         file['url'] = None
-
+    context['file'] = file
     return render(request, "static_content/change/change-unsecured-file.html", context)
