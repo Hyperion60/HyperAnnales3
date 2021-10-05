@@ -6,12 +6,12 @@ Sources files from the last version of HA 3.0
 ### Cores
 - DEFAULT_AUTO_FIELD (Django 3.2) [FIXED]
 - Modification des catégories [FIXED]
-- Bulletin d'information
+- Bulletin d'information [FIXED]
   - Ajout d'un bulletin [FIXED]
   - Modification d'un bulletin [FIXED]
-  - Suppression d'un bulletin
-  - Ajout d'un media
-  - Suppression d'un media
+  - Suppression d'un bulletin [FIXED]
+  - Ajout d'un media [FIXED]
+  - Suppression d'un media [FIXED]
 - Ajout d'un fichier [FIXED]
 - Affichages fichiers
   - Ré-ajouter les classes pour la categorie [FIXED]
@@ -61,3 +61,4 @@ Sources files from the last version of HA 3.0
 - Ajouter des templates pour les différents codes d'erreurs (404, 403, 500)
 - Organiser les variables pour les dépots Git (préfixes d'url d'accès...)
 - Merge test template and definitive template
+- Nettoyage du git media
