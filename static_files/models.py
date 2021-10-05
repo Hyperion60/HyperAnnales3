@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import Account
-from HyperAnnales.settings import MEDIA_ROOT as root_path
+from HyperAnnales.settings import BASE_MEDIA_ROOT as root_path
 
 import os
 from datetime import datetime

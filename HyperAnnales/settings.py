@@ -189,7 +189,9 @@ EMAIL_USE_SSL = bool(int(os.getenv("EMAIL_SSL_OVH")))
 
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = "/media/static_HA/"
+MEDIA_ROOT = "/media/"
+
+BASE_MEDIA_ROOT = "/media/static_HA/"
 
 # STATIC_ROOT = "/home/static_HA/"
 
@@ -203,5 +205,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Unsecured media files
 
-BASE_MEDIA_URL = "https://raw.githubusercontent.com/Hyperion60/"
-BASE_MEDIA_ROOT = "/media/media_HA/"
+BASE_UNSECURE_URL = "https://raw.githubusercontent.com/Hyperion60/"
+BASE_STATIC_ROOT = "/media/media_HA/"
