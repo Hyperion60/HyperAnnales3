@@ -1,4 +1,13 @@
-from static_files.models import CategoryFile, YearFile, SemesterFile, SubjectFile, School
+from static_files.models import CategoryFile, SubjectFile
+
+
+COLOR_CATEGORY = [
+    ('Contrôles', 'red'),
+    ('Cours', 'blue'),
+    ('QCM', 'blue'),
+    ('Site internet', 'green'),
+    ('Ressources externes', 'green'),
+]
 
 
 # context(dict), subject(obj), title(str), category(str)

@@ -23,16 +23,9 @@ def CreateYearView(request):
         except KeyError:
             context['error'] = "Champ introuvable"
             error = True
-        list_school = School.objects.filter(school=user.school)
-        if len(list_school):
-            school = list_school[0]
-        else:
-            print(user.school)
-            context['error'] = "Ecole de l'utilisateur introvable"
-            error = True
         if not error:
             if 2013 < year < datetime.now().year + 6:
-                create_year(year, semester, school)
+                create_year(year, semester)
                 return render(request, "static_content/admin/message_template.html",
                               {'message': "L'année a bien été créée"})
             context['error'] = "Année entrée invalide"
@@ -52,18 +45,24 @@ def SetSemesterYearView(request, year):
         try:
             semester = request.POST['active_semester']
         except KeyError:
-            context['error'] = "Champ introuvable"
+            context['error'] = "Champ semestre introuvable"
             error = True
-        list_school = School.objects.filter(school=user.school)
+        list_school = School.objects.filter(school=request.user.school)
+        school = None
         if len(list_school):
             school = list_school[0]
         else:
-            context['error'] = "Ecole de l'utilisateur introuvable"
+            if len(context['error']):
+                context['error'] += "\n"
+            context['error'] += "Ecole de l'utilisateur introuvable"
             error = True
         if not error:
-            set_year(year, semester, school)
-            return render(request, "static_content/admin/message_template.html",
-                          {'message': "Le semestre actif a bien été modifié"})
+            if not set_year(year, semester, school):
+                return render(request, "static_content/admin/message_template.html",
+                              {'message': "Le semestre actif a bien été modifié"})
+            if len(context['error']):
+                context['error'] += "\n"
+            context['error'] += "Champ(s) manquant(s)"
     form = SetYearSemester()
     context['active_semester'] = form['active_semester']
     return render(request, "static_content/change/change-year.html", context)

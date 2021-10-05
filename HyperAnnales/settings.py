@@ -147,6 +147,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cache system
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/HyperAnnales_cache',
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -180,7 +189,9 @@ EMAIL_USE_SSL = bool(int(os.getenv("EMAIL_SSL_OVH")))
 
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = "/media/static_HA/"
+MEDIA_ROOT = "/media/"
+
+BASE_MEDIA_ROOT = "/media/static_HA/"
 
 # STATIC_ROOT = "/home/static_HA/"
 
@@ -189,3 +200,10 @@ MEDIA_ROOT = "/media/static_HA/"
 SENDFILE_BACKEND = "django_sendfile.backends.simple"
 
 KEY_TOKEN = os.getenv("PRIVATE_TOKEN")
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Unsecured media files
+
+BASE_UNSECURE_URL = "https://raw.githubusercontent.com/Hyperion60/media_HA/master/"
+BASE_STATIC_ROOT = "/media/media_HA/"

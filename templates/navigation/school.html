@@ -1,0 +1,56 @@
+{% extends "base-red.html" %}
+{% block content %}
+
+{% load cache %}
+{% cache 86400 year_list school %}
+{% if voyelle %}
+<p style="font-size: x-large;">Accueil de l'{{ school }}</p>
+{% else %}
+<p style="font-size: x-large;">Accueil de {{ school }}</p>
+{% endif %}
+
+<div class="card blue lighten-4">
+    <div class="card-content">
+        <span class="card-title">Choisissez la promotion</span>
+        {% for year, nb in years.items %}
+        <a class="waves-effect waves-light btn" href="/{{ school }}/{{ year }}/">{{ year }}<span class="badge lime lighten-5">{{ nb }}</span></a>
+        {% endfor %}
+    </div>
+</div>
+
+{% if user.is_staff %}
+<button class="btn blue" style="float: right;" onclick="location.href = '/static_content/add/information/{{ school }}/';">Ajouter une information</button>
+{% endif %}
+{% endcache %}
+
+{% cache 300 bulletins_year school %}
+{% if bulletins %}
+{% for bulletin in bulletins %}
+<div class="card green lighten-4">
+    <div class="card-content">
+        <span class="card-title">{{ bulletin.title }}</span>
+        {% autoescape on %}
+        <p>{{ bulletin.body|linebreaksbr }}</p>
+        {% endautoescape %}
+    </div>
+    {% if bulletin.files %}
+    <div class="card-action">
+        {% for file in bulletin.files %}
+        <a style="color:#384cda; font-weight: bold;" target="_blank" href="{{ file.url }}">{{ file.title }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% else %}
+<div class="card grey lighten-4">
+    <div class="card-content">
+    <p>Pas d'information pour le moment.</p>
+    </div>
+</div>
+{% endif %}
+{% endcache %}
+{% if user.is_staff %}
+<button class="btn blue" style="float: right;" onclick="location.href = '/static_content/add/information/{{ school }}/';">Ajouter une information</button>
+{% endif %}
+{% endblock %}

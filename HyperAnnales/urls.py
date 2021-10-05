@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+from static_files.views import navigation
+
 from accounts.views import (
     registration_view,
     change_password,
@@ -34,12 +36,15 @@ urlpatterns = [
     path('logout/', logout_view, name="logout"),
     path('login/', login_view, name="login"),
     path('register/', registration_view, name="register"),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name="activate"),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$', activate, name="activate"),
     path('reset_password/', reset_password, name="reset"),
-    url(r'^change_password/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', change_password, name="change"),
+    url(r'^change_password/(?P<uidb64>[0-9A-Za-z_\-\']+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$', change_password, name="change"),
     # Static content
     path('static_content/', include('static_files.urls')),
     # Accueil
     path('', views.index, name="index"),
     path('about', views.about, name="about"),
+    path('<str:school>/', navigation.school),
+    path('<str:school>/<int:year>/', navigation.year),
+    path('<str:school>/<int:year>/<int:semester>/<str:subject>/', navigation.subject),
 ]

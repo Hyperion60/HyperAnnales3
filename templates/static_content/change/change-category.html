@@ -1,0 +1,45 @@
+{% extends 'base-red.html' %}
+{% block content %}
+{% if errors %}
+<div class="container">
+    <div class="center card-panel red accent-3">
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+<form method="post" action="/static_content/change/category/{{ category.pk }}/?next={{ next }}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field s12">
+            <label class="active" id="id_title">Titre de la catégorie :</label>
+            <input type="text" id="id_title" name="title" maxlength="140" value="{{ category.title }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field s12">
+            <label class="active" id="id_place">Place de la catégorie dans la liste :</label>
+            <p class="range-field">
+                <input type="range" id="id_place" name="place" min="0" max="{{ max }}" value="{{ category.place }}">
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field s12">
+            <label class="active" id="id_color">Classe de la catégorie :</label>
+            <select name="color" id="id_color">
+                <option value="{{ category.classe.pk }}" selected>{{ category.classe.type }}</option>
+                {% for color in colors %}
+                <option value="{{ color.pk }}">{{ color.type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="center">
+        <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
+    </div>
+</form>
+{% endblock %}
