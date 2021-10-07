@@ -13,7 +13,7 @@ Sources files from the last version of HA 3.0
   - Ajout d'un media [FIXED]
   - Suppression d'un media [FIXED]
 - Ajout d'un fichier [FIXED]
-- Affichages fichiers
+- Affichages fichiers [BEGIN]
   - Ré-ajouter les classes pour la categorie [FIXED]
   - Jetons d'authentifications
   - Template d'affichage du fichier (polymorphe)
