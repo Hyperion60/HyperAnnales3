@@ -1,16 +1,33 @@
 from django.shortcuts import render
-from django.db.backends.postgresql import base
+from django.db import connections
 from accounts.models import *
+from static_files.models import School
 import django
 
 
 def index(request):
-    return render(request, 'index.html')
+    context = {'schools': School.objects.all().order_by('school')}
+    return render(request, 'index.html', context)
 
 
 def __postgres_version():
-    tuple_version = base.psycopg2_version()
-    return str(tuple_version[0]) + "." + str(tuple_version[1]) + "." + str(tuple_version[2])
+    brut = str(connections['user_ref'].cursor().connection.server_version)
+    str_version = ""
+    is_point = True
+    is_OK = True
+    for letter in brut:
+        if letter == '0':
+            if is_point:
+                str_version += '.'
+                is_point = False
+            else:
+                str_version += letter
+                is_point = True
+            is_OK = False
+        if is_OK:
+            str_version += letter
+        is_OK = True
+    return str_version
 
 
 def __staff_members():
@@ -26,7 +43,7 @@ def __staff_members():
 def about(request):
     context = {}
     context['HA_version'] = "beta"
-    context['date'] = "21-05-2020"
+    context['date'] = "04-09-2021"
     context['django_version'] = django.get_version()
     context['angular_version'] = "9"
     context['postgresql_version'] = __postgres_version()

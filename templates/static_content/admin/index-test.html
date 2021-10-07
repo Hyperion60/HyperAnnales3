@@ -1,0 +1,41 @@
+{% extends "base-red.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab"><a href="#contrib">Contributions</a></li>
+            {% if user.is_staff %}
+            <li class="tab"><a href="#handle">Gestion</a></li>
+            {% else %}
+            <li class="tab disabled"><a href="#">Gestion</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div id="contrib" class="col s12">
+        <ul>
+            {% for file in contribution %}
+            <li>{{ file }}</li>
+            {% endfor %}
+            <li>New file</li>
+        </ul>
+    </div>
+    <div id="handle" class="col s12">
+        {% if user.is_staff %}
+        <ul>
+            <li>Années</li>
+            <ul>
+                {% for year in years %}
+                <li>{{ year }}</li>
+                {% endfor %}
+            </ul>
+            <li>Matières</li>
+            <ul>
+                {% for matiere in subjects %}
+                <li>{{ matiere }}</li>
+                {% endfor %}
+            </ul>
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

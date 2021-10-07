@@ -1,6 +1,8 @@
 {% extends "base-red.html" %}
 {% block content %}
 <div style="border-bottom-width: 1px; border-bottom-color: black;">
+{% load cache %}
+{% cache 86400 about %} 
     <h4>Nous contacter</h4>
     <table>
         <tbody>
@@ -50,5 +52,6 @@
             </tr>
         </tbody>
     </table>
+{% endcache %}
 </div>
 {% endblock %}

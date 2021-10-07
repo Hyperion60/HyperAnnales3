@@ -41,6 +41,8 @@
                 font-size: 1.8vw;
             }
         }
+        {% block css %}
+        {% endblock %}
     </style>
 </head>
 <body style="background-color: #E0E0E0;">
@@ -67,12 +69,17 @@
         <li><a href="/">Accueil</a></li>
         <li><a href="#">Documents Administratifs</a></li>
         {% if request.user.is_authenticated %}
+        {% if request.user.is_contributor %}
+        <li class="waves-effect yellow lighten-3">
+            <a href="/static_content/admin/" style="color: black">Zone Contribution</a>
+        </li>
+        {% endif %}
         <li class="waves-effect red lighten-3">
             <a href="{% url 'logout' %}" style="color: black">Déconnexion</a>
         </li>
         {% else %}
         <li class="waves-effect cyan lighten-3">
-            <a href="{% url 'login' %}" style="color: black">Se connecter</a>
+            <a href="{% url 'login' %}?next={{ request.path }}" style="color: black">Se connecter</a>
         </li>
         <li class="waves-effect green lighten-3">
             <a href="{% url 'register' %}" style="color: black">S'enregistrer</a>
@@ -94,12 +101,17 @@
                         <a href="https://materializecss.com/color.html" style="color:black;"><div class="collapsible-header waves-effect cyan lighten-3">Tables couleurs</div></a>
                     </li>
                     {% if request.user.is_authenticated %}
+                    {% if request.user.is_contributor %}
+                    <li>
+                        <a href="/static_content/admin/" style="color: black"><div class="collapsible-header waves-effect yellow lighten-3">Zone Contribution</div></a>
+                    </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'logout' %}" style="color: black"><div class="collapsible-header waves-effect red lighten-3">Déconnexion</div></a>
                     </li>
                     {% else %}
                     <li>
-                        <a href="{% url 'login' %}" style="color: black"><div class="collapsible-header waves-effect cyan lighten-3">Se connecter</div></a>
+                        <a href="{% url 'login' %}?next={{ request.path }}" style="color: black"><div class="collapsible-header waves-effect cyan lighten-3">Se connecter</div></a>
                     </li>
                     <li>
                         <a href="{% url 'register' %}" style="color: black"><div class="collapsible-header waves-effect green lighten-3">S'enregistrer</div></a>
@@ -136,6 +148,18 @@
     $(document).ready(function(){
         $('.sidenav').sidenav();
     })
+    </script>
+    <script>
+	$(document).ready(function(){
+		$('.tabs').tabs();
+	});
+	</script>
+    <script>
+    $(document).ready(function(){
+        $('select').formSelect();
+      });
+    {% block script %}
+    {% endblock %}
     </script>
 </body>
 </html>

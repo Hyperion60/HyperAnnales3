@@ -1,0 +1,75 @@
+{% extends 'base-red.html' %}
+{% block css %}
+input::placeholder {
+    color: grey;
+}
+textarea::placeholder {
+    color: grey;
+}
+{% endblock %}
+{% block content %}
+{% if errors %}
+<div class="row">
+    <div class="card red lighten-4">
+        <div class="card-content">
+            <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if year %}
+<form method="post" action="/static_content/add/information/{{ school }}/{{ year }}/">
+{% else %}
+<form method="post" action="/static_content/add/information/{{ school }}/">
+{% endif %}
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field">
+            {% if title %}
+            <input id="id_title" name="title" data-length="128" type="text" autocomplete="off" placeholder="Titre du bulletin d'information :" value="{{ title }}">
+            {% else %}
+            <input id="id_title" name="title" data-length="128" type="text" autocomplete="off" placeholder="Titre du bulletin d'information :">
+            {% endif %}
+        </div>
+        <div class="input-field">
+            <textarea id="id_body" name="body" class="materialize-textarea" placeholder="Corpus du bulletin d'information :">{{ body }}</textarea>
+        </div>
+        <!-- Liste des ressources associées -->
+    </div>
+    <div class="row">
+        <input type="text" class="datepicker" name="date" autocomplete="off" placeholder="Date d'expiration du bulletin :">
+    </div>
+    <div class="center">
+        <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Ajouter">
+    </div>
+</form>
+{% endblock %}
+{% block script %}
+$(document).ready(function(){
+    $('.datepicker').datepicker({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 2, // Creates a dropdown of 15 years to control year
+	    labelMonthSelect: 'Selectionner le mois',
+		labelYearSelect: 'Selectionner une année',
+		months: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+		monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+		weekdays: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+		weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+		weekdaysAbbrev: [ 'D', 'L', 'M', 'M', 'J', 'V', 'S' ],
+        firstDay: 1,
+		today: 'Aujourd\'hui',
+		clear: 'Réinitialiser',
+		close: 'Fermer',
+		format: 'dd/mm/yyyy'
+    });
+});
+
+$(document).ready(function() {
+    $('input#id_title').characterCounter();
+});
+
+{% endblock %}

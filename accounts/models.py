@@ -19,7 +19,7 @@ class MyAccountManager(BaseUserManager):
         )
 
         user.set_password(password)
-        user.save(using='default')
+        user.save()
         return user
 
     def create_superuser(self, username, password, email=None):
@@ -34,13 +34,14 @@ class MyAccountManager(BaseUserManager):
         user.is_staff = True
         user.is_admin = True
         user.is_superuser = True
-        user.save(using='default')
+        user.save()
         return user
 
 
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name='email', max_length=100, unique=True)
     username = models.CharField(max_length=50, unique=True)
+    school = models.CharField(max_length=30, unique=False, default="EPITA")
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
     is_active = models.BooleanField(default=False)
@@ -62,3 +63,9 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def in_School(self, school):
+        if (((self.email).split('@'))[1]) == "hyperion.tf":
+            return True
+        return self.school == school
+

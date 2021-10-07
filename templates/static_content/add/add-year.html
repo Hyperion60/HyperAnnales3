@@ -1,0 +1,30 @@
+{% extends "base-red.html" %}
+{% block content %}
+{% if error is not None %}
+<div class="container">
+    <div class="center card-panel red accent-3">
+        {{ error }}
+    </div>
+</div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s12">
+            <input maxlength="150" id="id_year" type="number" name="year" required autofocus/>
+            <label class="active" for="id_year">Nom de la matière</label>
+        </div>
+        <div class="input-field col s12">
+            <select name="active_semester" id="id_active_semester">
+                {% for item in active_semester %}
+                    {{ item }}
+                {% endfor %}
+            </select>
+            <label>Semestre actuel :</label>
+        </div>
+    </div>
+    <div class="center">
+        <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Créer">
+    </div>
+</form>
+{% endblock %}

@@ -40,17 +40,13 @@ RUN eval `ssh-agent -s` && ssh-add ~/.ssh/id_rsa
 WORKDIR /home
 COPY . /home
 
-RUN apt install tree
-RUN tree /home
-
 
 # Download static file
-RUN git clone git@github.com:Hyperion60/static_HA.git
+RUN cd /media/ && git clone git@github.com:Hyperion60/static_HA.git
 
-RUN cd /
-RUN mkdir media
-RUN cd media
-RUN git clone git@github.com:Hyperion60/media_HA.git
+RUN cd /media && git clone git@github.com:Hyperion60/media_HA.git
+
+RUN git config --global user.email "admin@hyperion.tf" && git config --global user.name "Hyperion"
 
 # Expose port
 EXPOSE 6094
