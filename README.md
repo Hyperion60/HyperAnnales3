@@ -15,10 +15,22 @@ Sources files from the last version of HA 3.0
 - Ajout d'un fichier [FIXED]
 - Affichages fichiers [BEGIN]
   - Ré-ajouter les classes pour la categorie [FIXED]
+  - Liste les extensions supportées
+    - .pdf,.doc,.docx
+      - Sendfile
+    - .png,.jpg,.jpeg
+      - Sendfile + Materialize
+    - Code interprété
+      - Coloration syntaxique
+      - Execution (skulpt)
+    - Code compilé
+      - Coloration syntaxique
+    - Code inerte
+      - Coloration syntaxique
   - Jetons d'authentifications
   - Template d'affichage du fichier (polymorphe)
   - Méthodes d'affichage en fonction de l'extension
-  - Template d'affichage de la liste de la matière
+  - Template d'affichage de la liste de la matière [FIXED]
 - Méthode d'affichage de la liste
 - Etudier l'optimisation par cache
   - Temps de cache
