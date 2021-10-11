@@ -2,14 +2,16 @@ from django_sendfile import sendfile
 import tokenlib
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
 
 from HyperAnnales.settings import KEY_TOKEN
 from static_files.methods.extension_methods import template_choice
-from static_files.models import StaticContent, CategoryFile, ExtensionFile, ContentColor
+from static_files.models import StaticContent, CategoryFile, ExtensionFile, ContentColor, School, YearFile, \
+    SemesterFile, StaticFile
 from static_files.views.base_template import queryset_template
 from static_files.methods.file_methods import init_view
+from static_files.methods.open_file.switch_extension import get_file
 
 
 def init_addfile_view(request):
@@ -50,7 +52,8 @@ def UpdateFileView(request, rndkey):
         context['file'] = StaticContent.objects.get(file__randomkey__exact=rndkey)
         context['max'] = len(StaticContent.objects.filter(category__exact=context['file'].category))
         context['extensions'] = ExtensionFile.objects.exclude(extension__exact=context['file'].file.extension.extension)
-        context['categories'] = CategoryFile.objects.exclude(id=context['file'].category.id).filter(subject__exact=context['file'].category.subject)
+        context['categories'] = CategoryFile.objects.exclude(id=context['file'].category.id).filter(
+            subject__exact=context['file'].category.subject)
         context['colors'] = ContentColor.objects.exclude(pk=context['file'].classe.pk).order_by('type')
     except StaticContent.DoesNotExist:
         context['errors'].append("La clé renseignée n'existe pas.")
@@ -96,13 +99,15 @@ def UpdateFileView(request, rndkey):
         # Category
         if request.user.is_staff and request.POST['new_category_title']:
             new_category = CategoryFile(title=str(request.POST['new_category_title']),
-                                        place=len(CategoryFile.objects.filter(subject=context['file'].category.subject)),
+                                        place=len(
+                                            CategoryFile.objects.filter(subject=context['file'].category.subject)),
                                         subject=context['file'].category.subject)
             new_category.save()
             category = new_category
         else:
             try:
-                if CategoryFile.objects.get(pk=request.POST['content_category']) in CategoryFile.objects.filter(subject=context['file'].category.subject):
+                if CategoryFile.objects.get(pk=request.POST['content_category']) in CategoryFile.objects.filter(
+                        subject=context['file'].category.subject):
                     category = CategoryFile.objects.get(pk=request.POST['content_category'])
             except CategoryFile.DoesNotExist:
                 if context['error']:
@@ -119,3 +124,56 @@ def UpdateFileView(request, rndkey):
         context['message'] = "Le fichier a bien été modifié."
         return render(request, "static_content/admin/message_template.html", context)
     return render(request, "static_content/change/change-file.html", context)
+
+
+@login_required(login_url="/login/")
+def GetFile(request, school, year, semester, subject, key):
+    context = {
+        'errors': [],
+    }
+    try:
+        context['file'] = StaticFile.objects.get(randomkey__exact=key)
+    except StaticFile.DoesNotExist:
+        context['errors'].append("Le fichier demandé n'existe pas.")
+
+    """
+    # Pour gérer les fichiers désactivés/supprimés
+    if not context['errors'] and not context['file'].enable:
+        context['errors'].append("Le fichier demandé n'est plus disponible")
+    """
+
+    if context['errors']:
+        return redirect("navigation/subject.html")
+        # return navigation.subject(errors), surcharge de la fonction à ajouter ou wrapper
+
+    try:
+        context['school'] = School.objects.get(school__exact=school)
+    except School.DoesNotExist:
+        context['errors'].append("L'école demandée n'existe pas.")
+
+    try:
+        context['year'] = YearFile.objects.get(year__exact=year)
+    except YearFile.DoesNotExist:
+        context['errors'].append("L'année demandée n'existe pas.")
+
+    try:
+        context['semester'] = SemesterFile.objects.get(semester__exact=semester)
+    except SemesterFile.DoesNotExist:
+        context['errors'].append("Le semestre demandé n'existe pas ({} > 10 ou {} < 1".format(semester, semester))
+
+    # Test de la véracité des informations
+    if context['file'].content.subject() != context['subject'] or \
+            context['file'].content.year_obj() != context['year'] or \
+            context['file'].content.subject().school() != context['school']:
+        context['errors'].append("Les informations fournies sont invalides")
+
+    if context['errors']:
+        return redirect("navigation/subject.html")
+        # return navigation.subject(errors), surcharge de la fonction à ajouter ou wrapper
+
+    return get_file(request,
+                    context['school'],
+                    context['year'],
+                    context['semester'],
+                    context['subject'],
+                    context['file'])
