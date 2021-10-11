@@ -30,4 +30,5 @@ urlpatterns = [
     path('test/<int:year>', base_template.test_template),
     path('protected/<str:token>/', file_views.SendFile),
     path('<int:year>/<int:id>/', file_views.CreateFileView),
+    path('<str:school>/<int:year>/<int:semester>/<str:subject>/<int:key>/', file_views.GetFile, name="get-secured-file"),
 ]
