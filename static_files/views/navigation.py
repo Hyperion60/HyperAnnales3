@@ -7,8 +7,7 @@ from static_files.models import YearFile, \
     CategoryFile, \
     StaticContent, \
     ContentColor, \
-    CategoryColor, \
-    Bulletin, UnsecureFile
+    CategoryColor
 from static_files.views.base_template import sidenav
 
 
@@ -45,12 +44,13 @@ def year(request, school, year):
 
 
 def subject(request, school, year, semester, subject):
-    context = {}
-    context['school'] = school
-    context['year'] = year
-    context['semester'] = semester
-    context['subject'] = subject
-    context['contents'] = {}
+    context = {
+        'school': school,
+        'year': year,
+        'semester': semester,
+        'subject': subject,
+        'contents': {}
+    }
     try:
         context['contents']['category'] = []
         context['contents']['files'] = []
