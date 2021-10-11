@@ -64,6 +64,7 @@ Sources files from the last version of HA 3.0
 - Transformer le `context['errors']` en liste pour faciliter la gestion des erreurs multiples.
 - Ajouter une classe pour la couleur du bouton [FAIT]
 - Vérifier la sureté des URL
+- Créer une page de mise en garde de sortie du site en cas de redirection URL
 - Verifier les droits dans les fonctions post formulaire
 - Gestion des erreurs dans les formulaires multi-étapes
 - Verifier les fonctions de déplacement des objets (place)
@@ -74,3 +75,6 @@ Sources files from the last version of HA 3.0
 - Organiser les variables pour les dépots Git (préfixes d'url d'accès...)
 - Merge test template and definitive template
 - Nettoyage du git media
+- Creer un switch pour les différentes méthodes accès au fichier en fonction
+  d'une variable global dans `settings.py`
+- Réorganiser les variables global (pour les chemins d'accès notamment)
