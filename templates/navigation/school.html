@@ -23,6 +23,7 @@
 {% endif %}
 {% endcache %}
 
+{% load cache %}
 {% cache 300 bulletins_year school %}
 {% if bulletins %}
 {% for bulletin in bulletins %}
