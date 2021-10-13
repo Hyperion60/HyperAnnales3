@@ -152,6 +152,7 @@ def GetFile(request, key):
     context['year'] = context['file'].content.category.year_obj()
     context['school'] = context['file'].content.category.school_obj()
     context['semester'] = context['file'].content.category.semester_obj()
+    context['subject'] = context['subject'].content.category.subject
     context['category'] = context['file'].content.category
     context['token'] = get_token(request.user, key)
     sidenav(context, context['school'], context['year'])
