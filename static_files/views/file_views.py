@@ -7,10 +7,9 @@ from django.views.decorators.cache import cache_page
 
 from HyperAnnales.settings import KEY_TOKEN
 from static_files.methods.extension_methods import template_choice
-from static_files.models import StaticContent, CategoryFile, ExtensionFile, ContentColor, School, YearFile, \
-    SemesterFile, StaticFile
-from static_files.views.base_template import queryset_template
-from static_files.methods.file_methods import init_view
+from static_files.models import StaticContent, CategoryFile, ExtensionFile, ContentColor, StaticFile
+from static_files.views.base_template import queryset_template, sidenav
+from static_files.methods.file_methods import init_view, get_token
 from static_files.methods.open_file.switch_extension import get_file
 
 
@@ -127,7 +126,7 @@ def UpdateFileView(request, rndkey):
 
 
 @login_required(login_url="/login/")
-def GetFile(request, school, year, semester, subject, key):
+def GetFile(request, key):
     context = {
         'errors': [],
     }
@@ -146,34 +145,22 @@ def GetFile(request, school, year, semester, subject, key):
         return redirect("navigation/subject.html")
         # return navigation.subject(errors), surcharge de la fonction à ajouter ou wrapper
 
-    try:
-        context['school'] = School.objects.get(school__exact=school)
-    except School.DoesNotExist:
-        context['errors'].append("L'école demandée n'existe pas.")
-
-    try:
-        context['year'] = YearFile.objects.get(year__exact=year)
-    except YearFile.DoesNotExist:
-        context['errors'].append("L'année demandée n'existe pas.")
-
-    try:
-        context['semester'] = SemesterFile.objects.get(semester__exact=semester)
-    except SemesterFile.DoesNotExist:
-        context['errors'].append("Le semestre demandé n'existe pas ({} > 10 ou {} < 1".format(semester, semester))
-
-    # Test de la véracité des informations
-    if context['file'].content.subject() != context['subject'] or \
-            context['file'].content.year_obj() != context['year'] or \
-            context['file'].content.subject().school() != context['school']:
-        context['errors'].append("Les informations fournies sont invalides")
-
     if context['errors']:
         return redirect("navigation/subject.html")
         # return navigation.subject(errors), surcharge de la fonction à ajouter ou wrapper
 
-    return get_file(request,
-                    context['school'],
-                    context['year'],
-                    context['semester'],
-                    context['subject'],
-                    context['file'])
+    context['year'] = context['file'].content.category.year_obj()
+    context['school'] = context['file'].content.category.school_obj()
+    context['semester'] = context['file'].content.category.semester_obj()
+    context['category'] = context['file'].content.category
+    context['token'] = get_token(request.user, key)
+    sidenav(context, context['school'], context['year'])
+    context['next'] = "/{}/{}/{}/{}/".format(context['school'].school,
+                                             context['year'].year,
+                                             context['semester'].semester,
+                                             context['subject'].subject)
+
+    if not context['file'].extension.extension == 'pdf':
+        context['errors'].append("Extension non supportée pour le moment. Réessayez plus tard")
+        return render(request, "static_content/admin/message_template.html", context)
+    return render(request, "static_content/get/pdf_model.html", context)
