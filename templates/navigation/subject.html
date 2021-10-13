@@ -17,7 +17,7 @@
         <div class="card-content">
             <span class="card-title"><b>{{ category.title }}</b></span>
                 {% for file in files %}
-                <a class="waves-effect waves-light {{ file.2 }} btn" href="{{ file.1 }}">{{ file.0.name }}</a>
+                <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}">{{ file.0.name }}</a>
                 {% endfor %}
         </div>
         {% if user.is_staff %}
