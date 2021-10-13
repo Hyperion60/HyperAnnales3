@@ -27,8 +27,8 @@ urlpatterns = [
     path('change/bulletin/<int:pk>/', bulletin_views.UpdateInformation, name="change-bulletin"),
     path('del/bulletin/<int:pk>/', bulletin_views.DeleteInformation, name="del-bulletin"),
     path('del/unsecure_file/<int:pk>/', bulletin_file_views.delete_bulletin_file, name="del-unsecured-file"),
+    path('get/<int:key>/', file_views.GetFile, name="get-token-file"),
     path('test/<int:year>', base_template.test_template),
-    path('protected/<str:token>/', file_views.SendFile),
+    path('protected/<str:token>/', file_views.SendFile, name="get-secured-file"),
     path('<int:year>/<int:id>/', file_views.CreateFileView),
-    path('<str:school>/<int:year>/<int:semester>/<str:subject>/<int:key>/', file_views.GetFile, name="get-secured-file"),
 ]
