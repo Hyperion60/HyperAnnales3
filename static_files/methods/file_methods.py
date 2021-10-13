@@ -1,10 +1,12 @@
-from HyperAnnales.settings import BASE_MEDIA_ROOT
+from tokenlib.errors import MalformedTokenError, InvalidSignatureError, ExpiredTokenError
+from HyperAnnales.settings import BASE_MEDIA_ROOT, KEY_TOKEN
 from static_files.models import *
 from static_files.methods.annexe_methods import update_git_direct
 from static_files.methods.subject_methods import CreateSubject
 from static_files.views.annexe_functions import create_random_key
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
+import tokenlib
 
 COLOR_FILE = [
     ('Fichier local', 'green'),
@@ -19,6 +21,8 @@ EXTENSION_FILE = [
     ('Image JPEG', 'jpeg'),
     ('Lien URL', 'url'),
 ]
+
+manager = tokenlib.TokenManager(secret=KEY_TOKEN, timeout=3 * 60 * 60)
 
 
 def build_path(context):
@@ -199,3 +203,21 @@ def init_view(request):
     context['years'] = YearFile.objects.all().order_by('year')
     context['step'] = 0
     return render(request, "static_content/add/add-file.html", context)
+
+
+def get_token(user, random_key):
+    return manager.make_token({'user': user.pk, 'key': random_key})
+
+
+def verify_token(context, user, token):
+    try:
+        context = manager.parse_token(token)
+    except (MalformedTokenError, InvalidSignatureError):
+        context['errors'].append("Token invalide.")
+        context['token'] = None
+    except ExpiredTokenError:
+        context['errors'].append("Token expiré, veuillez raffraichir la page.")
+        context['token'] = None
+    if context['user'] != user.pk:
+        context['errors'].append("L'utilisateur ne correspond pas au token utilisé.")
+        context['token'] = None
