@@ -39,8 +39,11 @@ def SendFile(request, token):
         data = tokenlib.parse_token(token, secret=KEY_TOKEN)
     except ValueError:
         return HttpResponse("Token expiré")
-    file = StaticContent.objects.get(pk=data['id'])
-    return sendfile.sendfile(request, file.path, attachment=False, attachment_filename=file.name)
+    # Check if user is same as user who create the token
+    # if data['user'] != request.user.pk:
+    #     return HttpResponse("Utilisateur invalide")
+    file = StaticContent.objects.get(file__randomkey__exact=data['key'])
+    return sendfile(request, file.path, attachment=False, attachment_filename=file.name)
 
 
 @login_required(login_url="/login/")
@@ -57,9 +60,7 @@ def UpdateFileView(request, rndkey):
     if request.POST:
         # Defaut values
         name = context['file'].name
-        place = context['file'].place
         extension = context['file'].file.extension
-        classe = context['file'].classe
         category = context['file'].category
 
         # Name
