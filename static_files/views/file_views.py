@@ -41,7 +41,7 @@ def SendFile(request, token):
     except ValueError:
         return HttpResponse("Token expiré")
     file = StaticContent.objects.get(file__randomkey__exact=data['key'])
-    return sendfile(request, file.path, attachment=False, attachment_filename=file.name)
+    return sendfile(request, file.file.path, attachment=False, attachment_filename=file.name)
 
 
 @login_required(login_url="/login/")
