@@ -41,7 +41,13 @@ def SendFile(request, token):
     except ValueError:
         return HttpResponse("Token expiré")
     file = StaticContent.objects.get(file__randomkey__exact=data['key'])
-    path = "{}{}{}-{}".format(BASE_MEDIA_ROOT, file.file.path, file.name, file.file.randomkey)
+    path = "{}{}{}-{}.{}".format(
+        BASE_MEDIA_ROOT,
+        file.file.path,
+        file.name,
+        file.file.randomkey,
+        file.file.extension.extension
+    )
     try:
         fs = open(path, "r")
     except OSError:
