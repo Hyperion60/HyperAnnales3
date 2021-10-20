@@ -41,12 +41,12 @@ def SendFile(request, token):
     except ValueError:
         return HttpResponse("Token expiré")
     file = StaticContent.objects.get(file__randomkey__exact=data['key'])
-    return sendfile(
-        request,
-        "{}{}{}-{}".format(BASE_MEDIA_ROOT, file.file.path, file.name, file.file.randomkey),
-        attachment=False,
-        attachment_filename=file.name
-    )
+    path = "{}{}{}-{}".format(BASE_MEDIA_ROOT, file.file.path, file.name, file.file.randomkey)
+    try:
+        fs = open(path, "r")
+    except OSError:
+        print("Chemin d'accès invalide.")
+    return sendfile(request, path, attachment=False, attachment_filename=file.name)
 
 
 @login_required(login_url="/login/")
