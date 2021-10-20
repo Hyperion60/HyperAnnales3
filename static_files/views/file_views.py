@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
 
-from HyperAnnales.settings import KEY_TOKEN, MEDIA_ROOT
+from HyperAnnales.settings import KEY_TOKEN, BASE_MEDIA_ROOT
 from static_files.methods.extension_methods import template_choice
 from static_files.models import StaticContent, CategoryFile, ExtensionFile, ContentColor, StaticFile
 from static_files.views.base_template import queryset_template, sidenav
@@ -41,7 +41,7 @@ def SendFile(request, token):
     except ValueError:
         return HttpResponse("Token expiré")
     file = StaticContent.objects.get(file__randomkey__exact=data['key'])
-    return sendfile(request, MEDIA_ROOT + file.file.path, attachment=False, attachment_filename=file.name)
+    return sendfile(request, BASE_MEDIA_ROOT + file.file.path, attachment=False, attachment_filename=file.name)
 
 
 @login_required(login_url="/login/")
