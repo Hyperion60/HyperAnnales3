@@ -45,7 +45,7 @@ def SendFile(request, token):
     try:
         fs = open(path, "r")
     except OSError:
-        print("Chemin d'accès invalide.")
+        print("{} : Chemin d'accès invalide.".format(path))
     return sendfile(request, path, attachment=False, attachment_filename=file.name)
 
 
