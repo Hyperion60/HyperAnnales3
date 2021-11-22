@@ -13,8 +13,6 @@
     </nav>
 </div>
 <div class="row">
-    <div class="pdfobject-container s12">
-        <object data="{% url 'get-secured-file' token %}" type="application/pdf" width="100%" height="100%" style="overflow: auto; width: 100%; height: 64vh;"></object>
-    </div>
+    <iframe src="{% url 'get-secured-file' token %}" width="100%" height="100%" style="overflow: auto; width: 100%; height: 64vh;"></iframe>
 </div>
 {% endblock %}
