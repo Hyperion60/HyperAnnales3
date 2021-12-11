@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from HyperAnnales.settings import KEY_TOKEN, BASE_MEDIA_ROOT
 from static_files.methods.extension_methods import template_choice
@@ -35,6 +36,7 @@ def CreateFileView(request, method, year, id):
 
 @cache_page(4 * 60)
 @login_required(login_url="/login/")
+@xframe_options_sameorigin
 def SendFile(request, token):
     try:
         data = tokenlib.parse_token(token, secret=KEY_TOKEN)
