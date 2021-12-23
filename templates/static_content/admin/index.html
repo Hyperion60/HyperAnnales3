@@ -161,7 +161,9 @@ i {
                                                     <div class="collapsible-body">
                                                         <p>Année : {{ matiere.year.year }}</p>
                                                         <p>Semestre : {{ matiere.semester.semester }}</p>
+                                                        <p>Score : {{ matiere.count }}</p>
                                                         <a class="waves-effect waves-light btn" href="/static_content/change/subject/{{ matiere.pk }}">Modifier</a>
+                                                        <a class="waves-effect waves-light red btn" href="/static_content/del/subject/{{ matiere.pk }}">Supprimer</a>
                                                     </div>
                                                 </li>
                                                {% endif %}

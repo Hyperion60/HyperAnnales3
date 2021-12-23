@@ -1,0 +1,73 @@
+{% extends "base-red.html" %}
+{% block css %}
+input::placeholder {
+    color: grey;
+}
+textarea::placeholder {
+    color: grey;
+}
+{% endblock %}
+{% block content %}
+{% if errors %}
+<div class="container">
+    <div class="center card-panel red accent-3">
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+<form method="post" action="/static_content/change/bulletin/{{ suject.pk }}/?next={{ next }}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field s12">
+            <input type="text" id="id_title" name="title" data-length="250" value="{{ subject.title }}" autocomplete="off" placeholder="Titre">
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field s12">
+            <select name="school" id="id_school">
+                {% for school in schools %}
+                    {% if school == subject.location %}
+                    <option value="{{ school.pk }}" selected>{{ school.school }}</option>
+                    {% else %}
+                    <option value="{{ school.pk }}">{{ school.school }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-field s12">
+            <select name="year" id="id_year">
+                {% for year in years %}
+                    {% if year == subject.year %}
+                    <option value="{{ year.pk }}" selected>Promo {{ year.year }}</option>
+                    {% else %}
+                    <option value="{{ year.pk }}">Promo {{ year.year }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-field s12">
+            <select name="semester" id="id_semester">
+                {% for semester in semesters %}
+                    {% if semester == subject.semester %}
+                    <option value="{{ semester.pk }}" selected>Semestre {{ semester.semester }}</option>
+                    {% else %}
+                    <option value="{{ semester.pk }}">Semestre {{ semester.semester }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+<div class="center">
+    <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
+</div>
+</form>
+{% endblock %}
+{% block script %}
+$(document).ready(function() {
+    $('input#id_title').characterCounter();
+});
+{% endblock %}
