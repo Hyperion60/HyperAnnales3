@@ -13,8 +13,13 @@ Sources files from the last version of HA 3.0
   - Ajout d'un media [FIXED]
   - Suppression d'un media [FIXED]
 - Ajout d'un fichier [FIXED]
+- Refactor fonction git
 - Affichages fichiers [BEGIN]
   - Ré-ajouter les classes pour la categorie [FIXED]
+  - Pages d'erreurs customisées
+    - 404
+    - 403
+    - 498
   - Liste les extensions supportées
     - .pdf,.doc,.docx
       - Sendfile
@@ -53,11 +58,18 @@ Sources files from the last version of HA 3.0
 - Interpreteur de code
   - Python
     - Skulpt
+- Indexation par les moteurs de recherche
+  - sitemap.xml complet (avec le nom des fichiers et mots-clés)
+  - robots.txt
 
 ### Inutiles
+- Ajout de logs dans la page 'A propos'
 
 ## Liste des bugs détectés
 - Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
+- Template mobile : Dépassement dans le breadcrumbs
+- Problème de gestion des informations (création, rafraichissment, suppression)
+- Affichage du PDF non responsif
 
 ## Liste des améliorations du code
 
