@@ -69,8 +69,8 @@ def create_instance(request, context):
             if not len(context['errors']):
                 new_file = request.FILES['file']
                 fs = FileSystemStorage()
-                filename = fs.save(context['raw_path'], new_file)
-                # upload_file_url = fs.url(filename)
+                filename = fs.save(root_path + context['raw_path'], new_file)
+                upload_file_url = fs.url(filename)
                 # Create instance Static Content
         create_file(context, request)
         if not len(context['errors']):
@@ -214,10 +214,11 @@ def verify_token(context, user, token):
         context = manager.parse_token(token)
     except (MalformedTokenError, InvalidSignatureError):
         context['errors'].append("Token invalide.")
-        context['token'] = None
+        return False
     except ExpiredTokenError:
         context['errors'].append("Token expiré, veuillez raffraichir la page.")
-        context['token'] = None
+        return False
     if context['user'] != user.pk:
         context['errors'].append("L'utilisateur ne correspond pas au token utilisé.")
-        context['token'] = None
+        return False
+    return True
