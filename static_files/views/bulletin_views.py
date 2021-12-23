@@ -90,14 +90,15 @@ def DeleteInformation(request, pk):
         'errors': [],
         'next': request.GET.get('next', '')
     }
+
+    if request.user != context['bulletin'].author and not request.user.is_staff:
+        context['errors'].append("Vous n'avez pas l'authorisation de modifier cette instance.")
+        return render(request, "static_content/admin/message_template.html", context)
+
     try:
         context['bulletin'] = Bulletin.objects.get(pk=pk)
     except Bulletin.DoesNotExist:
         context['errors'].append("Le bulletin d'information demandée est introuvable, la clé primaire n'existe pas.")
-        return render(request, "static_content/admin/message_template.html", context)
-
-    if request.user != context['bulletin'].author and not request.user.is_staff:
-        context['errors'].append("Vous n'avez pas l'authorisation de modifier cette instance.")
         return render(request, "static_content/admin/message_template.html", context)
 
     if request.POST:
