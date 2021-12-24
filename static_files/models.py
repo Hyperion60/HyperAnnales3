@@ -86,6 +86,7 @@ class CategoryFile(models.Model):
 class ExtensionFile(models.Model):
     extension = models.CharField(max_length=5, unique=True)  # Name
     type = models.CharField(max_length=50)
+    mobile_comp = models.BooleanField(default=True)
 
     def __str__(self):
         return self.type
@@ -108,6 +109,7 @@ class StaticFile(models.Model):
     extension = models.ForeignKey(ExtensionFile, models.CASCADE, default=1)
     content = models.ForeignKey('StaticContent', models.CASCADE, blank=True, null=True)
     views = models.IntegerField(default=0)
+    enable = models.BooleanField(default=True)
 
     def __str__(self):
         return self.filename
