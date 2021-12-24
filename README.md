@@ -67,9 +67,9 @@ Fichers source de la dernière version d'HA 3.0
 
 ## Liste des bugs détectés
 - Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
-- Template mobile : Dépassement dans le breadcrumbs
+- Template mobile : Dépassement dans le breadcrumbs [PROGRESS]
 - Problème de gestion des informations (création, rafraichissment, suppression)
-- Affichage du PDF non responsif
+- Affichage du PDF non responsif [PROGRESS]
 
 ## Liste des améliorations du code
 
