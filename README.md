@@ -1,5 +1,5 @@
 # HyperAnnales3
-Sources files from the last version of HA 3.0
+Fichers source de la dernière version d'HA 3.0
 
 ## Liste des fonctionnalités
 
@@ -15,7 +15,7 @@ Sources files from the last version of HA 3.0
 - Ajout d'un fichier [FIXED]
 - Refactor fonction git
 - Affichages fichiers [BEGIN]
-  - Ré-ajouter les classes pour la categorie [FIXED]
+  - Ré-ajouter les classes pour la catégorie [FIXED]
   - Pages d'erreurs customisées
     - 404
     - 403
@@ -32,7 +32,7 @@ Sources files from the last version of HA 3.0
       - Coloration syntaxique
     - Code inerte
       - Coloration syntaxique
-  - Jetons d'authentifications
+  - Jetons d'authentifications [FIXED]
   - Template d'affichage du fichier (polymorphe)
   - Méthodes d'affichage en fonction de l'extension
   - Template d'affichage de la liste de la matière [FIXED]
@@ -45,7 +45,7 @@ Sources files from the last version of HA 3.0
   - Exploitation des informations
   - Affinage des paramètrages de fail2ban
 - Migrations de la base de données de production
-  - Méthode d'élimination des comptes non-activé
+  - Méthode d'élimination des comptes non activée
 - Sauvegarde des fichiers statiques
   - Réplication des fichiers
   - Accès local ou distante
@@ -63,7 +63,7 @@ Sources files from the last version of HA 3.0
   - robots.txt
 
 ### Inutiles
-- Ajout de logs dans la page 'A propos'
+- Ajout de logs dans la page 'À propos'
 
 ## Liste des bugs détectés
 - Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
@@ -78,7 +78,7 @@ Sources files from the last version of HA 3.0
 - Vérifier la sureté des URL
 - Créer une page de mise en garde de sortie du site en cas de redirection URL
 - Verifier les droits dans les fonctions post formulaire
-- Gestion des erreurs dans les formulaires multi-étapes
+- Gestion des erreurs dans les formulaires multiétapes
 - Verifier les fonctions de déplacement des objets (place)
 - Ajouter `max-length` dans les inputs des formulaires
 - Remplacer les labels par des `placeholder`
