@@ -6,13 +6,13 @@ ADD ./requirements.txt /requirements.txt
 
 # Install pip for Python 3.7
 RUN apt update && apt -y upgrade
-RUN apt-get -y install python3-pip libssl-dev curl apt-utils
+RUN apt-get -y install --no-install-recommends python3-pip libssl-dev curl apt-utils
 
 # Install psycopg2
-RUN apt-get -y install gcc python3-dev musl-dev
+RUN apt-get -y install --no-install-recommends gcc python3-dev musl-dev
 
 # Install git
-RUN apt-get -y install git git-core
+RUN apt-get -y install --no-install-recommends git git-core
 
 # Install pip3 packages
 RUN pip3 install -U pip
@@ -32,6 +32,9 @@ RUN chmod 700 ~/.ssh
 RUN mv /tmp/vps-key ~/.ssh/ && mv ~/.ssh/vps-key ~/.ssh/id_rsa
 RUN chmod 600 ~/.ssh/id_rsa
 RUN eval `ssh-agent -s` && ssh-add ~/.ssh/id_rsa
+
+# Clean apt files
+RUN rm -rf /var/lib/apt/lists/*
 
 # Copy codes and sources of website
 WORKDIR /home
