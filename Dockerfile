@@ -1,9 +1,6 @@
 FROM python:3.7
 ENV PYTHONUNBUFFERED 1
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Install packages and dependencies
 ADD ./requirements.txt /requirements.txt
 
@@ -47,6 +44,9 @@ RUN cd /media/ && git clone git@github.com:Hyperion60/static_HA.git
 RUN cd /media && git clone git@github.com:Hyperion60/media_HA.git
 
 RUN git config --global user.email "admin@hyperion.tf" && git config --global user.name "Hyperion"
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Expose port
 EXPOSE 6094
