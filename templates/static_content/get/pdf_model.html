@@ -1,16 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <nav class="hide-on-med-and-up">
-        <div class="nav-wrapper grey">
-            <div class="col s12">
-                <a href="#" class="breadcrumb">{{ school.school }}({{ year.year }} - S{{ semester.semester }})</a>
-                <a href="/{{ school.school }}/{{ year.year }}/{{ semester.semester }}/{{ subject.subject }}/" class="breadcrumb">{{ subject.subject }}</a>
-                <a href="#" class="breadcrumb">{{ file.content.name }}</a>
-            </div>
-        </div>
-    </nav>
-    <nav class="hide-on-small-only">
+    <nav>
         <div class="nav-wrapper grey">
             <div class="col m12">
                 <a href="/{{ school.school }}/{{ year.year }}" class="breadcrumb">{{ year.year }}</a>
