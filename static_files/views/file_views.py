@@ -11,7 +11,6 @@ from static_files.methods.extension_methods import template_choice
 from static_files.models import StaticContent, CategoryFile, ExtensionFile, ContentColor, StaticFile
 from static_files.views.base_template import queryset_template, sidenav
 from static_files.methods.file_methods import init_view, get_token
-from static_files.methods.open_file.switch_extension import get_file
 
 
 def init_addfile_view(request):
@@ -143,21 +142,24 @@ def UpdateFileView(request, rndkey):
 def GetFile(request, key):
     context = {
         'errors': [],
+        'mobile': bool(request.GET.get('mobile', 'false')),
+        'prec': request.META.get('HTTP_REFERER', '/'),
     }
     try:
         context['file'] = StaticFile.objects.get(randomkey__exact=key)
+        if not context['file'].enable:
+            context['errors'].append("Le fichier n'est plus disponible")
     except StaticFile.DoesNotExist:
         context['errors'].append("Le fichier demandé n'existe pas.")
 
+    if len(context['errors']):
+        return render(request, "static_content/admin/message_template.html",
+                      {'errors': context['errors'], 'next': context['prec']})
     """
     # Pour gérer les fichiers désactivés/supprimés
     if not context['errors'] and not context['file'].enable:
         context['errors'].append("Le fichier demandé n'est plus disponible")
     """
-
-    if context['errors']:
-        return redirect("navigation/subject.html")
-        # return navigation.subject(errors), surcharge de la fonction à ajouter ou wrapper
 
     if context['errors']:
         return redirect("navigation/subject.html")
@@ -175,7 +177,21 @@ def GetFile(request, key):
                                              context['semester'].semester,
                                              context['subject'].subject)
 
-    if not context['file'].extension.extension == 'pdf':
-        context['errors'].append("Extension non supportée pour le moment. Réessayez plus tard")
-        return render(request, "static_content/admin/message_template.html", context)
-    return render(request, "static_content/get/pdf_model.html", context)
+    if context['mobile']:
+        return SendFile(request, context['token'])
+
+    if context['file'].extension.extension == 'py':
+        return render(request, "static_content/get/py_model.html", context)
+
+    if context['file'].extension.extension == 'doc':
+        return render(request, "static_content/get/doc_model.html", context)
+
+    if context['file'].extension.extension == 'docx':
+        return render(request, "static_content/get/docx_model.html", context)
+
+    if context['file'].extension.extension == 'pdf':
+        return render(request, "static_content/get/pdf_model.html", context)
+
+    context['errors'].append("Extension non supportée pour le moment. Réessayez plus tard")
+    return render(request, "static_content/admin/message_template.html", context)
+
