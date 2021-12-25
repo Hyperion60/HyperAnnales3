@@ -16,7 +16,11 @@ COLOR_FILE = [
 
 
 EXTENSION_FILE = [
+    ('Document OpenOffice', 'doc'),
+    ('Document Word', 'docx'),
     ('Document PDF', 'pdf'),
+    ('Présentation OpenOffice', 'ppt'),
+    ('Présentation PowerPoint', 'pptx'),
     ('Image PNG', 'png'),
     ('Image JPEG', 'jpeg'),
     ('Lien URL', 'url'),
