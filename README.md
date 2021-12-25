@@ -1,5 +1,5 @@
 # HyperAnnales3
-Fichers source de la dernière version d'HA 3.0
+Fichers sources de la dernière version d'HA 3.0
 
 ## Liste des fonctionnalités
 
@@ -17,8 +17,8 @@ Fichers source de la dernière version d'HA 3.0
 - Affichages fichiers [BEGIN]
   - Ré-ajouter les classes pour la catégorie [FIXED]
   - Liste les extensions supportées
-    - .pdf,.doc,.docx
-      - Sendfile
+    - .pdf,.doc,.docx [FIXED]
+      - Sendfile [FIXED]
     - .png,.jpg,.jpeg
       - Sendfile + Materialize
     - Code interprété
@@ -28,6 +28,8 @@ Fichers source de la dernière version d'HA 3.0
       - Coloration syntaxique
     - Code inerte
       - Coloration syntaxique
+    - Markdown
+      - Mise en page (style hackmd)
   - Jetons d'authentifications [FIXED]
   - Template d'affichage du fichier (polymorphe)
   - Méthodes d'affichage en fonction de l'extension
@@ -42,7 +44,7 @@ Fichers source de la dernière version d'HA 3.0
     - 403
     - 498
 - Analyse des traffics
-  - Compteur des instances (vues)
+  - Compteur des instances (vues) [PROGRESS]
   - Affichage des informations
   - Exploitation des informations
   - Affinage des paramètrages de fail2ban
@@ -52,6 +54,7 @@ Fichers source de la dernière version d'HA 3.0
   - Réplication des fichiers
   - Accès local ou distante
 - Migration de docker-compose vers Kubernetes
+- Déploiement en production
 
 ### Utiles
 - Moteur de recherche
@@ -68,17 +71,17 @@ Fichers source de la dernière version d'HA 3.0
 - Ajout de logs dans la page 'À propos'
 
 ## Liste des bugs détectés
-- Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
-- Template mobile : Dépassement dans le breadcrumbs [FAIT]
+- Template mobile : Les liens des matières ne sont pas déclarées [FIXED]
+- Template mobile : Dépassement dans le breadcrumbs [FIXED]
 - Problème de gestion des informations (création, rafraichissment, suppression)
-- Affichage du PDF non responsif [FAIT]
+- Affichage du PDF non responsif [FIXED]
 - Problème de relation des formulaires d'ajout de fichier (entre l'extension et la couleur)
 - Pouvoir modifier un fichier (envoyer un nouveau fichier)
 
 ## Liste des améliorations du code
 
 - Transformer le `context['errors']` en liste pour faciliter la gestion des erreurs multiples.
-- Ajouter une classe pour la couleur du bouton [FAIT]
+- Ajouter une classe pour la couleur du bouton [FIXED]
 - Vérifier la sureté des URL
 - Créer une page de mise en garde de sortie du site en cas de redirection URL
 - Verifier les droits dans les fonctions post formulaire
@@ -91,6 +94,6 @@ Fichers source de la dernière version d'HA 3.0
 - Organiser les variables pour les dépots Git (préfixes d'url d'accès...)
 - Merge test template and definitive template
 - Nettoyage du git media
-- Creer un switch pour les différentes méthodes accès au fichier en fonction
+- Créer un switch pour les différentes méthodes accès au fichier en fonction
   d'une variable global dans `settings.py`
-- Réorganiser les variables global (pour les chemins d'accès notamment)
+- Réorganiser les variables globales (pour les chemins d'accès notamment)
