@@ -21,7 +21,7 @@
                 <div class="hide-on-small-only">
                     <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=false">{{ file.0.name }}</a>
                 </div>
-                <div class="hide-on-med-and-high">
+                <div class="hide-on-med-and-up">
                     <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=true">{{ file.0.name }}</a>
                 </div>
                 {% else %}
