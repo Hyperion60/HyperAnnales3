@@ -1,7 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from git import Repo
 from static_files.models import *
-from random import randint
 from pytz import utc
 
 sched = BlockingScheduler(timezone=utc)
@@ -54,4 +53,3 @@ def school_file_count__year(school, year):
     for subj in list_subject:
         file_sum += subj.count
     return file_sum
-
