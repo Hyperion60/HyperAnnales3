@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <nav>
+        <div class="nav-wrapper grey">
+            <div class="col s12">
+                <a href="/{{ year.year }}" class="breadcrumb">{{ year.year }}</a>
+                <a href="/{{ year.year }}/{{ semester.semester }}/" class="breadcrumb">{{ semester.semester }}</a>
+                <a href="/{{ year.year }}/{{ semester.semester }}/{{ category.title }}/" class="breadcrumb">{{ category.title }}</a>
+                <a href="#" class="breadcrumb">{{ file.content.name }}</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="row">
+    <iframe src="{% url 'get-secured-file' token %}" width="100%" height="100%" style="overflow: auto; width: 100%; height: 90vh;"></iframe>
+</div>
+{% endblock %}
