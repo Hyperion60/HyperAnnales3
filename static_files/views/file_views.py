@@ -176,6 +176,11 @@ def GetFile(request, key):
                                              context['year'].year,
                                              context['semester'].semester,
                                              context['subject'].subject)
+    try:
+        context['file'].views += 1
+        context['file'].save()
+    except:
+        print("[ERROR] Echec de la mise à jour du compteur du fichier")
 
     if context['mobile']:
         return redirect("/static_content/protected/" + context['token'])
@@ -194,4 +199,3 @@ def GetFile(request, key):
 
     context['errors'].append("Extension non supportée pour le moment. Réessayez plus tard")
     return render(request, "static_content/admin/message_template.html", context)
-
