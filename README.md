@@ -16,10 +16,6 @@ Fichers source de la dernière version d'HA 3.0
 - Refactor fonction git
 - Affichages fichiers [BEGIN]
   - Ré-ajouter les classes pour la catégorie [FIXED]
-  - Pages d'erreurs customisées
-    - 404
-    - 403
-    - 498
   - Liste les extensions supportées
     - .pdf,.doc,.docx
       - Sendfile
@@ -37,10 +33,16 @@ Fichers source de la dernière version d'HA 3.0
   - Méthodes d'affichage en fonction de l'extension
   - Template d'affichage de la liste de la matière [FIXED]
 - Méthode d'affichage de la liste
+- Ajout d'un conteneur Nginx pour servir les fichiers statiques
 - Etudier l'optimisation par cache
   - Temps de cache
   - Méthode de révocation
+- Pages d'erreurs customisées
+    - 404
+    - 403
+    - 498
 - Analyse des traffics
+  - Compteur des instances (vues)
   - Affichage des informations
   - Exploitation des informations
   - Affinage des paramètrages de fail2ban
@@ -67,10 +69,11 @@ Fichers source de la dernière version d'HA 3.0
 
 ## Liste des bugs détectés
 - Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
-- Template mobile : Dépassement dans le breadcrumbs [PROGRESS]
+- Template mobile : Dépassement dans le breadcrumbs [FAIT]
 - Problème de gestion des informations (création, rafraichissment, suppression)
-- Affichage du PDF non responsif [PROGRESS]
+- Affichage du PDF non responsif [FAIT]
 - Problème de relation des formulaires d'ajout de fichier (entre l'extension et la couleur)
+- Pouvoir modifier un fichier (envoyer un nouveau fichier)
 
 ## Liste des améliorations du code
 
