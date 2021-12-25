@@ -193,7 +193,7 @@ MEDIA_ROOT = "/media/"
 
 BASE_MEDIA_ROOT = "/media/static_HA/"
 
-# STATIC_ROOT = "/home/static_HA/"
+STATIC_ROOT = "/media/media_HA/"
 
 # Configuration to sendfile package
 
