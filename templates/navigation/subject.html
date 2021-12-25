@@ -22,7 +22,7 @@
                     <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=false">{{ file.0.name }}</a>
                 </div>
                 <div class="hide-on-med-and-up">
-                    <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=true">{{ file.0.name }}</a>
+                    <a class="waves-effect waves-light {{ file.2 }} btn" target="_blank" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=true">{{ file.0.name }}</a>
                 </div>
                 {% else %}
                 <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}>{{ file.0.name }}</a>

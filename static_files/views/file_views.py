@@ -142,7 +142,7 @@ def UpdateFileView(request, rndkey):
 def GetFile(request, key):
     context = {
         'errors': [],
-        'mobile': bool(request.GET.get('mobile', 'false')),
+        'mobile': request.GET.get('mobile', 'false') == 'true',
         'prec': request.META.get('HTTP_REFERER', '/'),
     }
     try:
@@ -178,7 +178,7 @@ def GetFile(request, key):
                                              context['subject'].subject)
 
     if context['mobile']:
-        return SendFile(request, context['token'])
+        return redirect("/static_content/protected/" + context['token'])
 
     if context['file'].extension.extension == 'py':
         return render(request, "static_content/get/py_model.html", context)
