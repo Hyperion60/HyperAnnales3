@@ -56,7 +56,8 @@ def create_instance(request, context):
                 try:
                     context['color'] = ContentColor.objects.get(pk=request.POST['color'])
                 except ContentColor.DoesNotExist:
-                    context['errors'].append("La classe de fichier demandée n'est pas disponible. La clé primaire n'existe pas.")
+                    context['errors'].append("La classe de fichier demandée n'est pas disponible. "
+                                             "La clé primaire n'existe pas.")
             else:
                 if request.user.is_superuser and (not request.POST['color'] or not int(request.POST['color'])):
                     context['color'] = ContentColor(type=request.POST['new_color_type'],
@@ -91,8 +92,7 @@ def create_instance(request, context):
             if not len(context['errors']):
                 new_file = request.FILES['file']
                 fs = FileSystemStorage()
-                filename = fs.save(root_path + context['raw_path'], new_file)
-                upload_file_url = fs.url(filename)
+                fs.save(root_path + context['raw_path'], new_file)
         create_file(context, request)
         if not len(context['errors']):
             context['message'] = "Fichier ajouté avec succès"
