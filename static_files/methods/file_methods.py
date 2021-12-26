@@ -51,11 +51,14 @@ def create_instance(request, context):
         if request.user.is_superuser and request.POST['new_extension_type'] and request.POST['new_extension_extension']:
             context['extension'] = ExtensionFile(extension=request.POST['new_extension_extension'],
                                                  type=request.POST['new_extension_type']).save()
-        if request.user.is_superuser and not request.POST['color']:
+        if request.user.is_superuser and (not request.POST['color'] or not int(request.POST['color'])):
             context['color'] = ContentColor(type=request.POST['new_color_type'],
                                             color=request.POST['new_color_color']).save()
-        if request.POST['color']:
-            context['color'] = ContentColor.objects.get(pk=request.POST['color'])
+        if request.POST['color'] and int(request.POST['color']):
+            try:
+                context['color'] = ContentColor.objects.get(pk=request.POST['color'])
+            except ContentColor.DoesNotExist:
+                print("[LOG] Tentative de récupérer un ContentColor inexistant")
         if context['url'] != '':
             context['name'] = str(context['filename']) + '-' + str(context['key'])
             try:
@@ -75,7 +78,6 @@ def create_instance(request, context):
                 fs = FileSystemStorage()
                 filename = fs.save(root_path + context['raw_path'], new_file)
                 upload_file_url = fs.url(filename)
-                # Create instance Static Content
         create_file(context, request)
         if not len(context['errors']):
             context['message'] = "Fichier ajouté avec succès"
