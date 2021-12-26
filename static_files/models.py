@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, IntegrityError
 from accounts.models import Account
 from HyperAnnales.settings import BASE_MEDIA_ROOT as root_path
 
@@ -225,15 +225,21 @@ def create_file(context, request):
                                     author=request.user,
                                     randomkey=context['key'],
                                     extension=context['extension'])
-    new_staticFile.save()
+    try:
+        new_staticFile.save()
+    except IntegrityError:
+        context['errors'].append("Echec de la sauvegarde de l'instance (StaticFile).")
 
     new_staticContent = StaticContent(category=context['category'],
                                       classe=context['color'],
                                       name=context['filename'],
                                       place=len(StaticContent.objects.filter(category=context['category'])),
                                       file=new_staticFile)
-    new_staticContent.save()
-    new_staticFile.content = new_staticContent
-    new_staticFile.save()
-    new_staticContent.category.subject.location.count += 1
-    new_staticContent.category.subject.location.save()
+    try:
+        new_staticContent.save()
+        new_staticFile.content = new_staticContent
+        new_staticFile.save()
+        new_staticContent.category.subject.location.count += 1
+        new_staticContent.category.subject.location.save()
+    except IntegrityError:
+        context['errors'].append("Echec de la sauvegarde de l'instance (StaticContent).")
