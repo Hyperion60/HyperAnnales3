@@ -77,6 +77,7 @@ Fichers sources de la dernière version d'HA 3.0
 - Affichage du PDF non responsif [FIXED]
 - Problème de relation des formulaires d'ajout de fichier (entre l'extension et la couleur) [PROGRESS]
 - Pouvoir modifier un fichier (envoyer un nouveau fichier)
+- Liste des fichiers dans les catégories verticales au lieu d'horizontales
 
 ## Liste des améliorations du code
 
