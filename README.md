@@ -66,6 +66,7 @@ Fichers sources de la dernière version d'HA 3.0
 - Indexation par les moteurs de recherche
   - sitemap.xml complet (avec le nom des fichiers et mots-clés)
   - robots.txt
+- Sauvegarde des backtraces en cas d'erreurs dans les logs (avec l'heure)
 
 ### Inutiles
 - Ajout de logs dans la page 'À propos'
