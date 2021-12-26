@@ -19,8 +19,8 @@ Fichers sources de la dernière version d'HA 3.0
   - Liste les extensions supportées
     - .pdf,.doc,.docx [FIXED]
       - Sendfile [FIXED]
-    - .png,.jpg,.jpeg
-      - Sendfile + Materialize
+    - .png,.jpg,.jpeg [PROGRESS]
+      - Sendfile + Materialize [PROGRESS]
     - Code interprété
       - Coloration syntaxique
       - Execution (skulpt)
