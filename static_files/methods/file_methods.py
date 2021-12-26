@@ -51,6 +51,21 @@ def create_instance(request, context):
         if request.user.is_superuser and request.POST['new_extension_type'] and request.POST['new_extension_extension']:
             context['extension'] = ExtensionFile(extension=request.POST['new_extension_extension'],
                                                  type=request.POST['new_extension_type']).save()
+        try:
+            if request.POST['color'] and int(request.POST['color']):
+                try:
+                    context['color'] = ContentColor.objects.get(pk=request.POST['color'])
+                except ContentColor.DoesNotExist:
+                    context['errors'].append("La classe de fichier demandée n'est pas disponible. La clé primaire n'existe pas.")
+            else:
+                if request.user.is_superuser and (not request.POST['color'] or not int(request.POST['color'])):
+                    context['color'] = ContentColor(type=request.POST['new_color_type'],
+                                                    color=request.POST['new_color_color']).save()
+                else:
+                    context['errors'].append("Classe de fichier : cas non-géré")
+        except KeyError:
+            context['errors'].append("Classe de fichier : cas non-géré")
+
         if request.user.is_superuser and (not request.POST['color'] or not int(request.POST['color'])):
             context['color'] = ContentColor(type=request.POST['new_color_type'],
                                             color=request.POST['new_color_color']).save()
