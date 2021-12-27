@@ -58,6 +58,8 @@
             padding-top: 0.5rem;
             padding-left: 2rem;
         }
+        {% block css %}
+        {% endblock %}
     </style>
 </head>
 <body style="background-color: #E0E0E0;">
@@ -194,6 +196,8 @@
     $(document).ready(function(){
         $('select').formSelect();
       });
+    {% block script %}
+    {% endblock %}
     </script>
 </body>
 </html>
