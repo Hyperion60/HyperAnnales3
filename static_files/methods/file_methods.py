@@ -102,6 +102,8 @@ def create_instance(request, context):
                 commit = "File({}): {}\nAuteur: {}".format(context['fileextension'], context['raw_path'], request.user)
                 update_git_direct(context['raw_path'], BASE_MEDIA_ROOT, commit, context)
             return render(request, "static_content/admin/message_template.html", context)
+        else:
+            return render(request, "static_content/admin/message_template.html", context)
     return render(request, "static_content/add/add-file.html", context)
 
 
