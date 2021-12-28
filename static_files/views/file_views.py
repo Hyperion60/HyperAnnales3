@@ -135,7 +135,7 @@ def UpdateFileView(request, rndkey):
                 path = "{}{}-{}.{}".format(context['file'].file.path,
                                            context['file'].file.filename,
                                            context['file'].file.randomkey,
-                                           context['file'].file.extension)
+                                           context['file'].file.extension.extension)
                 fs = FileSystemStorage()
                 fs.save(BASE_MEDIA_ROOT + path, request.FILES['file'])
                 context['file'].save()
