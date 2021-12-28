@@ -250,7 +250,7 @@ def GetFile(request, key):
             or context['file'].extension.extension == 'jpeg' \
             or context['file'].extension.extension == 'jpg' \
             or context['file'].extension.extension == 'png':
-        pass
+        return render(request, "static_content/get/picture_model.html", context)
 
     # Vidéo
     if context['file'].extension.extension == 'avi' \
