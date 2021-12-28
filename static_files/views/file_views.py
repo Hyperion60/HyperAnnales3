@@ -129,31 +129,23 @@ def UpdateFileView(request, rndkey):
 
         # Update file content
         if request.FILES.get('file', default=None):
-            context['extension'] = request.FILES['file'].name.split('.')[1]
-            context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
-            path = "{}{}-{}.{}".format(context['file'].file.path,
-                                       context['file'].file.filename,
-                                       context['file'].file.randomkey,
-                                       context['file'].file.extension)
-            fs = FileSystemStorage()
-            fs.save(BASE_MEDIA_ROOT + path, request.FILES['file'])
-            context['file'].save()
-            commit = "Update({}): {}\nAuteur: {}".format(context['extension'], name, request.user)
-            update_git_direct(path, BASE_MEDIA_ROOT, commit, context)
-            context['file'].file.weight = round(os.stat(BASE_MEDIA_ROOT + path).st_size / 1024)
-            """
             try:
+                context['extension'] = request.FILES['file'].name.split('.')[1]
                 context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
+                path = "{}{}-{}.{}".format(context['file'].file.path,
+                                           context['file'].file.filename,
+                                           context['file'].file.randomkey,
+                                           context['file'].file.extension)
                 fs = FileSystemStorage()
-                fs.save(BASE_MEDIA_ROOT + context['file'].file.path, request.FILES['file'])
+                fs.save(BASE_MEDIA_ROOT + path, request.FILES['file'])
                 context['file'].save()
                 commit = "Update({}): {}\nAuteur: {}".format(context['extension'], name, request.user)
-                update_git_direct(BASE_MEDIA_ROOT + context['file'].file.path, BASE_MEDIA_ROOT, commit, context)
+                update_git_direct(path, BASE_MEDIA_ROOT, commit, context)
+                context['file'].file.weight = round(os.stat(BASE_MEDIA_ROOT + path).st_size / 1024)
             except ExtensionFile.DoesNotExist:
                 context['errors'].append("L'extension du fichier n'est pas (encore) supportée !")
             except:
                 context['errors'].append("Une erreur s'est produite")
-            """
 
         # Save
         if not len(context['errors']):
