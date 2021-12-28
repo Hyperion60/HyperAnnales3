@@ -21,7 +21,9 @@ def update_git():
     return
 
 
-def update_git_direct(file_path, root, commit=None, log={}):
+def update_git_direct(file_path, root, commit=None, log=None):
+    if log is None:
+        log = {}
     PATH = root + ".git"
     COMMIT_MESSAGE = "Add file"
     try:
