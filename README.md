@@ -74,6 +74,7 @@ Fichers sources de la dernière version d'HA 3.0
   - sitemap.xml complet (avec le nom des fichiers et mots-clés)
   - robots.txt
 - Sauvegarde des backtraces en cas d'erreurs dans les logs (avec l'heure)
+- Pages grandes faire un bouton pour remonter en haut
 
 ### Inutiles
 - Ajout de logs dans la page 'À propos'
