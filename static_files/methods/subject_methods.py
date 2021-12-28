@@ -1,29 +1,31 @@
-from static_files.models import SubjectFile, SemesterFile, YearFile, CategoryFile, StaticContent, StaticFile
+from static_files.models import SubjectFile, SemesterFile, YearFile, CategoryFile, StaticContent, School
 
 
 # context(dict), subject(str), semester(pk), year(pk), school(pk)
 def CreateSubject(context, subject, semester, year, school):
-    error = False
     try:
         year_obj = YearFile.objects.get(pk=year)
         semester_obj = SemesterFile.objects.get(pk=semester)
+        school_obj = School.objects.get(pk=school)
     except (YearFile.DoesNotExist, SemesterFile.DoesNotExist):
-        context['error'] = "Information invalide"
-        error = True
-    if not error:
-        if year_obj.active_semester.semester < semester_obj.semester:
-            context['error'] = "Vous ne pouvez pas ajouter de matière à un semestre futur"
+        context['errors'].append("Information invalide")
+        return
+
+    if year_obj.active_semester.semester < semester_obj.semester:
+        context['errors'].append("Vous ne pouvez pas ajouter de matière à un semestre futur")
+    else:
+        list_subj = SubjectFile.objects.filter(location=school_obj,
+                                               year=year_obj,
+                                               semester=semester_obj,
+                                               subject__exact=subject)
+        if not len(list_subj):
+            new_subject = SubjectFile(subject=subject, semester=semester_obj, year=year_obj, location=school_obj)
+            new_subject.save()
+            context['new_subject_obj'] = new_subject
+            context['message'] = "Nouvelle matière créée"
         else:
-            list_subj = SubjectFile.objects.filter(year=YearFile.objects.get(pk=year), semester=SemesterFile.objects.get(pk=semester), subject__exact=subject)
-            if not len(list_subj):
-                new_subject = SubjectFile(subject=subject, semester=semester_obj, year=year_obj, location=school)
-                new_subject.save()
-                context['new_subject_obj'] = new_subject
-                context['message'] = "Nouvelle matière créée"
-            else:
-                context['new_subject_obj'] = list_subj[0]
-                context['error'] = "La matière existe deja"
-    return context
+            context['new_subject_obj'] = list_subj[0]
+            context['errors'].append("La matière existe déjà")
 
 
 def UpdateSubject(request, context):
