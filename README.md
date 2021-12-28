@@ -30,6 +30,13 @@ Fichers sources de la dernière version d'HA 3.0
       - Coloration syntaxique
     - Markdown
       - Mise en page (style hackmd)
+    - Archive
+      - Affichage de l'arbre de fichier
+      - Gestion multiple format
+        - simple : zip, rar, 7z
+        - complexe : tar.gz
+    - Image SVG
+      - Zoom + Déplacement
   - Jetons d'authentifications [FIXED]
   - Template d'affichage du fichier (polymorphe)
   - Méthodes d'affichage en fonction de l'extension
