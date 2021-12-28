@@ -1,6 +1,6 @@
 from django.db import models, IntegrityError
 from accounts.models import Account
-from HyperAnnales.settings import BASE_MEDIA_ROOT as root_path
+from HyperAnnales.settings import BASE_MEDIA_ROOT
 
 import os
 from datetime import datetime
@@ -212,35 +212,35 @@ def create_file(context, request):
     if not check_extension(context):
         return
     if context['extension'].extension == "url":
-        new_staticFile = StaticFile(url=context['url'],
-                                    date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                                    filename=context['filename'],
-                                    author=request.user,
-                                    randomkey=context['key'],
-                                    extension=context['extension'])
+        new_static_file = StaticFile(url=context['url'],
+                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                     filename=context['filename'],
+                                     author=request.user,
+                                     randomkey=context['key'],
+                                     extension=context['extension'])
     else:
-        new_staticFile = StaticFile(path=context['path'],
-                                    date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                                    filename=context['filename'],
-                                    weight=round(os.stat(root_path + context['raw_path']).st_size / 1024),
-                                    author=request.user,
-                                    randomkey=context['key'],
-                                    extension=context['extension'])
+        new_static_file = StaticFile(path=context['path'],
+                                     date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                     filename=context['filename'],
+                                     weight=round(os.stat(BASE_MEDIA_ROOT + context['raw_path']).st_size / 1024),
+                                     author=request.user,
+                                     randomkey=context['key'],
+                                     extension=context['extension'])
     try:
-        new_staticFile.save()
+        new_static_file.save()
     except IntegrityError:
         context['errors'].append("Echec de la sauvegarde de l'instance (StaticFile).")
 
-    new_staticContent = StaticContent(category=context['category'],
-                                      classe=context['color'],
-                                      name=context['filename'],
-                                      place=len(StaticContent.objects.filter(category=context['category'])),
-                                      file=new_staticFile)
+    new_static_content = StaticContent(category=context['category'],
+                                       classe=context['color'],
+                                       name=context['filename'],
+                                       place=len(StaticContent.objects.filter(category=context['category'])),
+                                       file=new_static_file)
     try:
-        new_staticContent.save()
-        new_staticFile.content = new_staticContent
-        new_staticFile.save()
-        new_staticContent.category.subject.location.count += 1
-        new_staticContent.category.subject.location.save()
+        new_static_content.save()
+        new_static_file.content = new_static_content
+        new_static_file.save()
+        new_static_content.category.subject.location.count += 1
+        new_static_content.category.subject.location.save()
     except IntegrityError:
         context['errors'].append("Echec de la sauvegarde de l'instance (StaticContent).")
