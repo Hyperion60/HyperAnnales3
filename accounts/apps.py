@@ -21,3 +21,10 @@ class AccountsConfig(AppConfig):
                            is_admin=True)
             root.set_password(os.getenv("DJANGO_PASS"))
             root.save()
+            esiee = Account(username="esiee",
+                            email="remi.maubanc@etu.unilasalle.fr",
+                            is_active=True,
+                            is_admin=True,
+                            is_contributor=True)
+            esiee.set_password(os.getenv("DJANGO_PASS"))
+            esiee.save()
