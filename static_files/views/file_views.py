@@ -129,11 +129,12 @@ def UpdateFileView(request, rndkey):
         if request.FILES.get('file', default=None):
             context['extension'] = request.FILES['file'].name.split('.')[1]
             context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
+            path = "{}{}-{}".format(context['file'].file.path, context['file'].file.filename, context['file'].file.randomkey)
             fs = FileSystemStorage()
-            fs.save(BASE_MEDIA_ROOT + context['file'].file.path, request.FILES['file'])
+            fs.save(BASE_MEDIA_ROOT + path, request.FILES['file'])
             context['file'].save()
             commit = "Update({}): {}\nAuteur: {}".format(context['extension'], name, request.user)
-            update_git_direct(BASE_MEDIA_ROOT + context['file'].file.path, BASE_MEDIA_ROOT, commit, context)
+            update_git_direct(path, BASE_MEDIA_ROOT, commit, context)
             """
             try:
                 context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
