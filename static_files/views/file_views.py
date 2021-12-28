@@ -198,17 +198,74 @@ def GetFile(request, key):
     if context['mobile']:
         return redirect("/static_content/protected/" + context['token'])
 
+    # Affichage Python
     if context['file'].extension.extension == 'py':
         return render(request, "static_content/get/py_model.html", context)
 
-    if context['file'].extension.extension == 'doc':
-        return render(request, "static_content/get/doc_model.html", context)
-
-    if context['file'].extension.extension == 'docx':
-        return render(request, "static_content/get/docx_model.html", context)
-
-    if context['file'].extension.extension == 'pdf':
+    # Même affichage que les PDF
+    if context['file'].extension.extension == 'pdf' \
+            or context['file'].extension.extension == 'docx' \
+            or context['file'].extension.extension == 'doc' \
+            or context['file'].extension.extension == 'ppt' \
+            or context['file'].extension.extension == 'pptx' \
+            or context['file'].extension.extension == 'pub' \
+            or context['file'].extension.extension == 'dot':
         return render(request, "static_content/get/pdf_model.html", context)
+
+    # Code inerte
+    if context['file'].extension.extension == 'txt' \
+            or context['file'].extension.extension == 'gitignore' \
+            or context['file'].extension.extension == 'gpg' \
+            or context['file'].extension.extension == 'gra' \
+            or context['file'].extension.extension == 'json':
+        pass
+
+    # Coloration syntaxique
+    if context['file'].extension.extension == 'asm' \
+            or context['file'].extension.extension == 'c' \
+            or context['file'].extension.extension == 'bat' \
+            or context['file'].extension.extension == 'cpp' \
+            or context['file'].extension.extension == 'cs' \
+            or context['file'].extension.extension == 'css' \
+            or context['file'].extension.extension == 'h' \
+            or context['file'].extension.extension == 'java' \
+            or context['file'].extension.extension == 'js' \
+            or context['file'].extension.extension == 'ml':
+        pass
+
+    # Markdown
+    if context['file'].extension.extension == 'md':
+        pass
+
+    # Archives
+    if context['file'].extension.extension == '7z' \
+            or context['file'].extension.extension == 'gz' \
+            or context['file'].extension.extension == 'rar' \
+            or context['file'].extension.extension == 'tar' \
+            or context['file'].extension.extension == 'zip':
+        pass
+
+    # Images
+    if context['file'].extension.extension == 'bmp' \
+            or context['file'].extension.extension == 'jpeg' \
+            or context['file'].extension.extension == 'jpg' \
+            or context['file'].extension.extension == 'png':
+        pass
+
+    # Vidéo
+    if context['file'].extension.extension == 'avi' \
+            or context['file'].extension.extension == 'mkv' \
+            or context['file'].extension.extension == 'mp4':
+        pass
+
+    # Audio
+    if context['file'].extension.extension == 'flac' \
+            or context['file'].extension.extension == 'mp3':
+        pass
+
+    # Image animé
+    if context['file'].extension.extension == 'gif':
+        pass
 
     context['errors'].append("Extension non supportée pour le moment. Réessayez plus tard")
     return render(request, "static_content/admin/message_template.html", context)
