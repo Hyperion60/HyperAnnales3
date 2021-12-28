@@ -15,7 +15,7 @@ from accounts.tokens import account_activation_token
 
 def __test_email(email):
     host = email.split('@')
-    return host[1] == "epita.fr" or host[1] == "esiee-amiens.eu"
+    return host[1] == "epita.fr" or host[1] == "etu.unilasalle.fr"
 
 
 def __send_verification_email(request, user, email):
@@ -67,36 +67,42 @@ def __send_mail_reset_password(request, user):
 
 
 def registration_view(request):
-    context = {}
+    context = {
+        'errors': [],
+    }
     if request.POST:
         username = request.POST['username']
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         if password1 != password2:
-            context['error'] = "Les mots de passe ne correspondent pas"
+            context['errors'].append("Les mots de passe ne correspondent pas.")
         elif len(username) == 0 or len(email) == 0 or len(password1) == 0:
-            context['error'] = "Veuillez remplir tous les champs"
+            context['errors'].append("Veuillez remplir tous les champs")
         else:
             mail = Account.object.filter(email__exact=email)
             user = Account.object.filter(username__exact=username)
             error = False
             if len(user):
                 error = True
-                context['error'] = "Le pseudo a déjà été utilisé"
+                context['errors'].append("Le pseudo a déjà été utilisé")
             if len(mail):
                 if error:
-                    context['error'] = "Le pseudo et le mail ont déjà été utilisés"
+                    context['errors'].append("Le pseudo et le mail ont déjà été utilisés")
                 else:
-                    context['error'] = "L'email a déjà été utilisé"
+                    context['errors'].append("L'email a déjà été utilisé")
                     error = True
 
             if not __test_email(email):
-                context['error'] = "L'email n'est pas valide, entrez une adresse epita ou esiee"
+                context['errors'].append("L'email n'est pas valide, entrez une adresse epita ou esiee")
                 error = True
 
             if not error:
-                user = Account.object.create_user(email, username, password1)
+                if email.split("@")[1] == "epita.fr":
+                    school = "EPITA"
+                else:
+                    school = "ESIEE"
+                user = Account.object.create_user(email, username, password1, school)
                 __send_verification_email(request, user, email)
                 context['mail'] = "Un email de validation vient d'être expedié pour confirmer votre compte."
                 return render(request, 'index.html', context)

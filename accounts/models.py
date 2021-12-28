@@ -7,7 +7,7 @@ from django.contrib.postgres.search import *
 
 class MyAccountManager(BaseUserManager):
 
-    def create_user(self, email, username, password):
+    def create_user(self, email, username, password, school):
         if not email:
             raise ValueError("Users must have an email address")
         if not username:
@@ -16,6 +16,7 @@ class MyAccountManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
+            school=school,
         )
 
         user.set_password(password)
