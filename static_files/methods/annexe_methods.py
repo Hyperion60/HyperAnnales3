@@ -37,9 +37,9 @@ def update_git_direct(file_path, root, commit=None, log=None):
             repo.index.commit(commit)
         origin = repo.remote(name='origin')
         origin.push()
-        if log.get('message', default=None):
+        try:
             log['message'] += "\nAjout du fichier dans le répertoire de sauvegarde réalisé avec succès"
-        else:
+        except KeyError:
             log['message'] = "Ajout du fichier dans le répertoire de sauvegarde réalisé avec succès"
     except:
         log['errors'].append("Echec de l'ajout du fichier dans le répertoire de sauvegarde")
