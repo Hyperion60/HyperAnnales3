@@ -11,17 +11,17 @@
     {% csrf_token %}
     <div class="row">
         <div class="input-field col s12">
-            <label class="active" id="id_content_name">Nom du fichier :</label>
+            <label class="active" for="id_content_name">Nom du fichier :</label>
             <input type="text" id="id_content_name" name="content_name" value="{{ file.name }}">
         </div>
         <div class="input-field col s12">
-            <label class="active" id="id_place">Place du fichier :</label>
+            <label class="active" for="id_place">Place du fichier :</label>
             <p class="range-field">
                 <input type="range" id="id_place" name="content_place" min="0" max="{{ max }}">
             </p>
         </div>
         <div class="input-field col s12">
-            <label class="active" id="id_extension">Extension du fichier :</label>
+            <label class="active" for="id_extension">Extension du fichier :</label>
             <select name="content_extension" id="id_extension">
                 <option value="{{ file.file.extension.pk }}" selected>{{ file.file.extension.extension }}</option>
                 {% for extension in extensions %}
@@ -30,7 +30,7 @@
             </select>
         </div>
         <div class="input-field col s12">
-            <label class="active" id="id_color">Classe du fichier :</label>
+            <label class="active" for="id_color">Classe du fichier :</label>
             <select name="content_color" id="id_color">
                 <option value="{{ file.classe.pk }}" selected>{{ file.classe.type }}</option>
                 {% for color in colors %}
@@ -39,7 +39,7 @@
             </select>
         </div>
         <div class="input-field col s12">
-            <label class="active" id="id_category">Catégorie du fichier :</label>
+            <label class="active" for="id_category">Catégorie du fichier :</label>
             <select name="content_category" id="id_category">
                 <option value="{{ file.category.pk }}" selected>{{ file.category.title }}</option>
                 {% for category in categories %}
@@ -50,10 +50,17 @@
         {% if user.is_staff %}
         <h6>Nouvelle catégorie :</h6>
         <div class="input-field col s12">
-            <label class="active" id="id_new_category_title">Titre de la catégorie :</label>
+            <label class="active" for="id_new_category_title">Titre de la catégorie :</label>
             <input type="text" id="id_new_category_title" name="new_category_title">
         </div>
         {% endif %}
+        <h6>Modification du fichier</h6>
+        <div class="input-field file-field">
+            <div class="btn red">
+                <span>Télécharger le fichier</span>
+                <input type="file" accept=".pdf,.md,.txt,.">
+            </div>
+        </div>
     </div>
     <div class="center">
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
