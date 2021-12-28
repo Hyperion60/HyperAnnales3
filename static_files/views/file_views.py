@@ -1,3 +1,5 @@
+import os
+
 from django_sendfile import sendfile
 import tokenlib
 from django.contrib.auth.decorators import login_required
@@ -135,6 +137,7 @@ def UpdateFileView(request, rndkey):
             context['file'].save()
             commit = "Update({}): {}\nAuteur: {}".format(context['extension'], name, request.user)
             update_git_direct(path, BASE_MEDIA_ROOT, commit, context)
+            context['file'].file.weight = round(os.stat(BASE_MEDIA_ROOT + path).st_size / 1024)
             """
             try:
                 context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
