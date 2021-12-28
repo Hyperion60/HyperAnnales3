@@ -1,12 +1,14 @@
 from django_sendfile import sendfile
 import tokenlib
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from HyperAnnales.settings import KEY_TOKEN, BASE_MEDIA_ROOT
+from static_files.methods.annexe_methods import update_git_direct
 from static_files.methods.extension_methods import template_choice
 from static_files.models import StaticContent, CategoryFile, ExtensionFile, ContentColor, StaticFile
 from static_files.views.base_template import queryset_template, sidenav
@@ -122,18 +124,30 @@ def UpdateFileView(request, rndkey):
                         subject=context['file'].category.subject):
                     category = CategoryFile.objects.get(pk=request.POST['content_category'])
             except CategoryFile.DoesNotExist:
-                if context['error']:
-                    context['error'] += "\n"
-                context['error'] += "Catégorie non permise pour ce fichier."
+                context['errors'].append("Catégorie non permise pour ce fichier.")
+
+        # Update file content
+        if request.FILES.get('file', ''):
+            context['extension'] = request.FILES['file'].name.split('.')[1]
+            try:
+                context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
+                fs = FileSystemStorage()
+                fs.save(BASE_MEDIA_ROOT + context['file'].file.path, request.FILES['file'])
+                context['file'].save()
+                commit = "Update({}): {}\nAuteur: {}".format(context['extension'], name, request.user)
+                update_git_direct(BASE_MEDIA_ROOT + context['file'].file.path, BASE_MEDIA_ROOT, commit, context)
+            except ExtensionFile.DoesNotExist:
+                context['errors'].append("L'extension du fichier n'est pas (encore) supportée !")
 
         # Save
-        context['file'].name = name
-        context['file'].place = place
-        context['file'].file.extension = extension
-        context['file'].classe = color
-        context['file'].category = category
-        context['file'].save()
-        context['message'] = "Le fichier a bien été modifié."
+        if not len(context['errors']):
+            context['file'].name = name
+            context['file'].place = place
+            context['file'].file.extension = extension
+            context['file'].classe = color
+            context['file'].category = category
+            context['file'].save()
+            context['message'] = "Le fichier a bien été modifié."
         return render(request, "static_content/admin/message_template.html", context)
     return render(request, "static_content/change/change-file.html", context)
 
