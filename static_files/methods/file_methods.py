@@ -70,7 +70,7 @@ def build_path(context):
 
 
 def create_instance(request, context):
-    context['school'] = School.objects.get(school=request.user.school)
+    context['school'] = School.objects.get(school__exact=request.user.school)
     context['year'] = YearFile.objects.get(pk=request.POST['year'])
     context['semester'] = SemesterFile.objects.get(pk=request.POST['semester'])
     context['subject'] = SubjectFile.objects.get(pk=request.POST['subject'])
@@ -126,7 +126,7 @@ def create_instance(request, context):
             if not len(context['errors']):
                 new_file = request.FILES['file']
                 fs = FileSystemStorage()
-                fs.save(root_path + context['raw_path'], new_file)
+                fs.save(BASE_MEDIA_ROOT + context['raw_path'], new_file)
         create_file(context, request)
         if not len(context['errors']):
             context['message'] = "Fichier ajouté avec succès"
