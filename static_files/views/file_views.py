@@ -22,9 +22,9 @@ def init_addfile_view(request):
 # Website views
 @cache_page(4 * 60)
 @login_required(login_url="/login/")
-def CreateFileView(request, method, year, id):
+def CreateFileView(request, year, id):
     context = {}
-    context = queryset_template(year, context)
+    queryset_template(year, context)
     context['token'] = tokenlib.make_token({"id": id}, secret=KEY_TOKEN)
     file = StaticContent.objects.get(pk=id)
     context['title'] = file.name
@@ -74,9 +74,7 @@ def UpdateFileView(request, rndkey):
     if request.POST:
         # Defaut values
         name = context['file'].name
-        place = context['file'].place
         extension = context['file'].file.extension
-        classe = context['file'].classe
         category = context['file'].category
 
         # Name
@@ -105,6 +103,7 @@ def UpdateFileView(request, rndkey):
             context['errors'].append("Cette extension n'existe pas.")
 
         # Classe
+        color = None
         try:
             color = ContentColor.objects.get(pk=request.POST['content_color'])
         except ContentColor.DoesNotExist:
