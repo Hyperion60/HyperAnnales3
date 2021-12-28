@@ -23,7 +23,9 @@ def update_git():
 
 def update_git_direct(file_path, root, commit=None, log=None):
     if log is None:
-        log = {}
+        log = {
+            'errors': [],
+        }
     PATH = root + ".git"
     COMMIT_MESSAGE = "Add file"
     try:
@@ -35,9 +37,12 @@ def update_git_direct(file_path, root, commit=None, log=None):
             repo.index.commit(commit)
         origin = repo.remote(name='origin')
         origin.push()
-        log['message'] += "\nAjout du fichier dans le répertoire de sauvegarde réalisé avec succès"
+        if log.get('message', default=None):
+            log['message'] += "\nAjout du fichier dans le répertoire de sauvegarde réalisé avec succès"
+        else:
+            log['message'] = "Ajout du fichier dans le répertoire de sauvegarde réalisé avec succès"
     except:
-        log['error'] += "Echec de l'ajout du fichier dans le répertoire de sauvegarde"
+        log['errors'].append("Echec de l'ajout du fichier dans le répertoire de sauvegarde")
 
 
 def school_file_count(school):
