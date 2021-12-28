@@ -84,8 +84,8 @@ Fichers sources de la dernière version d'HA 3.0
 - Template mobile : Dépassement dans le breadcrumbs [FIXED]
 - Problème de gestion des informations (création, rafraichissment, suppression)
 - Affichage du PDF non responsif [FIXED]
-- Problème de relation des formulaires d'ajout de fichier (entre l'extension et la couleur) [PROGRESS]
-- Pouvoir modifier un fichier (envoyer un nouveau fichier)
+- Problème de relation des formulaires d'ajout de fichier (entre l'extension et la couleur) [FIXED]
+- Pouvoir modifier un fichier (envoyer un nouveau fichier) [FIXED]
 - Liste des fichiers dans les catégories verticales au lieu d'horizontales
 
 ## Liste des améliorations du code
