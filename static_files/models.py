@@ -201,7 +201,8 @@ def check_extension(context):
         try:
             context['extension'] = ExtensionFile.objects.get(extension__exact=context['fileextension'])
         except ExtensionFile.DoesNotExist:
-            context['errors'].append("Extension du fichier non supportée (instance extension non trouvée)")
+            context['errors'].append("Extension du fichier ({}) non supportée "
+                                     "(instance extension non trouvée)".format(context['fileextension']))
             return False
     return True
 

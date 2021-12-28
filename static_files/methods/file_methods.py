@@ -54,6 +54,7 @@ EXTENSION_FILE = [
     ('Présentation OpenOffice', 'ppt'),
     ('Présentation PowerPoint', 'pptx'),
     ('Fichier LaTeX', 'tex'),
+    ('Fichier Texte', 'txt'),
     ('Lien URL', 'url'),
 ]
 
