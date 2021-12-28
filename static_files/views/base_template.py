@@ -31,10 +31,9 @@ def queryset_template(year, context):
         else:
             subjects[semester.semester] = subject
     context['semesters'] = subjects
-    return context
 
 
 def test_template(request, year):
     context = {}
-    context = queryset_template(year, context)
+    queryset_template(year, context)
     return render(request, "static_content/base-test.html", context)
