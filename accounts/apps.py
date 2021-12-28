@@ -21,6 +21,9 @@ class AccountsConfig(AppConfig):
                            is_admin=True)
             root.set_password(os.getenv("DJANGO_PASS"))
             root.save()
+        try:
+            Account.object.get(email__exact="remi.maubanc@etu.unilasalle.fr")
+        except Account.DoesNotExist:
             esiee = Account(username="esiee",
                             email="remi.maubanc@etu.unilasalle.fr",
                             is_active=True,
