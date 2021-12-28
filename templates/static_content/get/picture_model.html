@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <nav>
+        <div class="nav-wrapper grey">
+            <div class="col m12">
+                <a href="/{{ school.school }}/{{ year.year }}" class="breadcrumb">{{ year.year }}</a>
+                <a href="#" class="breadcrumb">S{{ semester.semester }}</a>
+                <a href="/{{ school.school }}/{{ year.year }}/{{ semester.semester }}/{{ file.content.subject.subject }}" class="breadcrumb">{{ file.content.subject.subject }}</a>
+                <a href="#" class="breadcrumb">{{ category.title }}</a>
+                <a href="#" class="breadcrumb">{{ file.content.name }}</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="row">
+    <img class="responsive-img materialboxed" src="{% url 'get-secured-file' token %}">
+</div>
+{% endblock %}
+{% block script %}
+$(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+{% endblock %}
