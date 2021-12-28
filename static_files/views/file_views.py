@@ -126,7 +126,7 @@ def UpdateFileView(request, rndkey):
                 context['errors'].append("Catégorie non permise pour ce fichier.")
 
         # Update file content
-        if request.FILES.get('file', ''):
+        if request.FILES.get('file', default=None):
             context['extension'] = request.FILES['file'].name.split('.')[1]
             context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
             fs = FileSystemStorage()
