@@ -84,7 +84,7 @@ class CategoryFile(models.Model):
 
 
 class ExtensionFile(models.Model):
-    extension = models.CharField(max_length=5, unique=True)  # Name
+    extension = models.CharField(max_length=10, unique=True)  # Name
     type = models.CharField(max_length=50)
     mobile_comp = models.BooleanField(default=True)
 
