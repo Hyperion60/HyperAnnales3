@@ -128,6 +128,13 @@ def UpdateFileView(request, rndkey):
         # Update file content
         if request.FILES.get('file', ''):
             context['extension'] = request.FILES['file'].name.split('.')[1]
+            context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
+            fs = FileSystemStorage()
+            fs.save(BASE_MEDIA_ROOT + context['file'].file.path, request.FILES['file'])
+            context['file'].save()
+            commit = "Update({}): {}\nAuteur: {}".format(context['extension'], name, request.user)
+            update_git_direct(BASE_MEDIA_ROOT + context['file'].file.path, BASE_MEDIA_ROOT, commit, context)
+            """
             try:
                 context['file'].file.extension = ExtensionFile.objects.get(extension__exact=context['extension'])
                 fs = FileSystemStorage()
@@ -137,6 +144,9 @@ def UpdateFileView(request, rndkey):
                 update_git_direct(BASE_MEDIA_ROOT + context['file'].file.path, BASE_MEDIA_ROOT, commit, context)
             except ExtensionFile.DoesNotExist:
                 context['errors'].append("L'extension du fichier n'est pas (encore) supportée !")
+            except:
+                context['errors'].append("Une erreur s'est produite")
+            """
 
         # Save
         if not len(context['errors']):
