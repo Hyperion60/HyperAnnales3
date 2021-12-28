@@ -5,10 +5,14 @@
 		<div class="card-content">
 		<span class="card-content"><b>/!\ Si vous n'entrez pas une adresse @epita.fr ou @esiee-amiens.eu, la procédure n'aboutira pas.</b></span>
 	</div></div>
-    {% if error is not None %}
+    {% if errors is not None %}
         <div class="container">
             <div class="center card-panel red accent-3">
-                {{ error }}
+                <ul>
+                    {% for error in errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     {% endif %}
