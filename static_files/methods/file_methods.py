@@ -205,8 +205,12 @@ def category_select(request, context):
     year_obj = YearFile.objects.get(pk=request.POST['year'])
     semester_obj = SemesterFile.objects.get(pk=request.POST['semester'])
     if request.user.is_superuser and not int(request.POST['subject']):
-        context = CreateSubject(context, request.POST['new_subject'], semester_obj.pk, year_obj.pk,
-                                request.user.school.pk)
+        try:
+            context = CreateSubject(context, request.POST['new_subject'], semester_obj.pk, year_obj.pk,
+                                    School.objects.get(school__exact=request.user.school).pk)
+        except School.DoesNotExist:
+            context['errors'].append("Utilisateur invalide")
+            raise PermissionError
         subject_obj = context['new_subject_obj']
     else:
         subject_obj = SubjectFile.objects.get(pk=request.POST['subject'])
