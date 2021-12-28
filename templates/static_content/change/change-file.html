@@ -54,11 +54,14 @@
             <input type="text" id="id_new_category_title" name="new_category_title">
         </div>
         {% endif %}
-        <h6>Modification du fichier</h6>
+        <h6>Modification du fichier :</h6>
         <div class="input-field file-field">
             <div class="btn red">
                 <span>Télécharger le fichier</span>
-                <input type="file" accept=".pdf,.md,.txt,.">
+                <input type="file" accept=".pdf,.md,.txt,." id="id_file" name="file">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Télecharger le fichier"/>
             </div>
         </div>
     </div>
@@ -66,4 +69,7 @@
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
     </div>
 </form>
+{% endblock %}
+{% block script %}
+
 {% endblock %}
