@@ -21,7 +21,7 @@ def static_admin(request):
     if request.user.is_staff:
         context['years'] = YearFile.objects.all().order_by('year')
         context['semesters'] = SemesterFile.objects.all().order_by('semester')
-        context['subjects'] = SubjectFile.objects.all().order_by('subject')
+        context['subjects'] = SubjectFile.objects.filter(location__school__exact=request.user.school).order_by('subject')
         context['bulletins'] = Bulletin.objects.all().order_by('title')
 
     context['bulletins'] = list_bulletin_admin_view(request)
