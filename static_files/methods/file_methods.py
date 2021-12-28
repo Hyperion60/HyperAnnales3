@@ -14,7 +14,6 @@ COLOR_FILE = [
     ('Fichier distant', 'red'),
 ]
 
-
 EXTENSION_FILE = [
     ('Code source Assembleur', 'asm'),
     ('Vidéo AVI', 'avi'),
@@ -207,7 +206,7 @@ def category_select(request, context):
     if request.user.is_superuser and not int(request.POST['subject']):
         try:
             CreateSubject(context, request.POST['new_subject'], semester_obj.pk, year_obj.pk,
-                                    School.objects.get(school__exact=request.user.school).pk)
+                          School.objects.get(school__exact=request.user.school).pk)
         except School.DoesNotExist:
             context['errors'].append("Utilisateur invalide")
             raise PermissionError
