@@ -87,6 +87,7 @@ Fichers sources de la dernière version d'HA 3.0
 - Problème de relation des formulaires d'ajout de fichier (entre l'extension et la couleur) [FIXED]
 - Pouvoir modifier un fichier (envoyer un nouveau fichier) [FIXED]
 - Liste des fichiers dans les catégories verticales au lieu d'horizontales
+- Bug dans la liste des classes de fichier
 
 ## Liste des améliorations du code
 
