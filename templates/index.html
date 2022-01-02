@@ -19,12 +19,9 @@
         <div class="card-content">
             <span class="card-title">Choisissez votre école :</span>
             <ul>
-            {% load cache %}
-            {% cache 300 school_list %}
                 {% for school in schools %}
                 <a href="{{ school.school }}" class="waves-effect waves-light btn">{{ school.school }}<span class="badge blue lighten-5">{{ school.count }}</span></a>
                 {% endfor %}
-            {% endcache %}
             </ul>
         </div>
     </div>
