@@ -60,6 +60,7 @@ class CategoryFile(models.Model):
     place = models.IntegerField()
     subject = models.ForeignKey(SubjectFile, models.CASCADE, default=0)
     classe = models.ForeignKey(CategoryColor, models.CASCADE, default=None)
+    inline = models.BooleanField(default=True)
 
     def semester_obj(self):
         return self.subject.semester
