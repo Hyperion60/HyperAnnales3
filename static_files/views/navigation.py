@@ -14,9 +14,15 @@ from static_files.views.base_template import sidenav
 def school(request, school):
     context = {}
     years = {}
+    try:
+        school_obj = School.objects.get(school__exact=school)
+    except School.DoesNotExist:
+        context['error'] = "L'école demandée n'existe pas."
+        return render(request, 'index.html', context)
     list_year = YearFile.objects.all().order_by('year')
     for year in list_year:
-        number = StaticContent.objects.filter(category__subject__year__year__exact=year.year)
+        number = StaticContent.objects.filter(category__subject__year__year__exact=year.year,
+                                              category__subject__location=school_obj)
         years[year.year] = len(number)
     check_information(School.objects.get(school=school))
 
