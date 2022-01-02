@@ -26,7 +26,11 @@ def list_bulletin_admin_view(request):
 
 
 def list_bulletin_navigation(school, year=None):
-    list_bulletins = Bulletin.objects.filter(year__exact=year, location__school__exact=school)
+    try:
+        year_obj = YearFile.objects.get(year__exact=year)
+    except YearFile.DoesNotExist:
+        year_obj = None
+    list_bulletins = Bulletin.objects.filter(year=year_obj, location__school__exact=school)
 
     if not len(list_bulletins):
         return None
