@@ -39,13 +39,15 @@
         </div>
     </div>
     <div class="row">
-        <label class="active" for="id_label_inline">Affichage des fichiers en ligne :</label>
-        <label class="active switch">
-            En ligne
-            <input type="checkbox" id="id_label_inline" name="inline" value="{{ inline }}">
-            <span class="lever"></span>
-            En colonne
-        </label>
+        <p>Affichage des fichiers en ligne :</p>
+        <div class="switch">
+            <label>
+                En ligne
+                <input type="checkbox" id="id_inline" name="inline" value="{{ inline }}">
+                <span class="lever"></span>
+                En colonne
+            </label>
+        </div>
     </div>
     <div class="center">
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
