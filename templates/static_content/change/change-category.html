@@ -43,7 +43,11 @@
         <div class="switch">
             <label>
                 En colonne
-                <input type="checkbox" id="id_inline" name="inline" value="{{ inline }}">
+                {% if category.inline %}
+                <input type="checkbox" id="id_inline" name="inline" checked="checked">
+                {% else %}
+                <input type="checkbox" id="id_inline" name="inline">
+                {% endif %}
                 <span class="lever"></span>
                 En ligne
             </label>

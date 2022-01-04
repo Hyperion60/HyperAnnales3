@@ -101,10 +101,6 @@ def ChangeCategory(request, pk):
             context['message'] = "Modifications effectuées"
             return render(request, "static_content/admin/message_template.html", context)
 
-    if context['category'].inline:
-        context['inline'] = "true"
-    else:
-        context['inline'] = "false"
     context['colors'] = CategoryColor.objects.all().exclude(pk=context['category'].classe.pk)
     context['max'] = len(CategoryFile.objects.filter(subject=context['category'].subject))
     return render(request, "static_content/change/change-category.html", context)
