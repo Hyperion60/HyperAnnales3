@@ -47,8 +47,10 @@ def CreateCategoryView(request):
 
 @login_required(login_url="/login/")
 def ChangeCategory(request, pk):
-    context = {'errors': []}
-    context['next'] = request.GET.get('next', '')
+    context = {
+        'errors': [],
+        'next': request.GET.get('next', '')
+    }
     if not request.user.is_staff:
         context['errors'].append("Accès refusé: Droits insuffisants")
         return render(request, "static_content/admin/message_template.html", context)
@@ -66,6 +68,7 @@ def ChangeCategory(request, pk):
             context['title'] = request.POST['title']
             context['place'] = int(request.POST['place'])
             context['classe'] = CategoryColor.objects.get(pk=request.POST['color'])
+            context['inline'] = request.POST['inline'] == "true"
         except ValueError:
             context['errors'].append("Informations manquantes")
         except CategoryColor.DoesNotExist:
@@ -92,11 +95,16 @@ def ChangeCategory(request, pk):
                             cat[0].place += 1
                             cat[0].save()
                 context['category'].place = int(request.POST['place'])
-            context['category'].classe = context['classe']
-            context['category'].save()
-            context['message'] = "Modifications effectuées"
+                context['category'].inline = context['inline']
+                context['category'].classe = context['classe']
+                context['category'].save()
+                context['message'] = "Modifications effectuées"
             return render(request, "static_content/admin/message_template.html", context)
 
+    if context['category'].inline:
+        context['inline'] = "true"
+    else:
+        context['inline'] = "false"
     context['colors'] = CategoryColor.objects.all().exclude(pk=context['category'].classe.pk)
     context['max'] = len(CategoryFile.objects.filter(subject=context['category'].subject))
     return render(request, "static_content/change/change-category.html", context)
