@@ -44,14 +44,19 @@
             <label>
                 En colonne
                 {% if category.inline %}
-                <input type="checkbox" id="id_inline" name="inline" checked="checked" value="true" onclick="update(this)">
+                <input type="checkbox" checked="checked" value="true" onclick="update(this)">
                 {% else %}
-                <input type="checkbox" id="id_inline" name="inline" value="false" onclick="update(this)">
+                <input type="checkbox" value="false" onclick="update(this)">
                 {% endif %}
                 <span class="lever"></span>
                 En ligne
             </label>
         </div>
+        {% if category.inline %}
+        <input type="hidden" value="true" id="inline_value" name="inline">
+        {% else %}
+        <input type="hidden" value="false" id="inline_value" name="inline">
+        {% endif %}
     </div>
     <div class="center">
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
@@ -61,11 +66,12 @@
 {% block script %}
     function update(checkbox)
     {
+        input_hidden = document.getElementById("inline_value")
         if (checkbox.checked)
         {
-            checkbox.value = "true";
+            input_hidden.value = "true";
         } else {
-            checkbox.value = "false";
+            input_hidden.value = "false";
         }
     }
 {% endblock %}
