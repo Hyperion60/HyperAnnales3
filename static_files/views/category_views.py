@@ -94,11 +94,11 @@ def ChangeCategory(request, pk):
                         if len(cat):
                             cat[0].place += 1
                             cat[0].save()
-                context['category'].place = int(request.POST['place'])
-                context['category'].inline = context['inline']
-                context['category'].classe = context['classe']
-                context['category'].save()
-                context['message'] = "Modifications effectuées"
+            context['category'].place = int(request.POST['place'])
+            context['category'].inline = context['inline']
+            context['category'].classe = context['classe']
+            context['category'].save()
+            context['message'] = "Modifications effectuées"
             return render(request, "static_content/admin/message_template.html", context)
 
     if context['category'].inline:
