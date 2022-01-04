@@ -44,9 +44,9 @@
             <label>
                 En colonne
                 {% if category.inline %}
-                <input type="checkbox" id="id_inline" name="inline" checked="checked">
+                <input type="checkbox" id="id_inline" name="inline" checked="checked" value="true" onclick="update(this)">
                 {% else %}
-                <input type="checkbox" id="id_inline" name="inline">
+                <input type="checkbox" id="id_inline" name="inline" value="false" onclick="update(this)">
                 {% endif %}
                 <span class="lever"></span>
                 En ligne
@@ -57,4 +57,15 @@
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
     </div>
 </form>
+{% endblock %}
+{% block script %}
+    function update(checkbox)
+    {
+        if (checkbox.checked)
+        {
+            checkbox.value = "true";
+        } else {
+            checkbox.value = "false";
+        }
+    }
 {% endblock %}
