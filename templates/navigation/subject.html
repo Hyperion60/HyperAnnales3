@@ -14,7 +14,7 @@
 {% if contents is not None %}
 {% for category, files in contents.items %}
     <div class="card {{ category.classe.color }} lighten-4">
-        <li class="card-content">
+        <div class="card-content">
             <span class="card-title"><b>{{ category.title }}</b></span>
             {% if not category.inline %}
             <ul>
@@ -58,13 +58,13 @@
             {% if not category.inline %}
             </ul>
             {% endif %}
-        </li>
+        </div>
+        {% if user.is_staff %}
+        <div class="card-action">
+            <a href="/static_content/change/category/{{ category.pk }}/?next={{ request.path }}">Modifier</a>
+        </div>
+        {% endif %}
     </div>
-    {% if user.is_staff %}
-    <div class="card-action">
-        <a href="/static_content/change/category/{{ category.pk }}/?next={{ request.path }}">Modifier</a>
-    </div>
-    {% endif %}
 {% endfor %}
 {% else %}
     <div class="card grey lighten-4">
