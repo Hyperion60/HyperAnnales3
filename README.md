@@ -87,7 +87,7 @@ Fichiers sources de la dernière version d'HyperAnnales 3.0
 - Affichage du PDF non responsif [FIXED]
 - Problème de relation des formulaires d'ajout de fichier (entre l'extension et la couleur) [FIXED]
 - Pouvoir modifier un fichier (envoyer un nouveau fichier) [FIXED]
-- Liste des fichiers dans les catégories verticales au lieu d'horizontales
+- Liste des fichiers dans les catégories verticales au lieu d'horizontales [FIXED]
 - Bug dans la liste des classes de fichier
 
 ## Liste des améliorations du code

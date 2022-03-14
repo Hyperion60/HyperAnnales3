@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <div class="input-field s12">
-            <label class="active" id="id_color">Classe de la catégorie :</label>
+            <label class="active" for="id_color">Classe de la catégorie :</label>
             <select name="color" id="id_color">
                 <option value="{{ category.classe.pk }}" selected>{{ category.classe.type }}</option>
                 {% for color in colors %}
@@ -38,8 +38,40 @@
             </select>
         </div>
     </div>
+    <div class="row">
+        <p>Affichage des fichiers en ligne :</p>
+        <div class="switch">
+            <label>
+                En colonne
+                {% if category.inline %}
+                <input type="checkbox" checked="checked" value="true" onclick="update(this)">
+                {% else %}
+                <input type="checkbox" value="false" onclick="update(this)">
+                {% endif %}
+                <span class="lever"></span>
+                En ligne
+            </label>
+        </div>
+        {% if category.inline %}
+        <input type="hidden" value="true" id="inline_value" name="inline">
+        {% else %}
+        <input type="hidden" value="false" id="inline_value" name="inline">
+        {% endif %}
+    </div>
     <div class="center">
         <input class="waves-effect waves-light btn blue lighten-2" type="submit" value="Modifier">
     </div>
 </form>
+{% endblock %}
+{% block script %}
+    function update(checkbox)
+    {
+        input_hidden = document.getElementById("inline_value")
+        if (checkbox.checked)
+        {
+            input_hidden.value = "true";
+        } else {
+            input_hidden.value = "false";
+        }
+    }
 {% endblock %}

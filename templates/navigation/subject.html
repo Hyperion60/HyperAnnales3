@@ -16,18 +16,48 @@
     <div class="card {{ category.classe.color }} lighten-4">
         <div class="card-content">
             <span class="card-title"><b>{{ category.title }}</b></span>
-                {% for file in files %}
-                {% if file.0.file.extension.mobile_comp %}
+            {% if not category.inline %}
+            <ul>
+            {% endif %}
                 <div class="hide-on-small-only">
-                    <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=false">{{ file.0.name }}</a>
+                    {% for file in files %}
+                    {% if not category.inline %}
+                    <li>
+                    {% endif %}
+                        {% if file.0.file.extension.mobile_comp %}
+                        <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=false">{{ file.0.name }}</a>
+                        {% else %}
+                        <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}>{{ file.0.name }}</a>
+                        {% endif %}
+                    {% if not category.inline %}
+                    </li>
+                    {% endif %}
+                    {% endfor %}
                 </div>
+            {% if not category.inline %}
+            </ul>
+            {% endif %}
+            {% if not category.inline %}
+            <ul>
+            {% endif %}
                 <div class="hide-on-med-and-up">
-                    <a class="waves-effect waves-light {{ file.2 }} btn" target="_blank" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=true">{{ file.0.name }}</a>
+                    {% for file in files %}
+                    {% if not category.inline %}
+                    <li>
+                    {% endif %}
+                        {% if file.0.file.extension.mobile_comp %}
+                        <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}?mobile=false">{{ file.0.name }}</a>
+                        {% else %}
+                        <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}>{{ file.0.name }}</a>
+                        {% endif %}
+                    {% if not category.inline %}
+                    </li>
+                    {% endif %}
+                    {% endfor %}
                 </div>
-                {% else %}
-                <a class="waves-effect waves-light {{ file.2 }} btn" href="{% url 'get-token-file' file.0.file.randomkey %}>{{ file.0.name }}</a>
-                {% endif %}
-                {% endfor %}
+            {% if not category.inline %}
+            </ul>
+            {% endif %}
         </div>
         {% if user.is_staff %}
         <div class="card-action">
