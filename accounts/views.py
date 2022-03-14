@@ -161,13 +161,14 @@ def login_view(request):
                     return redirect(redirect_to)
                 return redirect("index")
             if not usermail[0].is_active:
-                context['error'] = "Compte non validé. Utilisez le lien reçu par email. Si le problème persiste contacter un administrateur."
+                context['error'] = "Compte non validé. Utilisez le lien reçu par email. " \
+                                   "Si le problème persiste contacter un administrateur."
             else:
                 context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
         else:
             context['error'] = 'Nom d\'utilisateur et/ou mot de passe invalide'
     else:
-         context['redirect_to'] = request.GET.get('next')
+        context['redirect_to'] = request.GET.get('next')
     return render(request, "accounts/login.html", context)
 
 
