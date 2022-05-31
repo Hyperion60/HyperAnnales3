@@ -41,6 +41,7 @@ services:
     depends_on:
       - db_user
       - db_static
+    restart: always
 
   pgadmin:
     container_name: pgadmin_ha

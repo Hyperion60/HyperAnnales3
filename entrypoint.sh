@@ -4,8 +4,11 @@ set -e
 sleep 5
 
 # Handle when the database just created
-mkdir /tmp/static
-mv static_files/apps.py /tmp/static/
+if [ ! -d "/tmp/static" ]
+then
+    mkdir /tmp/static
+fi
+#mv static_files/apps.py /tmp/static/
 mv accounts/apps.py /tmp/
 # ----
 
@@ -14,7 +17,7 @@ python manage.py makemigrations static_files
 python manage.py migrate --database=user_ref
 
 # ----
-mv /tmp/static/apps.py static_files/
+#mv /tmp/static/apps.py static_files/
 mv /tmp/apps.py accounts/
 # ----
 
