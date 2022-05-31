@@ -1,5 +1,5 @@
 # HyperAnnales3
-Fichers sources de la dernière version d'HA 3.0
+Fichiers sources de la dernière version d'HyperAnnales 3.0
 
 ## Liste des fonctionnalités
 
@@ -21,9 +21,12 @@ Fichers sources de la dernière version d'HA 3.0
       - Sendfile [FIXED]
     - .png,.jpg,.jpeg [PROGRESS]
       - Sendfile + Materialize [PROGRESS]
+    - Image SVG
+      - Sendfile + template
+      - Zoom + Déplacement
     - Code interprété
       - Coloration syntaxique
-      - Execution (skulpt)
+      - (option) Execution (skulpt)
     - Code compilé
       - Coloration syntaxique
     - Code inerte
@@ -35,13 +38,10 @@ Fichers sources de la dernière version d'HA 3.0
       - Gestion multiple format
         - simple : zip, rar, 7z
         - complexe : tar.gz
-    - Image SVG
-      - Zoom + Déplacement
   - Jetons d'authentifications [FIXED]
-  - Template d'affichage du fichier (polymorphe)
-  - Méthodes d'affichage en fonction de l'extension
+  - Template d'affichage du fichier (polymorphe) [PROGRESS]
+  - Méthodes d'affichage en fonction de l'extension [PROGRESS]
   - Template d'affichage de la liste de la matière [FIXED]
-- Méthode d'affichage de la liste
 - Ajout d'un conteneur Nginx pour servir les fichiers statiques
 - Etudier l'optimisation par cache
   - Temps de cache
@@ -75,6 +75,7 @@ Fichers sources de la dernière version d'HA 3.0
   - robots.txt
 - Sauvegarde des backtraces en cas d'erreurs dans les logs (avec l'heure)
 - Pages grandes faire un bouton pour remonter en haut
+- Mettre à jour nginx
 
 ### Inutiles
 - Ajout de logs dans la page 'À propos'
@@ -95,6 +96,7 @@ Fichers sources de la dernière version d'HA 3.0
 - Ajouter une classe pour la couleur du bouton [FIXED]
 - Vérifier la sureté des URL
 - Créer une page de mise en garde de sortie du site en cas de redirection URL
+  - Ajouter un attribut dans la classe `Account` pour "Toujours afficher"
 - Verifier les droits dans les fonctions post formulaire
 - Gestion des erreurs dans les formulaires multiétapes
 - Verifier les fonctions de déplacement des objets (place)
