@@ -1,6 +1,28 @@
 # HyperAnnales3
 Sources files from the last version of HA 3.0
 
+La durée de développement du projet de refonte a fini par excéder le temps maximum avant que l'intérêt de celui-ci ne disparaisse.
+C'est pourquoi, le projet est abandonné et ce dépot deviendra publique. Mais avant il faut développer une version statique
+du site web. Un choix qui permet de réduire à zéro les problèmes (connexion impossible, crash de l'application...).
+La version de production (HyperAnnales 2.0) verra également son code source rendu publique via un dépot Git dédié.
+
+## Avancement de la conversion en site statique
+- [ ] EPITA - Documents
+- [X] EPITA - Semestre 1
+- [X] EPITA - Semestre 2
+- [ ] EPITA - Semestre 3
+- [ ] EPITA - Semestre 4
+- [ ] EPITA - Semestre 5
+- [ ] EPITA - Semestre 6
+- [ ] EPITA - !2022
+- [ ] EPITA - GConfs
+- [ ] ESIEE - Documents
+- [ ] ESIEE - I3
+- [ ] ESIEE - I4
+- [ ] ESIEE - I5
+
+
+
 ## Liste des fonctionnalités
 
 ### Cores
@@ -41,8 +63,6 @@ Sources files from the last version of HA 3.0
 - Interpreteur de code
   - Python
     - Skulpt
-
-### Inutiles
 
 ## Liste des bugs détectés
 - Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
