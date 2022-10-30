@@ -10,8 +10,8 @@ La version de production (HyperAnnales 2.0) verra également son code source ren
 - [ ] EPITA - Documents
 - [X] EPITA - Semestre 1
 - [X] EPITA - Semestre 2
-- [ ] EPITA - Semestre 3
-- [ ] EPITA - Semestre 4
+- [X] EPITA - Semestre 3
+- [X] EPITA - Semestre 4
 - [ ] EPITA - Semestre 5
 - [ ] EPITA - Semestre 6
 - [ ] EPITA - !2022
