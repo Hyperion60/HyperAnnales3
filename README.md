@@ -13,13 +13,13 @@ La version de production (HyperAnnales 2.0) verra également son code source ren
 - [X] EPITA - Semestre 3
 - [X] EPITA - Semestre 4
 - [X] EPITA - Semestre 5
-- [ ] EPITA - Semestre 6
-- [ ] EPITA - !2022
+- [X] EPITA - Semestre 6
 - [ ] EPITA - GConfs
 - [ ] ESIEE - Documents
 - [ ] ESIEE - I3
 - [ ] ESIEE - I4
 - [ ] ESIEE - I5
+- [ ] A propos
 
 
 
