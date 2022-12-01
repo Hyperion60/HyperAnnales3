@@ -63,6 +63,46 @@ La version de production (HyperAnnales 2.0) verra également son code source ren
 - Interpreteur de code
   - Python
     - Skulpt
+- Backup des fichiers uploadés
+  - Git
+  - Google Drive API
+  - S3
+  - 1fichier
+- Metrics
+  - Compteur de personnes connectées
+  - Nombre de pages ouvertes cumulées
+  - Log des requêtes
+  - Interface admin visuel
+  - Exploitation des logs de `vnstat` + conversion DDB
+- Legal
+  - Page RGPD
+  - En cas de refus : google.fr + ban ip 1 heure
+- Contenu
+  - Option ouvrir mode intégré ou nouvel onglet (PC only)
+- Open source
+  - Ouvrir le code en public
+  - Nettoyage du code
+  - Après le passage en Vault
+- Optimisation
+  - Nettoyage fichier CSS/JS (materialize)
+  - Gestion HTTP2
+- Template
+  - Mode sombre
+  - Traduction EN/DE
+- Utilisateur
+  - Page utilisateur
+    - Informations
+    - Langue
+    - Thème clair ou sombre
+
+### Inutiles
+
+- Template
+  - Utilisation ancienne template
+  - Selection V1/V2/V3
+- Utilisateur
+  - Login CRI
+  - Login O365
 
 ## Liste des bugs détectés
 - Template mobile : Les liens des matières ne sont pas déclarées [FAIT]
